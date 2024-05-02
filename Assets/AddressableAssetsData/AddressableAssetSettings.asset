@@ -83,7 +83,9 @@ MonoBehaviour:
     m_ProfileVersion: 1
   m_LabelTable:
     m_LabelNames:
-    - default
+    - Default
+    - Game_Prefab
+    - Game_UI
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: eb3703cd3bdc2aa409b0d870f590e55f, type: 2}
