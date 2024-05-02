@@ -1,0 +1,32 @@
+using System;
+using UnityEngine;
+
+public class Player_BehaviourState : StateMachineBehaviour
+{
+    [Header("Can Behaviour")]
+    [Header("[Movement]")]
+    public bool Move;
+    public bool Rotation;
+    public bool Sprint;
+    public bool Jump;
+
+    [Range(0f, 1f)]
+    public float UnlockTime = 0f;
+
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        Player.Movement.CanMove = Move;
+        Player.Movement.CanRotation = Rotation;
+        Player.Movement.CanSprint = Sprint;
+        Player.Movement.CanJump = Jump;
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (stateInfo.normalizedTime >= UnlockTime)
+        {
+            Player.Movement.Enabled = true;
+            Player.Movement.ClearJump();
+        }
+    }
+}
