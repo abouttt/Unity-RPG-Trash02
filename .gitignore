@@ -83,5 +83,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/Saved/*
 
 # Test
-/[Aa]ssets/[Tt]est
-/[Aa]ssets/[Tt]est.meta
+/[Aa]ssets/[Ss]cripts/[Tt]est
+/[Aa]ssets/[Ss]cripts/[Tt]est.meta
