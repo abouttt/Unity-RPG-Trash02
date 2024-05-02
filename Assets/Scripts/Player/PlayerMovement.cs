@@ -216,7 +216,9 @@ public class PlayerMovement : MonoBehaviour
             IsSprinting = false;
         }
 
-        if (!CanMove || _move == Vector2.zero)
+        bool isZeroMoveInput = _move == Vector2.zero;
+
+        if (!CanMove || isZeroMoveInput)
         {
             targetSpeed = 0f;
         }
@@ -247,11 +249,39 @@ public class PlayerMovement : MonoBehaviour
             _animationBlend = _posXBlend = _posYBlend = 0f;
         }
 
-        if (CanRotation && _move != Vector2.zero)
+        if (CanRotation && !isZeroMoveInput)
         {
             var inputDirection = new Vector3(_move.x, 0f, _move.y).normalized;
             _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
             _targetMove = _targetRotation;
+        }
+
+        bool isLockOn = Player.Camera.IsLockOn;
+        bool isOnlyRun = !IsSprinting && !IsJumping;
+
+        if (isLockOn)
+        {
+            // 질주, 점프, 구르기는 락 온시에 인풋 방향으로 회전한다 아니면 타겟 방향으로 향하도록 회전.
+            if (isOnlyRun)
+            {
+                if (!isZeroMoveInput)
+                {
+                    var dirToTarget = (Player.Camera.LockedTarget.position - transform.position).normalized;
+                    _targetRotation = Mathf.Atan2(dirToTarget.x, dirToTarget.z) * Mathf.Rad2Deg;
+                }
+            }
+            else
+            {
+                // 이동키를 안누르면 캐릭터가 바라보고 있는 방향으로 회전량 설정
+                if (isZeroMoveInput)
+                {
+                    _targetMove = _targetRotation;
+                }
+                else
+                {
+                    _targetRotation = _targetMove;
+                }
+            }
         }
 
         // 회전
@@ -263,9 +293,10 @@ public class PlayerMovement : MonoBehaviour
         _controller.Move(targetDirection.normalized * (_speed * deltaTime) + new Vector3(0f, _verticalVelocity, 0f) * deltaTime);
 
         // 애니메이터 업데이트
+        bool isLockMoving = isLockOn && isOnlyRun;
         Player.Animator.SetFloat(_animIDSpeed, _animationBlend);
-        Player.Animator.SetFloat(_animIDPosX, 0f);
-        Player.Animator.SetFloat(_animIDPosY, 1f);
+        Player.Animator.SetFloat(_animIDPosX, isLockMoving ? _posXBlend : 0f);
+        Player.Animator.SetFloat(_animIDPosY, isLockMoving ? _posYBlend : 1f);
     }
 
     private void OnMove(InputValue inputValue)
