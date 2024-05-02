@@ -76,7 +76,6 @@ public class PlayerCamera : MonoBehaviour
     private void Awake()
     {
         _stateDrivenCameraAnimator = _stateDrivenCamera.GetComponent<Animator>();
-        _lockOnTargetImage = FindObjectOfType<UI_LockOnTargetImage>();
         _mainCamera = Camera.main.gameObject;
         foreach (CinemachineVirtualCamera child in _stateDrivenCamera.ChildCameras)
         {
@@ -90,6 +89,9 @@ public class PlayerCamera : MonoBehaviour
 
     private void Start()
     {
+        var go = Managers.Resource.Instantiate("UI_LockOnTargetImage.prefab");
+        _lockOnTargetImage = go.GetComponent<UI_LockOnTargetImage>();
+
         _cinemachineTargetYaw = _cinemachineCameraTarget.transform.rotation.eulerAngles.y;
     }
 
@@ -109,7 +111,7 @@ public class PlayerCamera : MonoBehaviour
         if (IsLockOn)
         {
             _cinemachineCameraTarget.transform.rotation = _mainCamera.transform.rotation;
-            var eulerAngles = _mainCamera.transform.eulerAngles;
+            var eulerAngles = _cinemachineCameraTarget.transform.eulerAngles;
             _cinemachineTargetPitch = eulerAngles.x;
             _cinemachineTargetYaw = eulerAngles.y;
         }

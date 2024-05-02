@@ -240,6 +240,7 @@ public class UIManager
         popup.Showed += () =>
         {
             Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         };
 
         popup.Closed += () =>
@@ -247,6 +248,7 @@ public class UIManager
             if (_activePopups.Count == 0)
             {
                 Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
         };
     }

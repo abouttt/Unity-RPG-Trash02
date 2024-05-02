@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: 40246ddf694f6ca4c954a83158694a6d
+  - enabled: 1
+    path: Assets/Scenes/VillageScene.unity
+    guid: 806807825b2f87144b458fa30ade858f
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 14cb3fdd802a7dd48865c3b91eae849e, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: c53a5ec9d091e78438073e3be9f49290, type: 2}

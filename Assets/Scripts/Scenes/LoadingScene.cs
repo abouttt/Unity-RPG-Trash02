@@ -19,6 +19,7 @@ public class LoadingScene : BaseScene
     {
         base.Init();
 
+        _loadingBar.fillAmount = 0f;
         _background.sprite = SceneSettings.GetInstance.BackgroundImages[Managers.Scene.NextScene];
         _background.color = Color.white;
         if (_background.sprite == null)

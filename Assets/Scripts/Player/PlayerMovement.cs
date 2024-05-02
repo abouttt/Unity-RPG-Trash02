@@ -247,10 +247,9 @@ public class PlayerMovement : MonoBehaviour
             _animationBlend = _posXBlend = _posYBlend = 0f;
         }
 
-        var inputDirection = new Vector3(_move.x, 0f, _move.y).normalized;
-
         if (CanRotation && _move != Vector2.zero)
         {
+            var inputDirection = new Vector3(_move.x, 0f, _move.y).normalized;
             _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
             _targetMove = _targetRotation;
         }

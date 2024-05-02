@@ -82,7 +82,9 @@ public class ResourceManager
             return Managers.Pool.Pop(prefab, parent);
         }
 
-        return Object.Instantiate(prefab, parent);
+        var go = Object.Instantiate(prefab, parent);
+        go.name = prefab.name;
+        return go;
     }
 
     public GameObject Instantiate(string key, Vector3 position, Transform parent = null, bool pooling = false)

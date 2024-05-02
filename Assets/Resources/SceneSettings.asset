@@ -18,6 +18,8 @@ MonoBehaviour:
       Value: 00000000
     - Key: 1
       Value: 00000000
+    - Key: 3
+      Value: 000000000100000002000000
   <BackgroundImages>k__BackingField:
     _serializedList:
     - Key: 2

@@ -22,7 +22,7 @@ namespace EnumType
         Unknown,
         LoadingScene,
         MainMenuScene,
-        GameScene,
+        VillageScene,
     }
 
     public enum AddressableLabel

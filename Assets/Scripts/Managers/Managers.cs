@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class Managers : Singleton<Managers>
 {
+    public static GameManager Game => GetInstance._game;
     public static PoolManager Pool => GetInstance._pool;
     public static ResourceManager Resource => GetInstance._resource;
     public static SceneManagerEx Scene => GetInstance._scene;
     public static SoundManager Sound => GetInstance._sound;
     public static UIManager UI => GetInstance._ui;
 
+    private readonly GameManager _game = new();
     private readonly PoolManager _pool = new();
     private readonly ResourceManager _resource = new();
     private readonly SceneManagerEx _scene = new();
@@ -15,13 +17,6 @@ public class Managers : Singleton<Managers>
     private readonly UIManager _ui = new();
 
     private static bool s_init = false;
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        Init();
-    }
 
     public static void Init()
     {
@@ -49,5 +44,10 @@ public class Managers : Singleton<Managers>
         UI.Clear();
 
         s_init = false;
+    }
+
+    private void OnApplicationQuit()
+    {
+        Clear();
     }
 }
