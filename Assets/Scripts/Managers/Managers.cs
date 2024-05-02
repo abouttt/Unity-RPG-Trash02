@@ -16,6 +16,13 @@ public class Managers : Singleton<Managers>
 
     private static bool s_init = false;
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        Init();
+    }
+
     public static void Init()
     {
         if (s_init)
