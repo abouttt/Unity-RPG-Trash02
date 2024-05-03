@@ -1,5 +1,29 @@
 namespace EnumType
 {
+    public enum EquipmentType
+    {
+        Helmet,
+        Chest,
+        Pants,
+        Boots,
+        Weapon,
+        Shield,
+    }
+
+    public enum ItemType
+    {
+        Equipment,
+        Consumable,
+        Etc,
+    }
+
+    public enum ItemQuality
+    {
+        Low,
+        Normal,
+        High,
+    }
+
     public enum UIType
     {
         Subitem,

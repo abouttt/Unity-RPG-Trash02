@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 6199297955009203485}
   - component: {fileID: 3750781361987624258}
   - component: {fileID: 3750781361987624287}
+  - component: {fileID: 5979117031782688735}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -354,6 +355,32 @@ MonoBehaviour:
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &5979117031782688735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3750781361987624264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6d73de7c54b3942bb1f3cb89fe12f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventories:
+    _serializedList:
+    - Key: 0
+      Value:
+        Capacity: 30
+        Count: 0
+    - Key: 1
+      Value:
+        Capacity: 30
+        Count: 0
+    - Key: 2
+      Value:
+        Capacity: 30
+        Count: 0
 --- !u!1 &3750781362225975641
 GameObject:
   m_ObjectHideFlags: 0
