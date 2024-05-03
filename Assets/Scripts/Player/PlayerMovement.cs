@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
             CanRotation = value;
             CanSprint = value;
             CanJump = value;
+            CanRoll = value;
         }
     }
 
@@ -20,10 +21,12 @@ public class PlayerMovement : MonoBehaviour
     public bool CanRotation { get; set; }
     public bool CanSprint { get; set; }
     public bool CanJump { get; set; }
+    public bool CanRoll { get; set; }
 
     public bool IsGrounded { get; private set; }
     public bool IsSprinting { get; private set; }
     public bool IsJumping { get; private set; }
+    public bool IsRolling { get; private set; }
 
     [SerializeField]
     private float _moveSpeed;
@@ -70,8 +73,8 @@ public class PlayerMovement : MonoBehaviour
     private float _animationBlend;
     private float _posXBlend;
     private float _posYBlend;
-    private float _targetRotation;
     private float _targetMove;
+    private float _targetRotation;
     private float _rotationVelocity;
     private float _verticalVelocity;
     private readonly float _terminalVelocity = 53.0f;
@@ -83,12 +86,15 @@ public class PlayerMovement : MonoBehaviour
     private bool _isJumpLand;
     private bool _isJumpWithSprint;
 
+    private bool _isRollMoving;
+
     private bool _enabled;
 
     // input
     private Vector2 _move;
     private bool _sprint;
     private bool _jump;
+    private bool _roll;
 
     // animation IDs
     private readonly int _animIDPosX = Animator.StringToHash("PosX");
@@ -97,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
     private readonly int _animIDGrounded = Animator.StringToHash("Grounded");
     private readonly int _animIDJump = Animator.StringToHash("Jump");
     private readonly int _animIDFreeFall = Animator.StringToHash("FreeFall");
+    private readonly int _animIDRoll = Animator.StringToHash("Roll");
 
     private CharacterController _controller;
     private GameObject _mainCamera;
@@ -111,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Enabled = true;
         _targetRotation = Mathf.Atan2(transform.forward.x, transform.forward.z) * Mathf.Rad2Deg;
+        _targetMove = _targetRotation;
         _jumpTimeoutDelta = _jumpTimeout;
         _fallTimeoutDelta = _fallTimeout;
     }
@@ -120,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
         var deltaTime = Time.deltaTime;
         JumpAndGravity(deltaTime);
         CheckGrounded();
+        Roll();
         Move(deltaTime);
     }
 
@@ -128,6 +137,13 @@ public class PlayerMovement : MonoBehaviour
         IsJumping = false;
         _isJumpLand = false;
         _isJumpWithSprint = false;
+    }
+
+    public void ClearRoll()
+    {
+        IsRolling = false;
+        _isRollMoving = false;
+        Player.Animator.SetBool(_animIDRoll, false);
     }
 
     private void JumpAndGravity(float deltaTime)
@@ -194,11 +210,29 @@ public class PlayerMovement : MonoBehaviour
         Player.Animator.SetBool(_animIDGrounded, IsGrounded);
     }
 
+    private void Roll()
+    {
+        if (_roll && CanRoll)
+        {
+            IsRolling = true;
+            CanRotation = true;
+            Player.Animator.SetBool(_animIDRoll, true);
+        }
+        else
+        {
+            _roll = false;
+        }
+    }
+
     private void Move(float deltaTime)
     {
         float targetSpeed = _moveSpeed;
 
-        if (_isJumpLand)
+        if (_isRollMoving)
+        {
+            targetSpeed = _rollSpeed;
+        }
+        else if (_isJumpLand)
         {
             targetSpeed *= _jumpLandDecreaseSpeedRate;
         }
@@ -206,7 +240,7 @@ public class PlayerMovement : MonoBehaviour
         {
             targetSpeed = _sprintSpeed;
         }
-        else if (_sprint && CanSprint && !IsJumping)
+        else if (_sprint && CanSprint && !IsJumping && !_isRollMoving)
         {
             IsSprinting = true;
             targetSpeed = _sprintSpeed;
@@ -218,7 +252,7 @@ public class PlayerMovement : MonoBehaviour
 
         bool isZeroMoveInput = _move == Vector2.zero;
 
-        if (!CanMove || isZeroMoveInput)
+        if (!_isRollMoving && (!CanMove || isZeroMoveInput))
         {
             targetSpeed = 0f;
         }
@@ -246,7 +280,9 @@ public class PlayerMovement : MonoBehaviour
         _posYBlend = Mathf.Lerp(_posYBlend, _move.y, currentSpeedChangeRate);
         if (_animationBlend < 0.01f)
         {
-            _animationBlend = _posXBlend = _posYBlend = 0f;
+            _animationBlend = 0f;
+            _posXBlend = 0f;
+            _posYBlend = 0f;
         }
 
         if (CanRotation && !isZeroMoveInput)
@@ -257,7 +293,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         bool isLockOn = Player.Camera.IsLockOn;
-        bool isOnlyRun = !IsSprinting && !IsJumping;
+        bool isOnlyRun = !IsSprinting && !IsJumping && !IsRolling;
 
         if (isLockOn)
         {
@@ -314,9 +350,24 @@ public class PlayerMovement : MonoBehaviour
         _jump = inputValue.isPressed;
     }
 
-    private void OnAnimJumpLand()
+    private void OnRoll(InputValue inputValue)
+    {
+        _roll = inputValue.isPressed;
+    }
+
+    private void OnAnimBeginJumpLand()
     {
         _isJumpLand = true;
+    }
+
+    private void OnAnimBeginRoll()
+    {
+        _isRollMoving = true;
+    }
+
+    private void OnAnimEndRoll()
+    {
+        IsRolling = false;
     }
 
     private void OnDrawGizmosSelected()

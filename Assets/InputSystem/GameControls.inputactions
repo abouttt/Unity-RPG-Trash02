@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Roll",
+                    "type": "Button",
+                    "id": "991ddfa1-b5b9-45de-a945-f968ca5b506a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "LockOnTarget",
                     "type": "Button",
                     "id": "ba12ec1f-03ed-4d69-a2db-a5bfd77196d2",
@@ -168,6 +177,17 @@
                     "processors": "",
                     "groups": "Keyboard/Mouse",
                     "action": "CursorToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b643f1cb-4065-4014-9e0d-8e596ddb017c",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
