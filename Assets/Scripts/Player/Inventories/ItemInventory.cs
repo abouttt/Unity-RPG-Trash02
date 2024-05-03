@@ -124,9 +124,6 @@ public class ItemInventory : MonoBehaviour
         {
             SwapItem(itemType, fromIndex, toIndex);
         }
-
-        InventoryChanged?.Invoke(itemType, fromIndex);
-        InventoryChanged?.Invoke(itemType, toIndex);
     }
 
     public void SplitItem(ItemType itemType, int fromIndex, int toIndex, int count)
@@ -156,8 +153,6 @@ public class ItemInventory : MonoBehaviour
         else if (remainingCount == 0)
         {
             SwapItem(itemType, fromIndex, toIndex);
-            InventoryChanged?.Invoke(itemType, fromIndex);
-            InventoryChanged?.Invoke(itemType, toIndex);
         }
         else
         {
@@ -232,6 +227,9 @@ public class ItemInventory : MonoBehaviour
         }
 
         (items[Aindex], items[BIndex]) = (items[BIndex], items[Aindex]);
+
+        InventoryChanged?.Invoke(itemType, Aindex);
+        InventoryChanged?.Invoke(itemType, BIndex);
     }
 
     private bool AddAllCountFromTo(ItemType itemType, int fromIndex, int toIndex)
@@ -256,6 +254,7 @@ public class ItemInventory : MonoBehaviour
 
         toItem.AddCountAndGetExcess(fromItem.CurrentCount);
         DestroyItem(itemType, fromIndex);
+        InventoryChanged?.Invoke(itemType, fromIndex);
 
         return true;
     }

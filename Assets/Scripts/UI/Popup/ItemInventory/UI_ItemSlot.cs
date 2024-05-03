@@ -100,7 +100,7 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
             return;
         }
 
-        var item = Player.ItemInventory.GetItem<Item>(ItemType, Index);
+        var item = ObjectRef as Item;
 
         switch (ItemType)
         {
@@ -135,7 +135,10 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
 
         if (!HasObject && otherItem is CountableItem otherCountableItem && otherCountableItem.CurrentCount > 1)
         {
-
+            var splitPopup = Managers.UI.Show<UI_ItemSplitPopup>();
+            splitPopup.SetEvent(() =>
+                Player.ItemInventory.SplitItem(ItemType, otherItemSlot.Index, Index, splitPopup.CurrentCount),
+                $"[{otherCountableItem.Data.ItemName}] 아이템 나누기", 1, otherCountableItem.CurrentCount);
         }
         else
         {
