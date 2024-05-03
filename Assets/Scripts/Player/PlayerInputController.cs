@@ -38,4 +38,9 @@ public class PlayerInputController : MonoBehaviour
     {
         CursorLocked = !_cursorLocked;
     }
+
+    private void OnItemInventory(InputValue inputValue)
+    {
+        Managers.UI.ShowOrClose<UI_ItemInventoryPopup>();
+    }
 }

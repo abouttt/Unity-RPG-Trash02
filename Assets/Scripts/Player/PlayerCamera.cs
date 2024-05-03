@@ -210,7 +210,14 @@ public class PlayerCamera : MonoBehaviour
 
     private void OnLook(InputValue inputValue)
     {
-        _look = inputValue.Get<Vector2>();
+        if (Player.Input.CursorLocked)
+        {
+            _look = inputValue.Get<Vector2>();
+        }
+        else
+        {
+            _look = Vector2.zero;
+        }
     }
 
     private void OnLockOnTarget(InputValue inputValue)

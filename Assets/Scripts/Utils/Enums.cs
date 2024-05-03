@@ -1,5 +1,10 @@
 namespace EnumType
 {
+    public enum SlotType
+    {
+        Item,
+    }
+
     public enum EquipmentType
     {
         Helmet,

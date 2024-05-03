@@ -239,16 +239,14 @@ public class UIManager
 
         popup.Showed += () =>
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            Player.Input.CursorLocked = false;
         };
 
         popup.Closed += () =>
         {
             if (_activePopups.Count == 0)
             {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
+                Player.Input.CursorLocked = true;
             }
         };
     }
