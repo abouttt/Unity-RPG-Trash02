@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : BaseMonoBehaviour
 {
     public static GameObject GameObject { get; private set; }
     public static Transform Transform { get; private set; }

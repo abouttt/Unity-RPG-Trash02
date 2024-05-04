@@ -64,9 +64,4 @@ public abstract class UI_Popup : UI_Base, IPointerDownHandler
     {
         Closed?.Invoke();
     }
-
-    private void OnDestroy()
-    {
-        ClearEvents();
-    }
 }

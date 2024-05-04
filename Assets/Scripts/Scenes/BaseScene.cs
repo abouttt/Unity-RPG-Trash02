@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using EnumType;
 
-public class BaseScene : MonoBehaviour
+public class BaseScene : BaseMonoBehaviour
 {
     [field: SerializeField]
     public SceneType SceneType { get; private set; } = SceneType.Unknown;
@@ -24,8 +24,10 @@ public class BaseScene : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
+
         Managers.Clear();
     }
 }

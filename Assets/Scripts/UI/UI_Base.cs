@@ -7,7 +7,7 @@ using TMPro;
 using EnumType;
 using Object = UnityEngine.Object;
 
-public abstract class UI_Base : MonoBehaviour
+public abstract class UI_Base : BaseMonoBehaviour
 {
     [field: SerializeField]
     public UIType UIType { get; private set; }

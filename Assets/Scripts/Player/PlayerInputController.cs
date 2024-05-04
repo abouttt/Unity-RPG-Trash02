@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputController : MonoBehaviour
+public class PlayerInputController : BaseMonoBehaviour
 {
     public PlayerInput PlayerInput { get; private set; }
 

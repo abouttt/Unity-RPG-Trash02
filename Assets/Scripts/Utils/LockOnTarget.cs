@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class LockOnTarget : MonoBehaviour
+public class LockOnTarget : BaseMonoBehaviour
 {
     public Action<bool> LockChanged;
 

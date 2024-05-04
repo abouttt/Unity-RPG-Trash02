@@ -1,7 +1,7 @@
 using UnityEngine;
 using EnumType;
 
-public class UI_ItemInventoryTab : MonoBehaviour
+public class UI_ItemInventoryTab : BaseMonoBehaviour
 {
     [field: SerializeField]
     public ItemType TabType { get; private set; }

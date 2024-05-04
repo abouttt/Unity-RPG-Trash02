@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public class Singleton<T> : BaseMonoBehaviour where T : MonoBehaviour
 {
     private static T s_instance;
 
@@ -34,8 +34,13 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
-        s_instance = null;
+        base.OnDestroy();
+
+        if (s_instance == this)
+        {
+            s_instance = null;
+        }
     }
 }

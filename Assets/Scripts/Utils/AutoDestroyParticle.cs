@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AutoDestroyParticle : MonoBehaviour
+public class AutoDestroyParticle : BaseMonoBehaviour
 {
     private ParticleSystem _ps;
 

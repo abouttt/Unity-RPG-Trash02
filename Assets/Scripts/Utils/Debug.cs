@@ -5,7 +5,7 @@
 using System;
 using UnityEngine;
 
-public class Debug : MonoBehaviour
+public static class Debug
 {
     public static bool IsDebugBuild { get { return UnityEngine.Debug.isDebugBuild; } }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using EnumType;
 
-public class ItemInventory : MonoBehaviour
+public class ItemInventory : BaseMonoBehaviour
 {
     [Serializable]
     public class Inventory

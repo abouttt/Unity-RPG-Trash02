@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_CooldownImage : MonoBehaviour
+public class UI_CooldownImage : BaseMonoBehaviour
 {
     private Cooldown _cooldownRef;
     private Image _cooldownImage;

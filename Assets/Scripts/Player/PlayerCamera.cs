@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 
-public class PlayerCamera : MonoBehaviour
+public class PlayerCamera : BaseMonoBehaviour
 {
     public Transform LockedTarget
     {
