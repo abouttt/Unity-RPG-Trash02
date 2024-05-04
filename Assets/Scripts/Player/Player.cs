@@ -10,6 +10,7 @@ public class Player : BaseMonoBehaviour
     public static PlayerMovement Movement { get; private set; }
     public static PlayerCamera Camera { get; private set; }
     public static ItemInventory ItemInventory { get; private set; }
+    public static EquipmentInventory EquipmentInventory { get; private set; }
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class Player : BaseMonoBehaviour
         Movement = GetComponent<PlayerMovement>();
         Camera = GetComponent<PlayerCamera>();
         ItemInventory = GetComponent<ItemInventory>();
+        EquipmentInventory = GetComponent<EquipmentInventory>();
     }
 
     public static void Init()

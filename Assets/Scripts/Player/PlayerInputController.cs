@@ -43,4 +43,9 @@ public class PlayerInputController : BaseMonoBehaviour
     {
         Managers.UI.ShowOrClose<UI_ItemInventoryPopup>();
     }
+
+    private void OnEquipmentInventory(InputValue inputValue)
+    {
+        Managers.UI.ShowOrClose<UI_EquipmentInventoryPopup>();
+    }
 }

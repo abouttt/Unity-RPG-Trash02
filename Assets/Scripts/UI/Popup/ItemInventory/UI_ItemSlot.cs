@@ -120,6 +120,21 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
 
         switch (ItemType)
         {
+            case ItemType.Equipment:
+                var equipmentItem = ObjectRef as EquipmentItem;
+                var otherEquipmentItem = Player.EquipmentInventory.GetItem(equipmentItem.EquipmentData.EquipmentType);
+
+                if (otherEquipmentItem != null)
+                {
+                    Player.ItemInventory.SetItem(otherEquipmentItem.Data, Index);
+                }
+                else
+                {
+                    Player.ItemInventory.RemoveItem(equipmentItem.Data.ItemType, Index);
+                }
+
+                Player.EquipmentInventory.Equip(equipmentItem.EquipmentData);
+                break;
             default:
                 if (item is IUsable usable)
                 {
@@ -143,6 +158,9 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
                 case SlotType.Item:
                     OnDropItemSlot(otherSlot as UI_ItemSlot);
                     break;
+                case SlotType.Equipment:
+                    OnDropEquipmentSlot(otherSlot as UI_EquipmentSlot);
+                    break;
                 default:
                     break;
             }
@@ -164,5 +182,28 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
         {
             Player.ItemInventory.MoveItem(ItemType, otherItemSlot.Index, Index);
         }
+    }
+
+    private void OnDropEquipmentSlot(UI_EquipmentSlot equipmentSlot)
+    {
+        var otherEquipmentData = (equipmentSlot.ObjectRef as EquipmentItem).EquipmentData;
+
+        if (HasObject)
+        {
+            var equipmentData = (ObjectRef as EquipmentItem).EquipmentData;
+
+            if (equipmentData.EquipmentType != otherEquipmentData.EquipmentType)
+            {
+                return;
+            }
+
+            Player.EquipmentInventory.Equip(equipmentData);
+        }
+        else
+        {
+            Player.EquipmentInventory.Unequip(equipmentSlot.EquipmentType);
+        }
+
+        Player.ItemInventory.SetItem(otherEquipmentData, Index);
     }
 }

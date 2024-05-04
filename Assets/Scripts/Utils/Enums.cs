@@ -3,6 +3,7 @@ namespace EnumType
     public enum SlotType
     {
         Item,
+        Equipment,
     }
 
     public enum EquipmentType
