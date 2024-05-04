@@ -12,7 +12,7 @@ public class HealPotion : ConsumableItem
 
     public override bool Use()
     {
-        if (!CheckCountAndSub())
+        if (!CheckCanUseAndSubCount())
         {
             return false;
         }

@@ -12,7 +12,7 @@ public abstract class ConsumableItem : CountableItem, IUsable
 
     public abstract bool Use();
 
-    protected bool CheckCountAndSub()
+    protected bool CheckCanUseAndSubCount()
     {
         int remainingCount = CurrentCount - ConsumableData.RequiredCount;
         if (remainingCount < 0)
@@ -21,6 +21,14 @@ public abstract class ConsumableItem : CountableItem, IUsable
         }
 
         SetCount(remainingCount);
+
+        if (IsEmpty)
+        {
+            Player.ItemInventory.RemoveItem(this);
+        }
+
+        ConsumableData.Cooldown.OnCooldowned();
+        Managers.Cooldown.AddCooldown(ConsumableData.Cooldown);
 
         return true;
     }

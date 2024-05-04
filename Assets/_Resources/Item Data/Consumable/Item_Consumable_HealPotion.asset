@@ -22,4 +22,7 @@ MonoBehaviour:
   <Price>k__BackingField: 100
   <MaxCount>k__BackingField: 99
   <RequiredCount>k__BackingField: 1
+  _cooldown:
+    <Max>k__BackingField: 1
+    Current: 0
   <HealAmount>k__BackingField: 100

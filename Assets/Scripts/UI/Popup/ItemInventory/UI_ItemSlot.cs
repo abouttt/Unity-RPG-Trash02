@@ -9,6 +9,11 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
         CountText,
     }
 
+    enum CooldownImages
+    {
+        CooldownImage,
+    }
+
     public ItemType ItemType { get; private set; }
     public int Index { get; private set; }
 
@@ -17,6 +22,7 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
         base.Init();
 
         BindText(typeof(Texts));
+        Bind<UI_CooldownImage>(typeof(CooldownImages));
 
         Clear();
     }
@@ -47,6 +53,11 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
                     item.ItemChanged += RefreshCountText;
                 }
 
+                if (item.Data is ICooldownable cooldownable)
+                {
+                    Get<UI_CooldownImage>((int)CooldownImages.CooldownImage).SetCooldown(cooldownable.Cooldown);
+                }
+
                 RefreshCountText();
             }
         }
@@ -63,6 +74,11 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
             if (item is CountableItem)
             {
                 item.ItemChanged -= RefreshCountText;
+            }
+
+            if (item.Data is ICooldownable cooldownable)
+            {
+                Get<UI_CooldownImage>((int)CooldownImages.CooldownImage).Clear();
             }
         }
 
