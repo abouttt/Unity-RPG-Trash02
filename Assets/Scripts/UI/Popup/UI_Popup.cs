@@ -25,11 +25,6 @@ public abstract class UI_Popup : UI_Base, IPointerDownHandler
 
     public Canvas Canvas { get; private set; }
 
-    public void SetTop()
-    {
-        Focused?.Invoke();
-    }
-
     protected override void Init()
     {
         if (PopupRT == null)
@@ -38,6 +33,11 @@ public abstract class UI_Popup : UI_Base, IPointerDownHandler
         }
 
         Canvas = GetComponent<Canvas>();
+    }
+
+    public void SetTop()
+    {
+        Focused?.Invoke();
     }
 
     public void ClearEvents()

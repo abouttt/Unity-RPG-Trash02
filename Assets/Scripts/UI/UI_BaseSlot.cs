@@ -62,7 +62,6 @@ public abstract class UI_BaseSlot : UI_Base,
         }
 
         IsDragging = true;
-
         GetImage((int)Images.TempImage).gameObject.SetActive(true);
         GetImage((int)Images.TempImage).transform.SetParent(Managers.UI.Get<UI_TopCanvas>().transform);
         GetImage((int)Images.TempImage).transform.SetAsLastSibling();
@@ -77,7 +76,6 @@ public abstract class UI_BaseSlot : UI_Base,
     public virtual void OnEndDrag(PointerEventData eventData)
     {
         IsDragging = false;
-
         GetImage((int)Images.TempImage).gameObject.SetActive(false);
         GetImage((int)Images.TempImage).transform.SetParent(transform);
         GetImage((int)Images.TempImage).rectTransform.position = transform.position;
