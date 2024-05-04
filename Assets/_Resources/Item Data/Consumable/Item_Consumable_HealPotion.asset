@@ -9,16 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9425eb8fda5476548a9fff4bcbd4ad4a, type: 3}
+  m_Script: {fileID: 11500000, guid: f11343717b7407c4884c14b91f3f9821, type: 3}
   m_Name: Item_Consumable_HealPotion
   m_EditorClassIdentifier: 
-  <ItemID>k__BackingField: CONSUMABLE_HEAL_POTION
+  <ItemID>k__BackingField: CONSUMABLE_HEALPOTION
   <ItemName>k__BackingField: "\uCCB4\uB825 \uD3EC\uC158"
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 4e8b35477a7fb5a46870c1973a523722, type: 3}
   <ItemType>k__BackingField: 1
   <ItemQuality>k__BackingField: 1
   <Description>k__BackingField: "\uCCB4\uB825\uC744 \uD68C\uBCF5\uC2DC\uD0A8\uB2E4."
   <LimitLevel>k__BackingField: 1
-  <Price>k__BackingField: 50
+  <Price>k__BackingField: 100
   <MaxCount>k__BackingField: 99
   <RequiredCount>k__BackingField: 1
+  <HealAmount>k__BackingField: 100

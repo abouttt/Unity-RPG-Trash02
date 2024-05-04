@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f916ca5ab6aea409044298b190ea83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <UIType>k__BackingField: 0
+  <UIType>k__BackingField: 2
 --- !u!114 &5712167240083463584
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ConsumableItem : CountableItem
+public abstract class ConsumableItem : CountableItem, IUsable
 {
     public ConsumableItemData ConsumableData { get; private set; }
 
@@ -10,7 +10,9 @@ public class ConsumableItem : CountableItem
         ConsumableData = data;
     }
 
-    protected bool CheckCanUseAndSubCount()
+    public abstract bool Use();
+
+    protected bool CheckCountAndSub()
     {
         int remainingCount = CurrentCount - ConsumableData.RequiredCount;
         if (remainingCount < 0)
