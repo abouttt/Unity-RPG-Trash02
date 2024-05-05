@@ -51,9 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LockOnTarget",
+                    "name": "LockOn",
                     "type": "Button",
                     "id": "ba12ec1f-03ed-4d69-a2db-a5bfd77196d2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interaction",
+                    "type": "Button",
+                    "id": "2449ff3d-cc25-4e11-9b32-5bdb3fd17bdc",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -201,7 +210,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard/Mouse",
-                    "action": "LockOnTarget",
+                    "action": "LockOn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -367,6 +376,17 @@
                     "processors": "",
                     "groups": "Keyboard/Mouse",
                     "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c874fbb8-01c4-4d6d-8db6-e6f7be9a0085",
+                    "path": "<Keyboard>/e",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "Interaction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

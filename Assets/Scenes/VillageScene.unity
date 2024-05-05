@@ -37714,6 +37714,7 @@ GameObject:
   - component: {fileID: 1294766845}
   - component: {fileID: 1294766844}
   - component: {fileID: 1294766843}
+  - component: {fileID: 1294766847}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -37801,6 +37802,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1294766847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294766841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a259a067b029f4e4081b8ab067168715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <InteractionMessage>k__BackingField: "\uBAAC\uC2A4\uD130"
+  <InteractionKeyGuidePos>k__BackingField: {x: 0, y: 1.3, z: 0}
+  <InteractionInputTime>k__BackingField: 1
+  <CanInteraction>k__BackingField: 1
 --- !u!1001 &1295895259
 PrefabInstance:
   m_ObjectHideFlags: 0

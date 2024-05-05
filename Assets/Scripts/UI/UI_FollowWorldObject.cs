@@ -35,4 +35,10 @@ public class UI_FollowWorldObject : BaseMonoBehaviour
 
         _rt.position = _mainCamera.WorldToScreenPoint(_target.position + Offset);
     }
+
+    public void SetTargetAndOffset(Transform target, Vector3 offset)
+    {
+        Target = target;
+        Offset = offset;
+    }
 }

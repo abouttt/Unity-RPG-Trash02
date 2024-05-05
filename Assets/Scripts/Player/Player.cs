@@ -6,9 +6,10 @@ public class Player : BaseMonoBehaviour
     public static Transform Transform { get; private set; }
     public static Collider Collider { get; private set; }
     public static Animator Animator { get; private set; }
-    public static PlayerInputController Input{ get; private set; }
+    public static PlayerInputController Input { get; private set; }
     public static PlayerMovement Movement { get; private set; }
     public static PlayerCamera Camera { get; private set; }
+    public static InteractionDetector InteractionDetector { get; private set; }
     public static ItemInventory ItemInventory { get; private set; }
     public static EquipmentInventory EquipmentInventory { get; private set; }
     public static QuickInventory QuickInventory { get; private set; }
@@ -22,6 +23,7 @@ public class Player : BaseMonoBehaviour
         Input = GetComponent<PlayerInputController>();
         Movement = GetComponent<PlayerMovement>();
         Camera = GetComponent<PlayerCamera>();
+        InteractionDetector = GetComponentInChildren<InteractionDetector>();
         ItemInventory = GetComponent<ItemInventory>();
         EquipmentInventory = GetComponent<EquipmentInventory>();
         QuickInventory = GetComponent<QuickInventory>();

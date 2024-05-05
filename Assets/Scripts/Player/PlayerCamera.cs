@@ -220,7 +220,7 @@ public class PlayerCamera : BaseMonoBehaviour
         }
     }
 
-    private void OnLockOnTarget(InputValue inputValue)
+    private void OnLockOn(InputValue inputValue)
     {
         if (IsLockOn)
         {
