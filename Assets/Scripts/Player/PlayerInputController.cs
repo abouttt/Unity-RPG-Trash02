@@ -59,4 +59,16 @@ public class PlayerInputController : BaseMonoBehaviour
         int index = (int)inputValue.Get<float>();
         Player.QuickInventory.GetUsable(index)?.Use();
     }
+
+    private void OnCancel(InputValue inputValue)
+    {
+        if (Managers.UI.ActivePopupCount > 0)
+        {
+            Managers.UI.CloseTopPopup();
+        }
+        else
+        {
+            Managers.UI.Show<UI_GameMenuPopup>();
+        }
+    }
 }
