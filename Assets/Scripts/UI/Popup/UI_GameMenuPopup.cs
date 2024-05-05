@@ -8,6 +8,7 @@ public class UI_GameMenuPopup : UI_Popup
         ItemInventoryButton,
         EquipmentInventoryButton,
         ResetPopupPositionButton,
+        GameOptionButton,
         ExitButton,
         CloseButton,
     }
@@ -37,6 +38,12 @@ public class UI_GameMenuPopup : UI_Popup
                 var popup = child.GetComponent<UI_Popup>();
                 popup.PopupRT.anchoredPosition = popup.DefaultPosition;
             }
+        });
+
+        GetButton((int)Buttons.GameOptionButton).onClick.AddListener(() =>
+        {
+            Managers.UI.Show<UI_GameOptionPopup>();
+            Managers.UI.Close<UI_GameMenuPopup>();
         });
 
         GetButton((int)Buttons.ExitButton).onClick.AddListener(() =>
