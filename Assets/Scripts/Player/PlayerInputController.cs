@@ -48,4 +48,15 @@ public class PlayerInputController : BaseMonoBehaviour
     {
         Managers.UI.ShowOrClose<UI_EquipmentInventoryPopup>();
     }
+
+    private void OnQuick(InputValue inputValue)
+    {
+        if (Managers.UI.IsShowed<UI_ItemSplitPopup>())
+        {
+            return;
+        }
+
+        int index = (int)inputValue.Get<float>();
+        Player.QuickInventory.GetUsable(index)?.Use();
+    }
 }

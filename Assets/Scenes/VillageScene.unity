@@ -14508,8 +14508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2197ea3a81dd7d44085dd6bcaf320a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemData: {fileID: 11400000, guid: 739abf60b47835c4cab3097984ff1f9c, type: 2}
-  Count: 2
+  ItemData: {fileID: 11400000, guid: a274c3c36030c7545843e31f5d5f8975, type: 2}
+  Count: 50
 --- !u!1001 &489323606
 PrefabInstance:
   m_ObjectHideFlags: 0

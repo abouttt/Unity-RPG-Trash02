@@ -23,8 +23,11 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
 
         BindText(typeof(Texts));
         Bind<UI_CooldownImage>(typeof(CooldownImages));
+    }
 
-        Clear();
+    private void Start()
+    {
+        Refresh();
     }
 
     public void Setup(ItemType itemType, int index)
@@ -76,7 +79,7 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
                 item.ItemChanged -= RefreshCountText;
             }
 
-            if (item.Data is ICooldownable cooldownable)
+            if (item.Data is ICooldownable)
             {
                 Get<UI_CooldownImage>((int)CooldownImages.CooldownImage).Clear();
             }

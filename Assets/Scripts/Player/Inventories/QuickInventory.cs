@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QuickInventory : BaseMonoBehaviour
 {
-    public event Action<int, IUsable> InventoryChanged;
+    public event Action<int> InventoryChanged;
 
     [field: SerializeField]
     public int Capacity { get; private set; }
@@ -27,7 +27,7 @@ public class QuickInventory : BaseMonoBehaviour
         }
 
         _usables[index] = usable;
-        InventoryChanged?.Invoke(index, usable);
+        InventoryChanged?.Invoke(index);
     }
 
     public void RemoveUsable(int index)
@@ -38,7 +38,7 @@ public class QuickInventory : BaseMonoBehaviour
         }
 
         _usables[index] = null;
-        InventoryChanged?.Invoke(index, null);
+        InventoryChanged?.Invoke(index);
     }
 
     public IUsable GetUsable(int index)
@@ -50,6 +50,17 @@ public class QuickInventory : BaseMonoBehaviour
     {
         var usableA = _usables[indexA];
         var usableB = _usables[indexB];
+
+        if (usableA == null)
+        {
+            RemoveUsable(indexB);
+        }
+
+        if (usableB == null)
+        {
+            RemoveUsable(indexA);
+        }
+
         SetUsable(usableA, indexB);
         SetUsable(usableB, indexA);
     }
