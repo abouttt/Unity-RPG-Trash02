@@ -22,9 +22,7 @@ public class GameScene : BaseScene
         {
             base.Init();
             Player.Init();
-            var uiPackage = Managers.Resource.Instantiate("UIPackage.prefab");
-            uiPackage.transform.DetachChildren();
-            Destroy(uiPackage);
+            InstantiatePackage("UIPackage.prefab");
         }
     }
 

@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using EnumType;
 
 public class LoadingScene : BaseScene
 {
@@ -12,8 +10,6 @@ public class LoadingScene : BaseScene
 
     [SerializeField]
     private Image _loadingBar;
-
-    private int _currentLabelIndex;
 
     protected override void Init()
     {
@@ -60,28 +56,5 @@ public class LoadingScene : BaseScene
                 }
             }
         }
-    }
-
-    protected void LoadResourcesAsync(SceneType sceneType, Action callback = null)
-    {
-        var loadResourceLabels = SceneSettings.GetInstance.LoadResourceLabels[sceneType];
-        if (loadResourceLabels == null || loadResourceLabels.Length == 0)
-        {
-            return;
-        }
-
-        Managers.Resource.LoadAllAsync<UnityEngine.Object>(loadResourceLabels[_currentLabelIndex].ToString(), () =>
-        {
-            if (_currentLabelIndex == loadResourceLabels.Length - 1)
-            {
-                _currentLabelIndex = 0;
-                callback?.Invoke();
-            }
-            else
-            {
-                _currentLabelIndex++;
-                LoadResourcesAsync(sceneType, callback);
-            }
-        });
     }
 }
