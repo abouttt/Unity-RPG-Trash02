@@ -3,13 +3,13 @@ using UnityEngine.InputSystem;
 
 public class InteractionDetector : BaseMonoBehaviour
 {
-    public bool IsShowedKeyGuide => _keyGuide.gameObject.activeSelf;
+    public bool Interaction { get; private set; }
     public float CurrentInteractionInputTime { get; private set; }
+    public bool IsShowedKeyGuide => _keyGuide.gameObject.activeSelf;
 
     private Interactive _target;
     private UI_InteractionKeyGuide _keyGuide;
     private GameObject _mainCamera;
-    private bool _interaction;
     private bool _isRangeOutTarget;
     private bool _canInteraction;
 
@@ -39,6 +39,7 @@ public class InteractionDetector : BaseMonoBehaviour
 
         if (_target.IsInteracted)
         {
+            _canInteraction = false;
             return;
         }
         else if (_isRangeOutTarget)
@@ -47,7 +48,7 @@ public class InteractionDetector : BaseMonoBehaviour
             return;
         }
 
-        if (_interaction)
+        if (Interaction)
         {
             if (_canInteraction && _target.CanInteraction)
             {
@@ -142,6 +143,6 @@ public class InteractionDetector : BaseMonoBehaviour
 
     private void OnInteraction(InputValue inputValue)
     {
-        _interaction = inputValue.isPressed;
+        Interaction = inputValue.isPressed;
     }
 }

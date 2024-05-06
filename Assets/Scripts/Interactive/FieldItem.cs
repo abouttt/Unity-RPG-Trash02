@@ -1,14 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
 
 public class FieldItem : Interactive
 {
+    public IReadOnlyDictionary<ItemData, int> Items => _items;
+
     [SerializeField]
     private SerializedDictionary<ItemData, int> _items;
 
     public override void Interaction()
     {
-
+        Managers.UI.Show<UI_LootPopup>().SetFieldItem(this);
     }
 
     private void Start()
@@ -49,6 +52,11 @@ public class FieldItem : Interactive
             {
                 _items.Remove(itemData);
             }
+        }
+
+        if (_items.Count == 0)
+        {
+            Managers.Resource.Destroy(gameObject);
         }
     }
 }
