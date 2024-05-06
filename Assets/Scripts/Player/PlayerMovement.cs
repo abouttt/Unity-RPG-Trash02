@@ -90,12 +90,6 @@ public class PlayerMovement : BaseMonoBehaviour
 
     private bool _enabled;
 
-    // input
-    private Vector2 _move;
-    private bool _sprint;
-    private bool _jump;
-    private bool _roll;
-
     // animation IDs
     private readonly int _animIDPosX = Animator.StringToHash("PosX");
     private readonly int _animIDPosY = Animator.StringToHash("PosY");
@@ -112,6 +106,9 @@ public class PlayerMovement : BaseMonoBehaviour
     {
         _controller = GetComponent<CharacterController>();
         _mainCamera = Camera.main.gameObject;
+
+        Managers.Input.GetAction("Jump").performed += Jump;
+        Managers.Input.GetAction("Roll").performed += Roll;
     }
 
     private void Start()
@@ -126,9 +123,8 @@ public class PlayerMovement : BaseMonoBehaviour
     private void Update()
     {
         var deltaTime = Time.deltaTime;
-        JumpAndGravity(deltaTime);
+        Gravity(deltaTime);
         CheckGrounded();
-        Roll();
         Move(deltaTime);
     }
 
@@ -146,32 +142,19 @@ public class PlayerMovement : BaseMonoBehaviour
         Player.Animator.SetBool(_animIDRoll, false);
     }
 
-    private void JumpAndGravity(float deltaTime)
+    private void Gravity(float deltaTime)
     {
         if (IsGrounded)
         {
             // 추락 제한시간 리셋
             _fallTimeoutDelta = _fallTimeout;
 
-            Player.Animator.SetBool(_animIDJump, false);
             Player.Animator.SetBool(_animIDFreeFall, false);
 
             // 착지했을 때 속도가 무한히 떨어지는 것을 방지
             if (_verticalVelocity < 0f)
             {
                 _verticalVelocity = -2f;
-            }
-
-            if (_jump && CanJump && _jumpTimeoutDelta <= 0f)
-            {
-                IsJumping = true;
-                _verticalVelocity = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
-                _isJumpWithSprint = _sprint;
-                Player.Animator.SetBool(_animIDJump, true);
-            }
-            else
-            {
-                _jump = false;
             }
 
             // 점프 제한시간
@@ -210,20 +193,6 @@ public class PlayerMovement : BaseMonoBehaviour
         Player.Animator.SetBool(_animIDGrounded, IsGrounded);
     }
 
-    private void Roll()
-    {
-        if (_roll && CanRoll)
-        {
-            IsRolling = true;
-            CanRotation = true;
-            Player.Animator.SetBool(_animIDRoll, true);
-        }
-        else
-        {
-            _roll = false;
-        }
-    }
-
     private void Move(float deltaTime)
     {
         float targetSpeed = _moveSpeed;
@@ -240,7 +209,7 @@ public class PlayerMovement : BaseMonoBehaviour
         {
             targetSpeed = _sprintSpeed;
         }
-        else if (_sprint && CanSprint && !IsJumping && !_isRollMoving)
+        else if (Managers.Input.Sprint && CanSprint && !IsJumping && !_isRollMoving)
         {
             IsSprinting = true;
             targetSpeed = _sprintSpeed;
@@ -250,7 +219,8 @@ public class PlayerMovement : BaseMonoBehaviour
             IsSprinting = false;
         }
 
-        bool isZeroMoveInput = _move == Vector2.zero;
+        var move = Managers.Input.Move;
+        bool isZeroMoveInput = move == Vector2.zero;
 
         if (!_isRollMoving && (!CanMove || isZeroMoveInput))
         {
@@ -276,8 +246,8 @@ public class PlayerMovement : BaseMonoBehaviour
         }
 
         _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, currentSpeedChangeRate);
-        _posXBlend = Mathf.Lerp(_posXBlend, _move.x, currentSpeedChangeRate);
-        _posYBlend = Mathf.Lerp(_posYBlend, _move.y, currentSpeedChangeRate);
+        _posXBlend = Mathf.Lerp(_posXBlend, move.x, currentSpeedChangeRate);
+        _posYBlend = Mathf.Lerp(_posYBlend, move.y, currentSpeedChangeRate);
         if (_animationBlend < 0.01f)
         {
             _animationBlend = 0f;
@@ -287,7 +257,7 @@ public class PlayerMovement : BaseMonoBehaviour
 
         if (CanRotation && !isZeroMoveInput)
         {
-            var inputDirection = new Vector3(_move.x, 0f, _move.y).normalized;
+            var inputDirection = new Vector3(move.x, 0f, move.y).normalized;
             _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
             _targetMove = _targetRotation;
         }
@@ -335,24 +305,25 @@ public class PlayerMovement : BaseMonoBehaviour
         Player.Animator.SetFloat(_animIDPosY, isLockMoving ? _posYBlend : 1f);
     }
 
-    private void OnMove(InputValue inputValue)
+    private void Jump(InputAction.CallbackContext context)
     {
-        _move = inputValue.Get<Vector2>();
+        if (CanJump && _jumpTimeoutDelta <= 0f)
+        {
+            IsJumping = true;
+            _verticalVelocity = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
+            _isJumpWithSprint = Managers.Input.Sprint;
+            Player.Animator.SetTrigger(_animIDJump);
+        }
     }
 
-    private void OnSprint(InputValue inputValue)
+    private void Roll(InputAction.CallbackContext context)
     {
-        _sprint = inputValue.isPressed;
-    }
-
-    private void OnJump(InputValue inputValue)
-    {
-        _jump = inputValue.isPressed;
-    }
-
-    private void OnRoll(InputValue inputValue)
-    {
-        _roll = inputValue.isPressed;
+        if (CanRoll)
+        {
+            IsRolling = true;
+            CanRotation = true;
+            Player.Animator.SetBool(_animIDRoll, true);
+        }
     }
 
     private void OnAnimBeginJumpLand()

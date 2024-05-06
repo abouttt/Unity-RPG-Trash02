@@ -383,7 +383,7 @@
                     "name": "",
                     "id": "c874fbb8-01c4-4d6d-8db6-e6f7be9a0085",
                     "path": "<Keyboard>/e",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard/Mouse",
                     "action": "Interaction",

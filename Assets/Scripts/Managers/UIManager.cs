@@ -239,14 +239,14 @@ public class UIManager
 
         popup.Showed += () =>
         {
-            Player.Input.CursorLocked = false;
+            Managers.Input.CursorLocked = false;
         };
 
         popup.Closed += () =>
         {
             if (_activePopups.Count == 0)
             {
-                Player.Input.CursorLocked = true;
+                Managers.Input.CursorLocked = true;
             }
         };
     }

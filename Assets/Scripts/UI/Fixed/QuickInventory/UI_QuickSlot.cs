@@ -33,7 +33,7 @@ public class UI_QuickSlot : UI_BaseSlot, IDropHandler
     public void InitSlot(int bindingIndex)
     {
         Index = bindingIndex;
-        GetText((int)Texts.KeyInfoText).text = Player.Input.GetBindingPath("Quick", bindingIndex);
+        GetText((int)Texts.KeyInfoText).text = Managers.Input.GetBindingPath("Quick", bindingIndex);
     }
 
     public void Refresh()

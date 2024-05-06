@@ -35,7 +35,7 @@ public class UI_LootPopup : UI_Popup
         BindText(typeof(Texts));
         BindButton(typeof(Buttons));
 
-        GetText((int)Texts.LootAllText).text = $"[{Player.Input.GetBindingPath("Interaction")}] ¸ðµÎ È¹µæ";
+        GetText((int)Texts.LootAllText).text = $"[{Managers.Input.GetBindingPath("Interaction")}] ¸ðµÎ È¹µæ";
         GetButton((int)Buttons.CloseButton).onClick.AddListener(Managers.UI.Close<UI_LootPopup>);
         GetButton((int)Buttons.LootAllButton).onClick.AddListener(AddAllItemToItemInventory);
     }
@@ -44,7 +44,7 @@ public class UI_LootPopup : UI_Popup
     {
         Managers.UI.Register<UI_LootPopup>(this);
 
-        Showed += () => _isPressedKey = Player.InteractionDetector.Interaction;
+        Showed += () => _isPressedKey = Managers.Input.Interaction;
         Closed += Clear;
     }
 
@@ -58,7 +58,7 @@ public class UI_LootPopup : UI_Popup
 
         TrackingFieldItem();
 
-        if (Player.InteractionDetector.Interaction)
+        if (Managers.Input.Interaction)
         {
             if (!_isPressedKey)
             {

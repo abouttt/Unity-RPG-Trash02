@@ -29,7 +29,7 @@ public class GameScene : BaseScene
     private void Start()
     {
         Managers.Game.IsDefaultSpawn = false;
-        Player.Input.CursorLocked = true;
+        Managers.Input.CursorLocked = true;
         Managers.UI.Get<UI_TopCanvas>().FadeInitBG();
     }
 }

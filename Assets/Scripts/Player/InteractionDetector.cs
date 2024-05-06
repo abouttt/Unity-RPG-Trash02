@@ -1,9 +1,7 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class InteractionDetector : BaseMonoBehaviour
 {
-    public bool Interaction { get; private set; }
     public float CurrentInteractionInputTime { get; private set; }
     public bool IsShowedKeyGuide => _keyGuide.gameObject.activeSelf;
 
@@ -48,7 +46,7 @@ public class InteractionDetector : BaseMonoBehaviour
             return;
         }
 
-        if (Interaction)
+        if (Managers.Input.Interaction)
         {
             if (_canInteraction && _target.CanInteraction)
             {
@@ -139,10 +137,5 @@ public class InteractionDetector : BaseMonoBehaviour
         {
             _target.IsDetected = true;
         }
-    }
-
-    private void OnInteraction(InputValue inputValue)
-    {
-        Interaction = inputValue.isPressed;
     }
 }

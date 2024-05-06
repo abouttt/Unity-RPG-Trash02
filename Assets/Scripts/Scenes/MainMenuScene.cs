@@ -9,7 +9,7 @@ public class MainMenuScene : BaseScene
         {
             base.Init();
             InstantiatePackage("UIPackage_MainMenu.prefab");
-            Player.Input.CursorLocked = false;
+            Managers.Input.CursorLocked = false;
             GameObject.Find("InitBG").GetComponent<DOTweenAnimation>().DOPlay();
         });
     }

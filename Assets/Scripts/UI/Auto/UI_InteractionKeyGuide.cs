@@ -42,7 +42,7 @@ public class UI_InteractionKeyGuide : UI_Auto
 
             GetImage((int)Images.BG).gameObject.SetActive(target.CanInteraction);
             GetText((int)Texts.KeyText).gameObject.SetActive(target.CanInteraction);
-            GetText((int)Texts.KeyText).text = Player.Input.GetBindingPath("Interaction");
+            GetText((int)Texts.KeyText).text = Managers.Input.GetBindingPath("Interaction");
             GetText((int)Texts.InteractionText).gameObject.SetActive(target.CanInteraction);
             GetText((int)Texts.InteractionText).text = target.InteractionMessage;
             GetText((int)Texts.NameText).gameObject.SetActive(false);

@@ -239,9 +239,7 @@ GameObject:
   - component: {fileID: 3750781361987624263}
   - component: {fileID: 3750781361987624259}
   - component: {fileID: 3750781361987624256}
-  - component: {fileID: 3750781361987624257}
   - component: {fileID: 3750781361987624260}
-  - component: {fileID: 6199297955009203485}
   - component: {fileID: 3750781361987624258}
   - component: {fileID: 3750781361987624287}
   - component: {fileID: 5979117031782688735}
@@ -311,52 +309,6 @@ CharacterController:
   m_SkinWidth: 0.05
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.97, z: 0}
---- !u!114 &3750781361987624257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3750781361987624264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: cb97a65ef7662b245adc5ce9256cfa0f, type: 3}
-  m_NotificationBehavior: 1
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 31acfc3c-a1c7-4c23-9088-9a4ead5798b5
-    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b4441a05-22a4-45af-be51-5bb8fdad5da6
-    m_ActionName: Player/Sprint[/Keyboard/leftShift]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4bd9ca11-d053-4488-9a7d-6fbf214abc92
-    m_ActionName: Player/Look[/Mouse/delta]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6b09664c-a7b3-48ce-a0f5-586904f59641
-    m_ActionName: Player/Jump[/Keyboard/space]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard/Mouse
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &3750781361987624260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,18 +319,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c41be82d8aab4504aade1b9f6cecdcd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6199297955009203485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3750781361987624264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75869a8f7563f7b4492f487300cae227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &3750781361987624258
@@ -401,7 +341,7 @@ MonoBehaviour:
   _jumpLandDecreaseSpeedRate: 0.7
   _jumpHeight: 1.2
   _gravity: -20
-  _jumpTimeout: 0.5
+  _jumpTimeout: 0.6
   _fallTimeout: 0.4
   _groundedOffset: -0.15
   _groundedRadius: 0.23
@@ -549,7 +489,7 @@ MonoBehaviour:
     m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
-    m_InheritPosition: 1
+    m_InheritPosition: 0
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
@@ -844,7 +784,7 @@ MonoBehaviour:
     m_ActivateAfter: 0
     m_MinDuration: 0
   m_DefaultBlend:
-    m_Style: 1
+    m_Style: 6
     m_Time: 0.3
     m_CustomCurve:
       serializedVersion: 2

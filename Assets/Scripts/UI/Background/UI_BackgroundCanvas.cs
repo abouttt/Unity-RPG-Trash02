@@ -14,7 +14,7 @@ public class UI_BackgroundCanvas : UI_Base, IPointerClickHandler, IDropHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Player.Input.CursorLocked = true;
+        Managers.Input.CursorLocked = true;
     }
 
     public void OnDrop(PointerEventData eventData)

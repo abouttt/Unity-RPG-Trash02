@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Cinemachine;
+using UnityEngine.InputSystem;
 
 public class PlayerCamera : BaseMonoBehaviour
 {
@@ -61,7 +61,6 @@ public class PlayerCamera : BaseMonoBehaviour
     [SerializeField]
     private LayerMask _obstacleMask;
 
-    private Vector2 _look;
     private float _cinemachineTargetYaw;
     private float _cinemachineTargetPitch;
 
@@ -85,6 +84,8 @@ public class PlayerCamera : BaseMonoBehaviour
                 break;
             }
         }
+
+        Managers.Input.GetAction("LockOn").performed += FindTargetOrReset;
     }
 
     private void Start()
@@ -117,10 +118,11 @@ public class PlayerCamera : BaseMonoBehaviour
         }
         else
         {
-            if (_look.sqrMagnitude >= _threshold)
+            var look = Managers.Input.Look;
+            if (look.sqrMagnitude >= _threshold)
             {
-                _cinemachineTargetYaw += _look.x * _sensitivity;
-                _cinemachineTargetPitch += _look.y * _sensitivity;
+                _cinemachineTargetYaw += look.x * _sensitivity;
+                _cinemachineTargetPitch += look.y * _sensitivity;
             }
 
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
@@ -185,6 +187,18 @@ public class PlayerCamera : BaseMonoBehaviour
         }
     }
 
+    private void FindTargetOrReset(InputAction.CallbackContext context)
+    {
+        if (IsLockOn)
+        {
+            LockedTarget = null;
+        }
+        else
+        {
+            FindLockableTarget();
+        }
+    }
+
     private void CalcTrackedObjectOffset(bool lerp)
     {
         var lookAtPos = (LockedTarget.position + transform.position) * 0.5f;
@@ -206,29 +220,5 @@ public class PlayerCamera : BaseMonoBehaviour
         }
 
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
-    }
-
-    private void OnLook(InputValue inputValue)
-    {
-        if (Player.Input.CursorLocked)
-        {
-            _look = inputValue.Get<Vector2>();
-        }
-        else
-        {
-            _look = Vector2.zero;
-        }
-    }
-
-    private void OnLockOn(InputValue inputValue)
-    {
-        if (IsLockOn)
-        {
-            LockedTarget = null;
-        }
-        else
-        {
-            FindLockableTarget();
-        }
     }
 }

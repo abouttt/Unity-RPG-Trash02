@@ -4,6 +4,7 @@ public class Managers : Singleton<Managers>
 {
     public static CooldownManager Cooldown => GetInstance._cooldown;
     public static GameManager Game => GetInstance._game;
+    public static InputManager Input => GetInstance._input;
     public static PoolManager Pool => GetInstance._pool;
     public static ResourceManager Resource => GetInstance._resource;
     public static SceneManagerEx Scene => GetInstance._scene;
@@ -12,6 +13,7 @@ public class Managers : Singleton<Managers>
 
     private readonly CooldownManager _cooldown = new();
     private readonly GameManager _game = new();
+    private readonly InputManager _input = new();
     private readonly PoolManager _pool = new();
     private readonly ResourceManager _resource = new();
     private readonly SceneManagerEx _scene = new();
@@ -32,6 +34,7 @@ public class Managers : Singleton<Managers>
             return;
         }
 
+        Input.Init();
         Pool.Init();
         Sound.Init();
         UI.Init();
@@ -47,6 +50,7 @@ public class Managers : Singleton<Managers>
         }
 
         Cooldown.Clear();
+        Input.Clear();
         Pool.Clear();
         Sound.Clear();
         UI.Clear();
