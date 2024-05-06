@@ -14,6 +14,11 @@ public abstract class ConsumableItem : CountableItem, IUsable
 
     protected bool CheckCanUseAndSubCount()
     {
+        if (ConsumableData.Cooldown.Current > 0f)
+        {
+            return false;
+        }
+
         int remainingCount = CurrentCount - ConsumableData.RequiredCount;
         if (remainingCount < 0)
         {
