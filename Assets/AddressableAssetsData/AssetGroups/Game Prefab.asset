@@ -27,6 +27,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Game_Prefab
+  - m_GUID: 20372b1386eaba14c8a10e82842ba265
+    m_Address: FieldItem.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Game_Prefab
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7721bc56f3ca3ec4d8829534ba047986, type: 2}
   m_SchemaSet:

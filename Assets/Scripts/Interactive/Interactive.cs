@@ -23,4 +23,10 @@ public abstract class Interactive : BaseMonoBehaviour
     }
 
     public abstract void Interaction();
+
+    private void OnDrawGizmosSelected()
+    {
+        // InteractionKeyGuidePos 위치 시각화
+        Gizmos.DrawWireSphere(transform.position + InteractionKeyGuidePos, 0.1f);
+    }
 }
