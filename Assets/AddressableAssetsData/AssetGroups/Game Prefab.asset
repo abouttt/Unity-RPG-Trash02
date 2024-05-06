@@ -23,7 +23,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - Game_Prefab
   - m_GUID: ca777b59301f1fe4386873cf0dab4a84
-    m_Address: UIPackage.prefab
+    m_Address: UIPackage_Game.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Game_Prefab

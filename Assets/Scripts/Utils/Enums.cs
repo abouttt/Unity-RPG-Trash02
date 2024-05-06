@@ -59,6 +59,7 @@ namespace EnumType
     public enum AddressableLabel
     {
         Default,
+        MainMenu_UI,
         Game_Prefab,
         Game_UI,
     }

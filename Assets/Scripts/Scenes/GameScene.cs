@@ -22,7 +22,7 @@ public class GameScene : BaseScene
         {
             base.Init();
             Player.Init();
-            InstantiatePackage("UIPackage.prefab");
+            InstantiatePackage("UIPackage_Game.prefab");
         }
     }
 
