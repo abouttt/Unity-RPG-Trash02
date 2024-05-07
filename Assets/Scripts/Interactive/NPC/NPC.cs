@@ -9,15 +9,15 @@ public class NPC : Interactive
     [field: SerializeField]
     public string NPCName { get; private set; }
 
-    public IReadOnlyCollection<NPCMenu> Menus => _menus;
+    public IReadOnlyCollection<BaseNPCMenu> Menus => _menus;
 
-    private NPCMenu[] _menus;
+    private BaseNPCMenu[] _menus;
 
     protected override void Awake()
     {
         base.Awake();
 
-        _menus = GetComponents<NPCMenu>();
+        _menus = GetComponents<BaseNPCMenu>();
     }
 
     public override void Interaction()

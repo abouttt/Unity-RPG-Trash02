@@ -54,7 +54,7 @@ public class UI_NPCMenuPopup : UI_Popup
 
         foreach (var menu in npc.Menus)
         {
-            AddSubitem(menu.MenuName, menu.Run);
+            AddSubitem(menu.MenuName, menu.Execution);
         }
 
         AddSubitem("¶°³­´Ù", () =>
