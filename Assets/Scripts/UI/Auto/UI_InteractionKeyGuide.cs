@@ -45,7 +45,16 @@ public class UI_InteractionKeyGuide : UI_Auto
             GetText((int)Texts.KeyText).text = Managers.Input.GetBindingPath("Interaction");
             GetText((int)Texts.InteractionText).gameObject.SetActive(target.CanInteraction);
             GetText((int)Texts.InteractionText).text = target.InteractionMessage;
-            GetText((int)Texts.NameText).gameObject.SetActive(false);
+
+            if (target is NPC npc)
+            {
+                GetText((int)Texts.NameText).text = npc.NPCName;
+                GetText((int)Texts.NameText).gameObject.SetActive(true);
+            }
+            else
+            {
+                GetText((int)Texts.NameText).gameObject.SetActive(false);
+            }
 
             bool hasInputTime = target.InteractionInputTime > 0f;
             GetImage((int)Images.InputTimeImage).gameObject.SetActive(hasInputTime);
