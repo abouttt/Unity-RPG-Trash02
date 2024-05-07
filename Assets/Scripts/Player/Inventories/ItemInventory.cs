@@ -170,13 +170,9 @@ public class ItemInventory : BaseMonoBehaviour
 
         var inventory = _inventories[itemData.ItemType];
 
-        if (IsEmpty(itemData.ItemType, index))
+        if (!IsEmpty(itemData.ItemType, index))
         {
-            inventory.Count++;
-        }
-        else
-        {
-            DestroyItem(itemData.ItemType, index);
+            DestroyItem(itemData.ItemType, index); 
         }
 
         if (itemData is CountableItemData countableItemData)
@@ -188,6 +184,7 @@ public class ItemInventory : BaseMonoBehaviour
             inventory.Items[index] = itemData.CreateItem();
         }
 
+        inventory.Count++;
         _itemIndexes.Add(inventory.Items[index], index);
         InventoryChanged?.Invoke(itemData.ItemType, index);
     }
