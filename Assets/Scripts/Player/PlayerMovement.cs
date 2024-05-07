@@ -99,13 +99,13 @@ public class PlayerMovement : BaseMonoBehaviour
     private readonly int _animIDFreeFall = Animator.StringToHash("FreeFall");
     private readonly int _animIDRoll = Animator.StringToHash("Roll");
 
-    private CharacterController _controller;
     private GameObject _mainCamera;
+    private CharacterController _controller;
 
     private void Awake()
     {
-        _controller = GetComponent<CharacterController>();
         _mainCamera = Camera.main.gameObject;
+        _controller = GetComponent<CharacterController>();
 
         Managers.Input.GetAction("Jump").performed += Jump;
         Managers.Input.GetAction("Roll").performed += Roll;

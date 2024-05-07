@@ -55,9 +55,9 @@ public class UI_EquipmentSlot : UI_BaseSlot, IDropHandler
             return;
         }
 
-        if (eventData.pointerDrag.TryGetComponent<UI_ItemSlot>(out var itemSlot))
+        if (eventData.pointerDrag.TryGetComponent<UI_ItemSlot>(out var otherItemSlot))
         {
-            if (itemSlot.ObjectRef is not EquipmentItem otherItem)
+            if (otherItemSlot.ObjectRef is not EquipmentItem otherItem)
             {
                 return;
             }
@@ -69,11 +69,11 @@ public class UI_EquipmentSlot : UI_BaseSlot, IDropHandler
 
             if (HasObject)
             {
-                Player.ItemInventory.SetItem((ObjectRef as EquipmentItem).EquipmentData, itemSlot.Index);
+                Player.ItemInventory.SetItem((ObjectRef as EquipmentItem).EquipmentData, otherItemSlot.Index);
             }
             else
             {
-                Player.ItemInventory.RemoveItem(itemSlot.ItemType, itemSlot.Index);
+                Player.ItemInventory.RemoveItem(otherItemSlot.ItemType, otherItemSlot.Index);
             }
 
             Player.EquipmentInventory.Equip(otherItem.EquipmentData);

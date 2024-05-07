@@ -79,24 +79,24 @@ public class UI_ItemInventoryPopup : UI_Popup
         var scrollView = Get<ScrollRect>((int)ScrollRects.ItemSlotScrollView);
         scrollView.verticalScrollbar.value = 1f;
 
-        foreach (var tab in _tabs)
+        foreach (var kvp in _tabs)
         {
-            var pos = tab.Key.SlotsRT.anchoredPosition;
+            var pos = kvp.Key.SlotsRT.anchoredPosition;
 
-            if (tab.Key.TabType == itemType)
+            if (kvp.Key.TabType == itemType)
             {
-                scrollView.content = tab.Value;
+                scrollView.content = kvp.Value;
                 pos.x = _tabClickedXPosition;
-                tab.Value.gameObject.SetActive(true);
-                LayoutRebuilder.ForceRebuildLayoutImmediate(tab.Value);
+                kvp.Value.gameObject.SetActive(true);
+                LayoutRebuilder.ForceRebuildLayoutImmediate(kvp.Value);
             }
             else
             {
                 pos.x = _tabXOffset;
-                tab.Value.gameObject.SetActive(false);
+                kvp.Value.gameObject.SetActive(false);
             }
 
-            tab.Key.SlotsRT.anchoredPosition = pos;
+            kvp.Key.SlotsRT.anchoredPosition = pos;
         }
     }
 
@@ -118,12 +118,12 @@ public class UI_ItemInventoryPopup : UI_Popup
         _tabs.Add(Get<UI_ItemInventoryTab>((int)Tabs.ConsumableTabButton), GetRT((int)RectTransforms.ConsumableSlots));
         _tabs.Add(Get<UI_ItemInventoryTab>((int)Tabs.EtcTabButton), GetRT((int)RectTransforms.EtcSlots));
 
-        foreach (var tab in _tabs)
+        foreach (var kvp in _tabs)
         {
-            tab.Key.GetComponent<Button>().onClick.AddListener(() =>
+            kvp.Key.GetComponent<Button>().onClick.AddListener(() =>
             {
                 SetTop();
-                ShowItemSlots(tab.Key.TabType);
+                ShowItemSlots(kvp.Key.TabType);
             });
         }
     }

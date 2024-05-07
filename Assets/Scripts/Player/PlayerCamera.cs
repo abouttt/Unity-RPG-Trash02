@@ -67,15 +67,15 @@ public class PlayerCamera : BaseMonoBehaviour
     private readonly int _animIDLockOn = Animator.StringToHash("LockOn");
     private readonly float _threshold = 0.01f;
 
+    private GameObject _mainCamera;
     private Animator _stateDrivenCameraAnimator;
     private CinemachineComposer _targetComposer;
     private UI_LockOnTargetImage _lockOnTargetImage;
-    private GameObject _mainCamera;
 
     private void Awake()
     {
-        _stateDrivenCameraAnimator = _stateDrivenCamera.GetComponent<Animator>();
         _mainCamera = Camera.main.gameObject;
+        _stateDrivenCameraAnimator = _stateDrivenCamera.GetComponent<Animator>();
         foreach (CinemachineVirtualCamera child in _stateDrivenCamera.ChildCameras)
         {
             _targetComposer = child.GetCinemachineComponent<CinemachineComposer>();
@@ -143,9 +143,9 @@ public class PlayerCamera : BaseMonoBehaviour
             float currentAngle = Vector3.Angle(_mainCamera.transform.forward, dirToTarget);
             if (currentAngle < _viewAngle * 0.5f)
             {
-                float distToTarget = Vector3.Distance(_mainCamera.transform.position, target.transform.position);
                 if (currentAngle < shortestAngle)
                 {
+                    float distToTarget = Vector3.Distance(_mainCamera.transform.position, target.transform.position);
                     if (!Physics.Raycast(_mainCamera.transform.position, dirToTarget, distToTarget, _obstacleMask))
                     {
                         finalTarget = target.transform;

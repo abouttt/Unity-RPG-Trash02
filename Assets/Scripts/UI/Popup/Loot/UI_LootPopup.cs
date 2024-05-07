@@ -75,7 +75,7 @@ public class UI_LootPopup : UI_Popup
     {
         _fieldItemRef = fieldItem;
 
-        foreach (var kvp in _fieldItemRef.Items)
+        foreach (var kvp in fieldItem.Items)
         {
             if (kvp.Key is CountableItemData countableItemData)
             {

@@ -187,9 +187,9 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
         }
     }
 
-    private void OnDropEquipmentSlot(UI_EquipmentSlot equipmentSlot)
+    private void OnDropEquipmentSlot(UI_EquipmentSlot otherEquipmentSlot)
     {
-        var otherEquipmentData = (equipmentSlot.ObjectRef as EquipmentItem).EquipmentData;
+        var otherEquipmentData = (otherEquipmentSlot.ObjectRef as EquipmentItem).EquipmentData;
 
         if (HasObject)
         {
@@ -204,7 +204,7 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
         }
         else
         {
-            Player.EquipmentInventory.Unequip(equipmentSlot.EquipmentType);
+            Player.EquipmentInventory.Unequip(otherEquipmentSlot.EquipmentType);
         }
 
         Player.ItemInventory.SetItem(otherEquipmentData, Index);

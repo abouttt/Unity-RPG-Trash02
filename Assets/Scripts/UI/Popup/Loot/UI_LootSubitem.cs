@@ -40,8 +40,8 @@ public class UI_LootSubitem : UI_Base
         if (ItemDataRef != itemData)
         {
             ItemDataRef = itemData;
-            GetImage((int)Images.ItemImage).sprite = ItemDataRef.ItemImage;
-            GetText((int)Texts.ItemNameText).text = ItemDataRef.ItemName;
+            GetImage((int)Images.ItemImage).sprite = itemData.ItemImage;
+            GetText((int)Texts.ItemNameText).text = itemData.ItemName;
         }
 
         Count = count;

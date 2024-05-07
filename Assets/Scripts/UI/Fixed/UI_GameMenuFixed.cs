@@ -13,16 +13,6 @@ public class UI_GameMenuFixed : UI_Base
 
         BindButton(typeof(Buttons));
 
-        GetButton((int)Buttons.GameMenuPopupButton).onClick.AddListener(() =>
-        {
-            if (Managers.UI.IsShowed<UI_GameMenuPopup>())
-            {
-                Managers.UI.Close<UI_GameMenuPopup>();
-            }
-            else
-            {
-                Managers.UI.Show<UI_GameMenuPopup>();
-            }
-        });
+        GetButton((int)Buttons.GameMenuPopupButton).onClick.AddListener(Managers.UI.ShowOrClose<UI_GameMenuPopup>);
     }
 }

@@ -39,7 +39,7 @@ public class UI_EquipmentInventoryPopup : UI_Popup
         BindButton(typeof(Buttons));
         Bind<UI_EquipmentSlot>(typeof(EquipmentSlots));
 
-        Player.EquipmentInventory.InventoryChanged += RefreshSlot;
+        Player.EquipmentInventory.InventoryChanged += equipmentType => _equipmentSlots[equipmentType].Refresh();
 
         GetButton((int)Buttons.CloseButton).onClick.AddListener(Managers.UI.Close<UI_EquipmentInventoryPopup>);
 
@@ -50,15 +50,10 @@ public class UI_EquipmentInventoryPopup : UI_Popup
     {
         Managers.UI.Register<UI_EquipmentInventoryPopup>(this);
 
-        for (int i = 0; i < Enum.GetValues(typeof(EquipmentType)).Length; i++)
+        foreach (var kvp in _equipmentSlots)
         {
-            RefreshSlot((EquipmentType)i);
+            kvp.Value.Refresh();
         }
-    }
-
-    private void RefreshSlot(EquipmentType equipmentType)
-    {
-        _equipmentSlots[equipmentType].Refresh();
     }
 
     private void InitSlots()

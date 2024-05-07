@@ -33,7 +33,8 @@ public class UI_ItemTooltip : UI_Base
     private Color _highColor = Color.white;
 
     private UI_BaseSlot _slot;
-    private ItemData _itemData;
+    private Item _itemRef;
+    private ItemData _itemDataRef;
     private RectTransform _rt;
     private readonly StringBuilder _sb = new(50);
 
@@ -72,16 +73,13 @@ public class UI_ItemTooltip : UI_Base
 
         if (_slot.HasObject)
         {
-            if (!GetObject((int)GameObjects.Tooltip).activeSelf)
+            if (_slot.ObjectRef is Item item)
             {
-                if (_slot.ObjectRef is Item item)
-                {
-                    SetItemData(item.Data);
-                }
-                else if (_slot.ObjectRef is ItemData itemData)
-                {
-                    SetItemData(itemData);
-                }
+                SetItemData(item.Data);
+            }
+            else if (_slot.ObjectRef is ItemData itemData)
+            {
+                SetItemData(itemData);
             }
         }
         else
@@ -102,16 +100,16 @@ public class UI_ItemTooltip : UI_Base
     {
         GetObject((int)GameObjects.Tooltip).SetActive(true);
 
-        if (_itemData != null && _itemData.Equals(itemData))
+        if (_itemDataRef != null && _itemDataRef.Equals(itemData))
         {
             return;
         }
 
-        _itemData = itemData;
-        GetText((int)Texts.ItemNameText).text = _itemData.ItemName;
-        SetItemQualityColor(_itemData.ItemQuality);
-        SetType(_itemData.ItemType);
-        SetDescription(_itemData);
+        _itemDataRef = itemData;
+        GetText((int)Texts.ItemNameText).text = itemData.ItemName;
+        SetItemQualityColor(itemData.ItemQuality);
+        SetType(itemData.ItemType);
+        SetDescription(itemData);
         LayoutRebuilder.ForceRebuildLayoutImmediate(_rt);
     }
 

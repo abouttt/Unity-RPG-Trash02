@@ -9,6 +9,7 @@ public class UI_GameMenuPopup : UI_Popup
         EquipmentInventoryButton,
         ResetPopupPositionButton,
         GameOptionButton,
+        MainMenuButton,
         ExitButton,
         CloseButton,
     }
@@ -44,6 +45,11 @@ public class UI_GameMenuPopup : UI_Popup
         {
             Managers.UI.Show<UI_GameOptionPopup>();
             Managers.UI.Close<UI_GameMenuPopup>();
+        });
+
+        GetButton((int)Buttons.MainMenuButton).onClick.AddListener(() =>
+        {
+            Managers.Scene.LoadScene(SceneType.MainMenuScene);
         });
 
         GetButton((int)Buttons.ExitButton).onClick.AddListener(() =>
