@@ -98,6 +98,7 @@ public class UI_ItemSplitPopup : UI_Popup
         {
             int totalPrice = _price * CurrentCount;
             GetText((int)Texts.PriceText).text = totalPrice.ToString();
+            GetText((int)Texts.PriceText).color = (_price * CurrentCount) <= Player.Status.Gold ? Color.white : Color.red;
         }
     }
 

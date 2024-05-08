@@ -395,6 +395,7 @@ MonoBehaviour:
   <IgnoreSelfish>k__BackingField: 1
   <PopupRT>k__BackingField: {fileID: 6661542055661466007}
   <DefaultPosition>k__BackingField: {x: 400, y: 0, z: 0}
+  _itemSellPercentage: 0.5
   _itemInventoryPos: {x: -200, y: 0, z: 0}
 --- !u!1 &6661542055864411066
 GameObject:

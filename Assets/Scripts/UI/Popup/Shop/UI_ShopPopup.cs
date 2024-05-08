@@ -16,6 +16,10 @@ public class UI_ShopPopup : UI_Popup, IDropHandler
     }
 
     [SerializeField]
+    [Range(0f, 1f)]
+    private float _itemSellPercentage;
+
+    [SerializeField]
     private Vector3 _itemInventoryPos;
 
     private Vector3 _prevItemInventoryPos;
@@ -67,12 +71,26 @@ public class UI_ShopPopup : UI_Popup, IDropHandler
     public void BuyItem(UI_ShopSlot slot, int count)
     {
         int price = slot.ItemData.Price * count;
+        if (Player.Status.Gold < price)
+        {
+            return;
+        }
+
+        Player.Status.Gold -= price;
         Player.ItemInventory.AddItem(slot.ItemData, count);
         Managers.UI.Get<UI_ItemInventoryPopup>().ShowItemSlots(slot.ItemData.ItemType);
     }
 
     public void SellItem(ItemType itemType, int index)
     {
+        var item = Player.ItemInventory.GetItem<Item>(itemType, index);
+        int count = 1;
+        if (item is CountableItem countableItem)
+        {
+            count = countableItem.CurrentCount;
+        }
+
+        Player.Status.Gold += Mathf.RoundToInt((item.Data.Price * count) * _itemSellPercentage);
         Player.ItemInventory.RemoveItem(itemType, index);
     }
 

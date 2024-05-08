@@ -69,6 +69,16 @@ public class PlayerMovement : BaseMonoBehaviour
     [SerializeField]
     private LayerMask _groundLayers;
 
+    [Space(10)]
+    [SerializeField]
+    private float _sprintRequiredSP;
+
+    [SerializeField]
+    private float _jumpRequiredSP;
+
+    [SerializeField]
+    private float _rollRequiredSP;
+
     private float _speed;
     private float _animationBlend;
     private float _posXBlend;
@@ -196,6 +206,13 @@ public class PlayerMovement : BaseMonoBehaviour
     private void Move(float deltaTime)
     {
         float targetSpeed = _moveSpeed;
+        float requiredSP = 0f;
+
+        // 질주로 인해 기력을 다 소비한 후 질주가 불가능 할 때 키를 때면 다시 가능하도록.
+        if (!Managers.Input.Sprint && !CanSprint)
+        {
+            CanSprint = true;
+        }
 
         if (_isRollMoving)
         {
@@ -211,8 +228,16 @@ public class PlayerMovement : BaseMonoBehaviour
         }
         else if (Managers.Input.Sprint && CanSprint && !IsJumping && !_isRollMoving)
         {
-            IsSprinting = true;
-            targetSpeed = _sprintSpeed;
+            if (Player.Status.SP > 0f)
+            {
+                IsSprinting = true;
+                targetSpeed = _sprintSpeed;
+                requiredSP = _sprintRequiredSP * deltaTime;
+            }
+            else
+            {
+                CanSprint = false;
+            }
         }
         else
         {
@@ -225,6 +250,7 @@ public class PlayerMovement : BaseMonoBehaviour
         if (!_isRollMoving && (!CanMove || isZeroMoveInput))
         {
             targetSpeed = 0f;
+            requiredSP = 0f;
         }
 
         float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0f, _controller.velocity.z).magnitude;
@@ -297,6 +323,7 @@ public class PlayerMovement : BaseMonoBehaviour
         // 이동
         var targetDirection = Quaternion.Euler(0f, _targetMove, 0f) * Vector3.forward;
         _controller.Move(targetDirection.normalized * (_speed * deltaTime) + new Vector3(0f, _verticalVelocity, 0f) * deltaTime);
+        Player.Status.SP -= requiredSP;
 
         // 애니메이터 업데이트
         bool isLockMoving = isLockOn && isOnlyRun;
@@ -326,17 +353,23 @@ public class PlayerMovement : BaseMonoBehaviour
         }
     }
 
-    private void OnAnimBeginJumpLand()
+    private void OnBeginJump()
+    {
+        Player.Status.SP -= _jumpRequiredSP;
+    }
+
+    private void OnBeginJumpLand()
     {
         _isJumpLand = true;
     }
 
-    private void OnAnimBeginRoll()
+    private void OnBeginRoll()
     {
         _isRollMoving = true;
+        Player.Status.SP -= _rollRequiredSP;
     }
 
-    private void OnAnimEndRoll()
+    private void OnEndRoll()
     {
         IsRolling = false;
     }

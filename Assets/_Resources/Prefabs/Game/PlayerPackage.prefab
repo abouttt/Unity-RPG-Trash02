@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 3750781361987624259}
   - component: {fileID: 3750781361987624256}
   - component: {fileID: 3750781361987624260}
+  - component: {fileID: 420355801704486359}
   - component: {fileID: 3750781361987624258}
   - component: {fileID: 3750781361987624287}
   - component: {fileID: 5979117031782688735}
@@ -321,6 +322,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c41be82d8aab4504aade1b9f6cecdcd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &420355801704486359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3750781361987624264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 136a5196d1c281144a0634b84b201da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerStatTable: {fileID: 11400000, guid: 10f274609afe20344a5768ac8979af10, type: 2}
+  _recoverySPDelay: 1
+  _recoverySPAmount: 80
 --- !u!114 &3750781361987624258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,6 +364,9 @@ MonoBehaviour:
   _groundLayers:
     serializedVersion: 2
     m_Bits: 64
+  _sprintRequiredSP: 15
+  _jumpRequiredSP: 10
+  _rollRequiredSP: 10
 --- !u!114 &3750781361987624287
 MonoBehaviour:
   m_ObjectHideFlags: 0

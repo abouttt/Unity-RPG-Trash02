@@ -30,6 +30,7 @@ public class GameScene : BaseScene
     {
         Managers.Game.IsDefaultSpawn = false;
         Managers.Input.CursorLocked = true;
+        Player.Status.Gold += 10000;
         Managers.UI.Get<UI_TopCanvas>().FadeInitBG();
     }
 }

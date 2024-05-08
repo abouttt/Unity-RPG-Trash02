@@ -53,6 +53,7 @@ public class UI_ItemInventoryPopup : UI_Popup
         Bind<ScrollRect>(typeof(ScrollRects));
         Bind<UI_ItemInventoryTab>(typeof(Tabs));
 
+        Player.Status.GoldChanged += () => GetText((int)Texts.GoldText).text = Player.Status.Gold.ToString();
         Player.ItemInventory.InventoryChanged += (itemType, index) => _slots[itemType][index].Refresh();
 
         GetButton((int)Buttons.CloseButton).onClick.AddListener(Managers.UI.Close<UI_ItemInventoryPopup>);
