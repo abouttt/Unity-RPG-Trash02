@@ -20,6 +20,11 @@ public class NPC : Interactive
         _menus = GetComponents<BaseNPCMenu>();
     }
 
+    private void Start()
+    {
+        InstantiateMinimapIcon("NPCMinimapIcon.sprite", NPCName);
+    }
+
     public override void Interaction()
     {
         Managers.UI.Show<UI_NPCMenuPopup>().SetNPC(this);

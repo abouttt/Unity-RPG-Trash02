@@ -29,6 +29,12 @@ public class Player : BaseMonoBehaviour
         QuickInventory = GetComponent<QuickInventory>();
     }
 
+    private void Start()
+    {
+        var go = Managers.Resource.Instantiate("MinimapIcon.prefab", transform);
+        go.GetComponent<MinimapIcon>().Setup("PlayerMinimapIcon.sprite", "플레이어", 1.2f);
+    }
+
     public static void Init()
     {
         if (GameObject != null)
