@@ -204,7 +204,8 @@ public class PlayerCamera : BaseMonoBehaviour
         var lookAtPos = (LockedTarget.position + transform.position) * 0.5f;
         var dist = Vector3.Distance(LockedTarget.position, transform.position);
         _targetComposer.m_TrackedObjectOffset.y =
-            lerp ? Mathf.Lerp(-lookAtPos.y, 0f, (lookAtPos.magnitude - dist) * 0.15f) : dist < lookAtPos.magnitude ? 0f : -lookAtPos.y;
+            lerp ? Mathf.Lerp(-lookAtPos.y, lookAtPos.y * 0.25f, (lookAtPos.magnitude - dist) * 0.1f)
+            : dist < lookAtPos.magnitude ? lookAtPos.y * 0.25f : -lookAtPos.y;
     }
 
     private float ClampAngle(float lfAngle, float lfMin, float lfMax)
