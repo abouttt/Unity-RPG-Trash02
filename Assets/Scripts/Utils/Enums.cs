@@ -5,6 +5,7 @@ namespace EnumType
         Item,
         Equipment,
         Quick,
+        Shop,
     }
 
     public enum EquipmentType

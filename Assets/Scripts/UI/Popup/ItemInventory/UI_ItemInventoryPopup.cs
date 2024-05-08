@@ -100,6 +100,11 @@ public class UI_ItemInventoryPopup : UI_Popup
         }
     }
 
+    public void SetActiveCloseButton(bool active)
+    {
+        GetButton((int)Buttons.CloseButton).gameObject.SetActive(active);
+    }
+
     private void InitSlots()
     {
         var itemInventory = Player.ItemInventory;

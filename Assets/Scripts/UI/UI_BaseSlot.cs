@@ -57,6 +57,7 @@ public abstract class UI_BaseSlot : UI_Base,
     {
         if ((eventData.button != PointerEventData.InputButton.Left) || !HasObject || !CanDrag)
         {
+            IsPointerDown = false;
             eventData.pointerDrag = null;
             return;
         }

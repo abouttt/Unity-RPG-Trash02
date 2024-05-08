@@ -119,31 +119,38 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
             return;
         }
 
-        var item = ObjectRef as Item;
-
-        switch (ItemType)
+        if (Managers.UI.IsShowed<UI_ShopPopup>())
         {
-            case ItemType.Equipment:
-                var equipmentItem = ObjectRef as EquipmentItem;
-                var otherEquipmentItem = Player.EquipmentInventory.GetItem(equipmentItem.EquipmentData.EquipmentType);
+            Managers.UI.Get<UI_ShopPopup>().SellItem(ItemType, Index);
+        }
+        else
+        {
+            var item = ObjectRef as Item;
 
-                if (otherEquipmentItem != null)
-                {
-                    Player.ItemInventory.SetItem(otherEquipmentItem.Data, Index);
-                }
-                else
-                {
-                    Player.ItemInventory.RemoveItem(equipmentItem.Data.ItemType, Index);
-                }
+            switch (ItemType)
+            {
+                case ItemType.Equipment:
+                    var equipmentItem = ObjectRef as EquipmentItem;
+                    var otherEquipmentItem = Player.EquipmentInventory.GetItem(equipmentItem.EquipmentData.EquipmentType);
 
-                Player.EquipmentInventory.Equip(equipmentItem.EquipmentData);
-                break;
-            default:
-                if (item is IUsable usable)
-                {
-                    usable.Use();
-                }
-                break;
+                    if (otherEquipmentItem != null)
+                    {
+                        Player.ItemInventory.SetItem(otherEquipmentItem.Data, Index);
+                    }
+                    else
+                    {
+                        Player.ItemInventory.RemoveItem(equipmentItem.Data.ItemType, Index);
+                    }
+
+                    Player.EquipmentInventory.Equip(equipmentItem.EquipmentData);
+                    break;
+                default:
+                    if (item is IUsable usable)
+                    {
+                        usable.Use();
+                    }
+                    break;
+            }
         }
     }
 

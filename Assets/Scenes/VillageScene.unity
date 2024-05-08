@@ -60647,6 +60647,7 @@ GameObject:
   - component: {fileID: 95449850849812572}
   - component: {fileID: 1844695131}
   - component: {fileID: 95449850849812573}
+  - component: {fileID: 95449850849812574}
   m_Layer: 0
   m_Name: Feddler
   m_TagString: Untagged
@@ -63164,6 +63165,22 @@ MonoBehaviour:
   _conversationScripts:
   - "\uC5B4\uC11C\uC624\uC138\uC694~"
   - "\uB2E4\uC591\uD55C \uBB3C\uAC74 \uD31D\uB2C8\uB2E4~"
+--- !u!114 &95449850849812574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151067754251177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9527e1f8c3f505e45a237e1092d7fa83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _saleItems:
+  - {fileID: 11400000, guid: 739abf60b47835c4cab3097984ff1f9c, type: 2}
+  - {fileID: 11400000, guid: e987c071cbc6baf42aca6d0dc24c6101, type: 2}
+  - {fileID: 11400000, guid: a274c3c36030c7545843e31f5d5f8975, type: 2}
 --- !u!137 &137170250980413821
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
