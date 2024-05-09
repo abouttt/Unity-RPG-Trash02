@@ -59,7 +59,9 @@ public class ItemInventory : BaseMonoBehaviour
                 if (sameItemIndex != -1)
                 {
                     var otherCountableItem = inventory.Items[sameItemIndex] as CountableItem;
+                    int prevCount = count;
                     count = otherCountableItem.AddCountAndGetExcess(count);
+                    Managers.Quest.ReceiveReport(Category.Item, itemData.ItemID, prevCount - count);
                 }
                 else
                 {
@@ -230,6 +232,7 @@ public class ItemInventory : BaseMonoBehaviour
 
         inventory.Count++;
         _itemIndexes.Add(inventory.Items[index], index);
+        Managers.Quest.ReceiveReport(Category.Item, itemData.ItemID, count);
         InventoryChanged?.Invoke(itemData.ItemType, index);
     }
 
@@ -351,9 +354,15 @@ public class ItemInventory : BaseMonoBehaviour
     {
         var inventory = _inventories[itemType];
         var item = inventory.Items[index];
+        int count = 1;
+        if (item is CountableItem countableItem)
+        {
+            count = countableItem.CurrentCount;
+        }
         inventory.Items[index] = null;
         inventory.Count--;
         item.Destroy();
         _itemIndexes.Remove(item);
+        Managers.Quest.ReceiveReport(Category.Item, item.Data.ItemID, -count);
     }
 }

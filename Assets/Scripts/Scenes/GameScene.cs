@@ -1,4 +1,5 @@
 using UnityEngine;
+using EnumType;
 
 public class GameScene : BaseScene
 {
@@ -30,6 +31,7 @@ public class GameScene : BaseScene
     {
         Managers.Game.IsDefaultSpawn = false;
         Managers.Input.CursorLocked = true;
+        Managers.Quest.ReceiveReport(Category.Scene, SceneID, 1);
         Player.Status.Gold += 10000;
         Managers.UI.Get<UI_TopCanvas>().FadeInitBG();
     }

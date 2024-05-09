@@ -1,4 +1,5 @@
 using UnityEngine;
+using EnumType;
 
 public abstract class ConsumableItem : CountableItem, IUsable
 {
@@ -34,6 +35,7 @@ public abstract class ConsumableItem : CountableItem, IUsable
 
         ConsumableData.Cooldown.OnCooldowned();
         Managers.Cooldown.AddCooldown(ConsumableData.Cooldown);
+        Managers.Quest.ReceiveReport(Category.Item, Data.ItemID, -ConsumableData.RequiredCount);
 
         return true;
     }

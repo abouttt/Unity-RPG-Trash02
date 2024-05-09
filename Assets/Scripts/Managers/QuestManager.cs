@@ -63,6 +63,11 @@ public class QuestManager
 
         foreach (var quest in _activeQuests)
         {
+            if (quest.State == QuestState.Completable && count > 0)
+            {
+                continue;
+            }
+
             var prevState = quest.State;
 
             if (quest.ReceiveReport(category, id, count))

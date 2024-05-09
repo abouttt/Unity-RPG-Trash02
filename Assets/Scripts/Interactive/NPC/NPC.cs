@@ -78,6 +78,7 @@ public class NPC : Interactive
     public override void Interaction()
     {
         Managers.UI.Show<UI_NPCMenuPopup>().SetNPC(this);
+        Managers.Quest.ReceiveReport(Category.NPC, NPCID, 1);
     }
 
     private void CheckQuests()
