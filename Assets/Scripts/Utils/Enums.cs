@@ -22,6 +22,7 @@ namespace EnumType
         Equipment,
         Quick,
         Shop,
+        Reward,
     }
 
     public enum EquipmentType

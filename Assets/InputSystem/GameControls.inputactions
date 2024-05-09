@@ -105,6 +105,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Quest",
+                    "type": "Button",
+                    "id": "6858edc0-9cd1-43e8-8eb6-6ade6ddc8615",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Cancel",
                     "type": "Button",
                     "id": "1de17105-0aaf-474d-9b63-b66a3e233313",
@@ -387,6 +396,17 @@
                     "processors": "",
                     "groups": "Keyboard/Mouse",
                     "action": "Interaction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e6711fcd-ec0e-4693-b1e2-e8e8967516b5",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "Quest",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

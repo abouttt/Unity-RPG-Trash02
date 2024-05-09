@@ -127,6 +127,15 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Quest"",
+                    ""type"": ""Button"",
+                    ""id"": ""6858edc0-9cd1-43e8-8eb6-6ade6ddc8615"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""1de17105-0aaf-474d-9b63-b66a3e233313"",
@@ -411,6 +420,17 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""action"": ""Interaction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6711fcd-ec0e-4693-b1e2-e8e8967516b5"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard/Mouse"",
+                    ""action"": ""Quest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -447,6 +467,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_Player_ItemInventory = m_Player.FindAction("ItemInventory", throwIfNotFound: true);
         m_Player_EquipmentInventory = m_Player.FindAction("EquipmentInventory", throwIfNotFound: true);
         m_Player_Quick = m_Player.FindAction("Quick", throwIfNotFound: true);
+        m_Player_Quest = m_Player.FindAction("Quest", throwIfNotFound: true);
         m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
     }
 
@@ -520,6 +541,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ItemInventory;
     private readonly InputAction m_Player_EquipmentInventory;
     private readonly InputAction m_Player_Quick;
+    private readonly InputAction m_Player_Quest;
     private readonly InputAction m_Player_Cancel;
     public struct PlayerActions
     {
@@ -536,6 +558,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         public InputAction @ItemInventory => m_Wrapper.m_Player_ItemInventory;
         public InputAction @EquipmentInventory => m_Wrapper.m_Player_EquipmentInventory;
         public InputAction @Quick => m_Wrapper.m_Player_Quick;
+        public InputAction @Quest => m_Wrapper.m_Player_Quest;
         public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -579,6 +602,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Quick.started += instance.OnQuick;
             @Quick.performed += instance.OnQuick;
             @Quick.canceled += instance.OnQuick;
+            @Quest.started += instance.OnQuest;
+            @Quest.performed += instance.OnQuest;
+            @Quest.canceled += instance.OnQuest;
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
@@ -619,6 +645,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Quick.started -= instance.OnQuick;
             @Quick.performed -= instance.OnQuick;
             @Quick.canceled -= instance.OnQuick;
+            @Quest.started -= instance.OnQuest;
+            @Quest.performed -= instance.OnQuest;
+            @Quest.canceled -= instance.OnQuest;
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
@@ -661,6 +690,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         void OnItemInventory(InputAction.CallbackContext context);
         void OnEquipmentInventory(InputAction.CallbackContext context);
         void OnQuick(InputAction.CallbackContext context);
+        void OnQuest(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
     }
 }

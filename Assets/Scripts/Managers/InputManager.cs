@@ -131,6 +131,11 @@ public class InputManager : GameControls.IPlayerActions
         }
     }
 
+    public void OnQuest(InputAction.CallbackContext context)
+    {
+        ShowOrClosePopup<UI_QuestPopup>(context);
+    }
+
     public void OnCancel(InputAction.CallbackContext context)
     {
         if (context.performed)
