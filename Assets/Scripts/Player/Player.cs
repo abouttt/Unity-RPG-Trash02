@@ -6,6 +6,7 @@ public class Player : BaseMonoBehaviour
     public static Transform Transform { get; private set; }
     public static Collider Collider { get; private set; }
     public static Animator Animator { get; private set; }
+    public static PlayerRoot Root { get; private set; }
     public static PlayerMovement Movement { get; private set; }
     public static PlayerCamera Camera { get; private set; }
     public static PlayerCombat Combat { get; private set; }
@@ -21,6 +22,7 @@ public class Player : BaseMonoBehaviour
         Transform = transform;
         Collider = GetComponent<Collider>();
         Animator = GetComponent<Animator>();
+        Root = GetComponent<PlayerRoot>();
         Movement = GetComponent<PlayerMovement>();
         Camera = GetComponent<PlayerCamera>();
         Combat = GetComponent<PlayerCombat>();

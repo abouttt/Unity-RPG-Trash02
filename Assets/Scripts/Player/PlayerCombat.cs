@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using EnumType;
 
 public class PlayerCombat : BaseMonoBehaviour
 {
@@ -28,7 +29,20 @@ public class PlayerCombat : BaseMonoBehaviour
 
     private void Awake()
     {
-        Managers.Input.GetAction("Attack").performed += context => _hasReservedAttack = true;
+        Player.EquipmentInventory.InventoryChanged += equipmentType =>
+        {
+            if (equipmentType == EquipmentType.Weapon)
+            {
+                if (Player.EquipmentInventory.IsEquipped(equipmentType))
+                {
+                    Managers.Input.GetAction("Attack").performed += ReserveAttack;
+                }
+                else
+                {
+                    Managers.Input.GetAction("Attack").performed -= ReserveAttack;
+                }
+            }
+        };
     }
 
     private void Start()
@@ -67,6 +81,16 @@ public class PlayerCombat : BaseMonoBehaviour
         IsAttacking = true;
         Player.Movement.CanRotation = true;
         Player.Animator.SetBool(_animIDAttack, true);
+    }
+
+    private void ReserveAttack(InputAction.CallbackContext context)
+    {
+        if (!Managers.Input.CursorLocked || Player.Movement.IsJumping || Player.Movement.IsRolling)
+        {
+            return;
+        }
+
+        _hasReservedAttack = true;
     }
 
     private void OnBeginAttack()

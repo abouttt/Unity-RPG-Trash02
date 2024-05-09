@@ -149,7 +149,6 @@ public class PlayerMovement : BaseMonoBehaviour
     {
         IsRolling = false;
         _isRollMoving = false;
-        Player.Animator.SetBool(_animIDRoll, false);
     }
 
     private void Gravity(float deltaTime)
@@ -339,7 +338,7 @@ public class PlayerMovement : BaseMonoBehaviour
             IsJumping = true;
             _verticalVelocity = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
             _isJumpWithSprint = Managers.Input.Sprint;
-            Player.Animator.SetTrigger(_animIDJump);
+            Player.Animator.SetBool(_animIDJump, true);
         }
     }
 
@@ -356,6 +355,7 @@ public class PlayerMovement : BaseMonoBehaviour
     private void OnBeginJump()
     {
         Player.Status.SP -= _jumpRequiredSP;
+        Player.Animator.SetBool(_animIDJump, false);
     }
 
     private void OnBeginJumpLand()
@@ -367,6 +367,7 @@ public class PlayerMovement : BaseMonoBehaviour
     {
         _isRollMoving = true;
         Player.Status.SP -= _rollRequiredSP;
+        Player.Animator.SetBool(_animIDRoll, false);
     }
 
     private void OnEndRoll()
