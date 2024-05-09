@@ -25,6 +25,7 @@ MonoBehaviour:
     <Description>k__BackingField: "\uD55C\uC190\uAC80"
     <CompleteCount>k__BackingField: 1
     <RemoveAfterCompletion>k__BackingField: 0
+  <PrerequisiteQuests>k__BackingField: []
   RewardGold: 999
   RewardXP: 100
   RewardItems:

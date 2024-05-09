@@ -11,9 +11,6 @@ public class QuestManager
     public event Action<Quest> QuestCompletableCanceled;
     public event Action<Quest> QuestCompleted;
 
-    public IReadOnlyList<Quest> ActiveQuests => _activeQuests;
-    public IReadOnlyList<Quest> CompleteQuests => _completedQuests;
-
     private readonly List<Quest> _activeQuests = new();
     private readonly List<Quest> _completedQuests = new();
 
@@ -109,6 +106,11 @@ public class QuestManager
     public Quest GetActiveQuest(QuestData questData)
     {
         return _activeQuests.Find(quest => quest.Data.Equals(questData));
+    }
+
+    public Quest GetCompleteQuest(QuestData questData)
+    {
+        return _completedQuests.Find(quest => quest.Data.Equals(questData));
     }
 
     public void Clear()

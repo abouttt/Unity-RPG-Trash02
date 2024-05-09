@@ -28,6 +28,9 @@ public class QuestData : ScriptableObject
     [field: SerializeField, Header("Target")]
     public QuestTarget[] Targets { get; private set; }
 
+    [field:SerializeField]
+    public QuestData[] PrerequisiteQuests { get; private set; } 
+
     [Header("Reward")]
     public int RewardGold;
     public int RewardXP;

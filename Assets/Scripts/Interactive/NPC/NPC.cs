@@ -1,6 +1,6 @@
-using EnumType;
 using System.Collections.Generic;
 using UnityEngine;
+using EnumType;
 
 public class NPC : Interactive
 {
@@ -91,6 +91,22 @@ public class NPC : Interactive
         foreach (var questData in _quests)
         {
             if (questData.LimitLevel > Player.Status.Level)
+            {
+                lockedQuestCount++;
+                continue;
+            }
+
+            bool hasPrerequisiteQuests = false;
+            foreach (var prerequisiteQuestData in questData.PrerequisiteQuests)
+            {
+                if (Managers.Quest.GetCompleteQuest(prerequisiteQuestData) == null)
+                {
+                    hasPrerequisiteQuests = true;
+                    break;
+                }
+            }
+
+            if (hasPrerequisiteQuests)
             {
                 lockedQuestCount++;
                 continue;
