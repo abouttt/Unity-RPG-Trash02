@@ -21,14 +21,14 @@ MonoBehaviour:
   <CanRemoteComplete>k__BackingField: 0
   <Targets>k__BackingField:
   - <Category>k__BackingField: 1
-    <TargetID>k__BackingField: EQUIPMENT_SWORD
-    <Description>k__BackingField: "\uD55C\uC190\uAC80"
-    <CompleteCount>k__BackingField: 1
+    <TargetID>k__BackingField: CONSUMABLE_HEAL_POTION
+    <Description>k__BackingField: "\uD790 \uD3EC\uC158"
+    <CompleteCount>k__BackingField: 50
     <RemoveAfterCompletion>k__BackingField: 0
   <PrerequisiteQuests>k__BackingField: []
   RewardGold: 999
   RewardXP: 100
   RewardItems:
     _serializedList:
-    - Key: {fileID: 11400000, guid: a274c3c36030c7545843e31f5d5f8975, type: 2}
-      Value: 10
+    - Key: {fileID: 11400000, guid: e987c071cbc6baf42aca6d0dc24c6101, type: 2}
+      Value: 1

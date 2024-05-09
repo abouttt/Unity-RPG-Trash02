@@ -30,6 +30,20 @@ public class UI_QuestTitleSubitem : UI_Base
         GetButton((int)Buttons.TitleButton).onClick.AddListener(() => Managers.UI.Get<UI_QuestPopup>().SetQuest(QuestRef));
         GetText((int)Texts.CompleteText).gameObject.SetActive(false);
         Get<Toggle>((int)Toggles.QuestTrackerToggle).isOn = false;
+        Get<Toggle>((int)Toggles.QuestTrackerToggle).onValueChanged.AddListener(toggle =>
+        {
+            if (toggle)
+            {
+                if (!Managers.UI.Get<UI_QuestTrackerFixed>().AddTracker(QuestRef))
+                {
+                    Get<Toggle>((int)Toggles.QuestTrackerToggle).isOn = false;
+                }
+            }
+            else
+            {
+                Managers.UI.Get<UI_QuestTrackerFixed>().RemoveTracker(QuestRef);
+            }
+        });
     }
 
     public void SetQuest(Quest quest)

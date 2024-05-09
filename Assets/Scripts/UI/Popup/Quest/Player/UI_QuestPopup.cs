@@ -89,6 +89,14 @@ public class UI_QuestPopup : UI_Popup
         SetReward(quest.Data);
     }
 
+    public void SetActiveQuestTracker(Quest quest, bool active)
+    {
+        if (_titleSubitems.TryGetValue(quest, out var subitem))
+        {
+            subitem.SetActiveQuestTracker(active);
+        }
+    }
+
     private void OnQuestRegisterd(Quest quest)
     {
         var go = Managers.Resource.Instantiate("UI_QuestTitleSubitem.prefab", GetRT((int)RectTransforms.QuestTitleSubitems), true);
