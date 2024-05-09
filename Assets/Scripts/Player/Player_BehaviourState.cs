@@ -11,6 +11,9 @@ public class Player_BehaviourState : StateMachineBehaviour
     public bool Jump;
     public bool Roll;
 
+    [Header("[Battle]")]
+    public bool Attack;
+
     [Range(0f, 1f)]
     public float UnlockTime = 0f;
 
@@ -21,6 +24,8 @@ public class Player_BehaviourState : StateMachineBehaviour
         Player.Movement.CanSprint = Sprint;
         Player.Movement.CanJump = Jump;
         Player.Movement.CanRoll = Roll;
+
+        Player.Combat.CanAttack = Attack;
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -30,6 +35,9 @@ public class Player_BehaviourState : StateMachineBehaviour
             Player.Movement.Enabled = true;
             Player.Movement.ClearJump();
             Player.Movement.ClearRoll();
+
+            Player.Combat.Enabled = true;
+            Player.Combat.Clear();
         }
     }
 }

@@ -8,6 +8,7 @@ public class Player : BaseMonoBehaviour
     public static Animator Animator { get; private set; }
     public static PlayerMovement Movement { get; private set; }
     public static PlayerCamera Camera { get; private set; }
+    public static PlayerCombat Combat { get; private set; }
     public static PlayerStatus Status { get; private set; }
     public static InteractionDetector InteractionDetector { get; private set; }
     public static ItemInventory ItemInventory { get; private set; }
@@ -22,6 +23,7 @@ public class Player : BaseMonoBehaviour
         Animator = GetComponent<Animator>();
         Movement = GetComponent<PlayerMovement>();
         Camera = GetComponent<PlayerCamera>();
+        Combat = GetComponent<PlayerCombat>();
         Status = GetComponent<PlayerStatus>();
         InteractionDetector = GetComponentInChildren<InteractionDetector>();
         ItemInventory = GetComponent<ItemInventory>();

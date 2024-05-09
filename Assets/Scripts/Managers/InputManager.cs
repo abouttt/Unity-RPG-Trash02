@@ -4,13 +4,14 @@ using UnityEngine.InputSystem;
 public class InputManager : GameControls.IPlayerActions
 {
     // Value
-    public Vector2 Move;
-    public Vector2 Look;
+    public Vector2 Move { get; private set; }
+    public Vector2 Look { get; private set; }
 
     // Button
-    public bool Jump;
-    public bool Roll;
-    public bool LockOn;
+    public bool Jump { get; private set; }
+    public bool Roll { get; private set; }
+    public bool LockOn { get; private set; }
+    public bool Attack { get; private set; }
 
     //Pass Through
     public bool Sprint { get; private set; }
@@ -149,6 +150,11 @@ public class InputManager : GameControls.IPlayerActions
                 Managers.UI.Show<UI_GameMenuPopup>();
             }
         }
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        Attack = context.ReadValueAsButton();
     }
 
     private void SetCursorState(bool newState)
