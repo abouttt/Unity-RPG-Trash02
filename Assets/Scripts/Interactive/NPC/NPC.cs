@@ -34,8 +34,9 @@ public class NPC : Interactive
     {
         base.Awake();
 
-        _menus = GetComponents<BaseNPCMenu>();
         s_NPCs.Add(NPCID, this);
+        _quests = QuestDatabase.GetInstance.FindQuestsByOwnerID(NPCID);
+        _menus = GetComponents<BaseNPCMenu>();
         _originCanInteraction = CanInteraction;
     }
 
@@ -151,7 +152,7 @@ public class NPC : Interactive
 
     protected override void OnDestroy()
     {
-        base.OnDestroy();
         s_NPCs.Remove(NPCID);
+        base.OnDestroy();
     }
 }

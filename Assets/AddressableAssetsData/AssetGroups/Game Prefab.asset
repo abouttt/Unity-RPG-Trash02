@@ -37,6 +37,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Game_Prefab
+  - m_GUID: f51848ee8d91b474499b939bb625d568
+    m_Address: QuestPresenceNotifier.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Game_Prefab
+  - m_GUID: 87dfdbad1e0eb274189056a62377bccc
+    m_Address: QuestCompletableNotifier.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Game_Prefab
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7721bc56f3ca3ec4d8829534ba047986, type: 2}
   m_SchemaSet:
