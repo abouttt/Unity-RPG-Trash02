@@ -52433,6 +52433,9 @@ MonoBehaviour:
   <CanInteraction>k__BackingField: 1
   <NPCID>k__BackingField: FEDDLER
   <NPCName>k__BackingField: "\uC7A1\uC0C1\uC778"
+  _quests: []
+  _questNotifierPosition: {x: 0, y: 2.3, z: 0}
+  _questNotifierInteractionPosition: {x: 0, y: 2.7, z: 0}
 --- !u!1001 &1845402674
 PrefabInstance:
   m_ObjectHideFlags: 0

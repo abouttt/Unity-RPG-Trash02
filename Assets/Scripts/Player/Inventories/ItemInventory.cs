@@ -113,6 +113,50 @@ public class ItemInventory : BaseMonoBehaviour
         RemoveItem(_inventories[itemType].Items[index]);
     }
 
+    public void RemoveItem(string id, int count)
+    {
+        var itemType = GetItemTypeByID(id);
+
+        for (int index = 0; index < _inventories[itemType].Capacity; index++)
+        {
+            var item = _inventories[itemType].Items[index];
+
+            if (item == null)
+            {
+                continue;
+            }
+
+            if (!item.Data.ItemID.Equals(id))
+            {
+                continue;
+            }
+
+            if (item is CountableItem countableItem)
+            {
+                if (count > countableItem.CurrentCount)
+                {
+                    count -= countableItem.CurrentCount;
+                }
+                else
+                {
+                    countableItem.SetCount(countableItem.CurrentCount - count);
+                    break;
+                }
+            }
+            else
+            {
+                count--;
+            }
+
+            RemoveItem(itemType, index);
+
+            if (count == 0)
+            {
+                break;
+            }
+        }
+    }
+
     public void MoveItem(ItemType itemType, int fromIndex, int toIndex)
     {
         if (fromIndex == toIndex)
@@ -172,7 +216,7 @@ public class ItemInventory : BaseMonoBehaviour
 
         if (!IsEmpty(itemData.ItemType, index))
         {
-            DestroyItem(itemData.ItemType, index); 
+            DestroyItem(itemData.ItemType, index);
         }
 
         if (itemData is CountableItemData countableItemData)
@@ -202,6 +246,36 @@ public class ItemInventory : BaseMonoBehaviour
         }
 
         return -1;
+    }
+
+    public int GetSameItemCountByID(string id)
+    {
+        var itemType = GetItemTypeByID(id);
+        int count = 0;
+
+        foreach (var item in _inventories[itemType].Items)
+        {
+            if (item == null)
+            {
+                continue;
+            }
+
+            if (!item.Data.ItemID.Equals(id))
+            {
+                continue;
+            }
+
+            if (item is CountableItem countableItem)
+            {
+                count += countableItem.CurrentCount;
+            }
+            else
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     public bool IsEmpty(ItemType itemType, int index)
@@ -260,6 +334,17 @@ public class ItemInventory : BaseMonoBehaviour
     {
         index = _inventories[itemType].Items.FindIndex(item => item == null);
         return index != -1;
+    }
+
+    private ItemType GetItemTypeByID(string id)
+    {
+        return id[..id.IndexOf('_')] switch
+        {
+            "EQUIPMENT" => ItemType.Equipment,
+            "CONSUMABLE" => ItemType.Consumable,
+            "ETC" => ItemType.Etc,
+            _ => throw new NotImplementedException(),
+        };
     }
 
     private void DestroyItem(ItemType itemType, int index)

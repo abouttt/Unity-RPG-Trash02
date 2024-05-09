@@ -1,5 +1,21 @@
 namespace EnumType
 {
+    public enum Category
+    {
+        Scene,
+        Item,
+        Quest,
+        NPC,
+    }
+
+    public enum QuestState
+    {
+        Inactive,
+        Active,
+        Completable,
+        Complete,
+    }
+
     public enum SlotType
     {
         Item,

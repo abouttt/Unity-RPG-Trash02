@@ -6,6 +6,7 @@ public class Managers : Singleton<Managers>
     public static GameManager Game => GetInstance._game;
     public static InputManager Input => GetInstance._input;
     public static PoolManager Pool => GetInstance._pool;
+    public static QuestManager Quest => GetInstance._quest;
     public static ResourceManager Resource => GetInstance._resource;
     public static SceneManagerEx Scene => GetInstance._scene;
     public static SoundManager Sound => GetInstance._sound;
@@ -15,6 +16,7 @@ public class Managers : Singleton<Managers>
     private readonly GameManager _game = new();
     private readonly InputManager _input = new();
     private readonly PoolManager _pool = new();
+    private readonly QuestManager _quest = new();
     private readonly ResourceManager _resource = new();
     private readonly SceneManagerEx _scene = new();
     private readonly SoundManager _sound = new();
@@ -52,6 +54,7 @@ public class Managers : Singleton<Managers>
         Cooldown.Clear();
         Input.Clear();
         Pool.Clear();
+        Quest.Clear();
         Sound.Clear();
         UI.Clear();
 
