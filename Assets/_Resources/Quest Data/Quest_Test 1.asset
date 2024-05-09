@@ -10,22 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de8778ed98a414f4cb85ad9587789355, type: 3}
-  m_Name: Quest_Test
+  m_Name: Quest_Test 1
   m_EditorClassIdentifier: 
-  <QuestID>k__BackingField: TEST
-  <QuestName>k__BackingField: "\uD14C\uC2A4\uD2B8 \uD018\uC2A4\uD2B8"
-  <Description>k__BackingField: "\uD14C\uC2A4\uD2B8 \uD018\uC2A4\uD2B8\uC785\uB2C8\uB2E4."
+  <QuestID>k__BackingField: TEST_2
+  <QuestName>k__BackingField: "\uD14C\uC2A4\uD2B8 \uD018\uC2A4\uD2B82"
+  <Description>k__BackingField: "\uD14C\uC2A4\uD2B8 \uD018\uC2A4\uD2B82\uC785\uB2C8\uB2E4."
   <LimitLevel>k__BackingField: 1
   <OwnerID>k__BackingField: FEDDLER
   <CompleteOwnerID>k__BackingField: FEDDLER
-  <CanRemoteComplete>k__BackingField: 0
+  <CanRemoteComplete>k__BackingField: 1
   <Targets>k__BackingField:
   - <Category>k__BackingField: 1
     <TargetID>k__BackingField: CONSUMABLE_HEAL_POTION
     <Description>k__BackingField: "\uD790 \uD3EC\uC158"
     <CompleteCount>k__BackingField: 50
     <RemoveAfterCompletion>k__BackingField: 1
-  <PrerequisiteQuests>k__BackingField: []
+  <PrerequisiteQuests>k__BackingField:
+  - {fileID: 11400000, guid: 5ae054237b9b7b74aafc741d61b95fcc, type: 2}
   RewardGold: 999
   RewardXP: 100
   RewardItems:

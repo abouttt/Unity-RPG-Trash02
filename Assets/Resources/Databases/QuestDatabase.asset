@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: QuestDatabase
   m_EditorClassIdentifier: 
   _quests:
+  - {fileID: 11400000, guid: 159cd2e71825b004b92f82b1789ad2f0, type: 2}
   - {fileID: 11400000, guid: 5ae054237b9b7b74aafc741d61b95fcc, type: 2}
   _ownerQuests:
     _serializedList:
     - Key: FEDDLER
       Value:
+      - {fileID: 11400000, guid: 159cd2e71825b004b92f82b1789ad2f0, type: 2}
       - {fileID: 11400000, guid: 5ae054237b9b7b74aafc741d61b95fcc, type: 2}

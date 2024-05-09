@@ -71,6 +71,7 @@ public class UI_NPCQuestPopup : UI_Popup
             }
 
             Managers.Quest.Complete(quest);
+            SetNPC(_npcRef);
             ClearWithSelectedSubitem();
         });
 

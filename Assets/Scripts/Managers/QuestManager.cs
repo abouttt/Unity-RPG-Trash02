@@ -21,7 +21,7 @@ public class QuestManager
         NPC.TryRemoveQuestToNPC(questData.OwnerID, questData);
         QuestRegistered?.Invoke(newQuest);
 
-        if (newQuest.CheckCompletable())
+        if (newQuest.State == QuestState.Completable)
         {
             NPC.TryAddQuestToNPC(questData.CompleteOwnerID, questData);
             QuestCompletabled?.Invoke(newQuest);
@@ -39,9 +39,10 @@ public class QuestManager
 
         if (_activeQuests.Remove(quest))
         {
+            var prevState = quest.State;
             quest.Cancel();
 
-            if (quest.State == QuestState.Completable)
+            if (prevState == QuestState.Completable)
             {
                 NPC.TryRemoveQuestToNPC(quest.Data.CompleteOwnerID, quest.Data);
                 QuestCompletableCanceled?.Invoke(quest);
@@ -49,7 +50,6 @@ public class QuestManager
 
             NPC.TryAddQuestToNPC(quest.Data.OwnerID, quest.Data);
             QuestUnregistered?.Invoke(quest);
-
             ReceiveReport(Category.Quest, quest.Data.QuestID, -1);
         }
     }
@@ -63,11 +63,6 @@ public class QuestManager
 
         foreach (var quest in _activeQuests)
         {
-            if (quest.State == QuestState.Completable && count > 0)
-            {
-                continue;
-            }
-
             var prevState = quest.State;
 
             if (quest.ReceiveReport(category, id, count))

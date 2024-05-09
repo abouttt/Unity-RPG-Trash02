@@ -32,6 +32,8 @@ public class Quest
 
             _targets.Add(target, count);
         }
+
+        CheckCompletable();
     }
 
     public bool ReceiveReport(Category category, string id, int count)
@@ -112,12 +114,12 @@ public class Quest
         TargetCountChanged = null;
     }
 
-    public bool CheckCompletable()
+    public void CheckCompletable()
     {
         if (State == QuestState.Inactive ||
             State == QuestState.Complete)
         {
-            return false;
+            return;
         }
 
         foreach (var kvp in _targets)
@@ -125,11 +127,10 @@ public class Quest
             if (kvp.Key.CompleteCount > kvp.Value)
             {
                 State = QuestState.Active;
-                return false;
+                return;
             }
         }
 
         State = QuestState.Completable;
-        return true;
     }
 }

@@ -135,7 +135,7 @@ public class ItemInventory : BaseMonoBehaviour
 
             if (item is CountableItem countableItem)
             {
-                if (count > countableItem.CurrentCount)
+                if (count >= countableItem.CurrentCount)
                 {
                     count -= countableItem.CurrentCount;
                 }
@@ -166,7 +166,7 @@ public class ItemInventory : BaseMonoBehaviour
             return;
         }
 
-        if (!AddAllCountFromTo(itemType, fromIndex, toIndex))
+        if (!AddItemCountFromTo(itemType, fromIndex, toIndex))
         {
             SwapItem(itemType, fromIndex, toIndex);
         }
@@ -203,7 +203,10 @@ public class ItemInventory : BaseMonoBehaviour
         else
         {
             fromItem.SetCount(remainingCount);
-            SetItem(fromItem.CountableData, toIndex, count);
+            inventory.Items[toIndex] = fromItem.CountableData.CreateItem(count);
+            inventory.Count++;
+            _itemIndexes.Add(inventory.Items[toIndex], toIndex);
+            InventoryChanged?.Invoke(itemType, toIndex);
         }
     }
 
@@ -306,7 +309,7 @@ public class ItemInventory : BaseMonoBehaviour
         InventoryChanged?.Invoke(itemType, BIndex);
     }
 
-    private bool AddAllCountFromTo(ItemType itemType, int fromIndex, int toIndex)
+    private bool AddItemCountFromTo(ItemType itemType, int fromIndex, int toIndex)
     {
         var inventory = _inventories[itemType];
 
@@ -326,9 +329,13 @@ public class ItemInventory : BaseMonoBehaviour
             return false;
         }
 
-        toItem.AddCountAndGetExcess(fromItem.CurrentCount);
-        DestroyItem(itemType, fromIndex);
-        InventoryChanged?.Invoke(itemType, fromIndex);
+        int excessCount = toItem.AddCountAndGetExcess(fromItem.CurrentCount);
+        fromItem.SetCount(excessCount);
+        if (fromItem.IsEmpty)
+        {
+            DestroyItem(itemType, fromIndex);
+            InventoryChanged?.Invoke(itemType, fromIndex);
+        }
 
         return true;
     }

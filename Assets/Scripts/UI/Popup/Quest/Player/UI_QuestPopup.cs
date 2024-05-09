@@ -177,11 +177,11 @@ public class UI_QuestPopup : UI_Popup
         }
     }
 
-    private void SetActiveCompleteButton(Quest quest, bool enabled)
+    private void SetActiveCompleteButton(Quest quest, bool active)
     {
         if (quest.Data.CanRemoteComplete)
         {
-            GetButton((int)Buttons.CompleteButton).gameObject.SetActive(enabled);
+            GetButton((int)Buttons.CompleteButton).gameObject.SetActive(active);
         }
     }
 
