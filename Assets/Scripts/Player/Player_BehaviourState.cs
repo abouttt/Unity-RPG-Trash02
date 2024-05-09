@@ -13,6 +13,7 @@ public class Player_BehaviourState : StateMachineBehaviour
 
     [Header("[Battle]")]
     public bool Attack;
+    public bool Defense;
 
     [Range(0f, 1f)]
     public float UnlockTime = 0f;
@@ -26,6 +27,7 @@ public class Player_BehaviourState : StateMachineBehaviour
         Player.Movement.CanRoll = Roll;
 
         Player.Combat.CanAttack = Attack;
+        Player.Combat.CanDefense = Defense;
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

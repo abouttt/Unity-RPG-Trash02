@@ -12,6 +12,7 @@ public class InputManager : GameControls.IPlayerActions
     public bool Roll { get; private set; }
     public bool LockOn { get; private set; }
     public bool Attack { get; private set; }
+    public bool Defense { get; private set; }
 
     //Pass Through
     public bool Sprint { get; private set; }
@@ -155,6 +156,11 @@ public class InputManager : GameControls.IPlayerActions
     public void OnAttack(InputAction.CallbackContext context)
     {
         Attack = context.ReadValueAsButton();
+    }
+
+    public void OnDefense(InputAction.CallbackContext context)
+    {
+        Defense = context.ReadValueAsButton();
     }
 
     private void SetCursorState(bool newState)

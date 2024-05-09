@@ -4,9 +4,11 @@ using EnumType;
 
 public class PlayerCombat : BaseMonoBehaviour
 {
-    public bool CanAttack { get; set; } = true;
+    public bool CanAttack { get; set; }
+    public bool CanDefense { get; set; }
 
     public bool IsAttacking { get; private set; }
+    public bool IsDefending { get; private set; }
 
     public bool Enabled
     {
@@ -15,6 +17,7 @@ public class PlayerCombat : BaseMonoBehaviour
         {
             _enabled = value;
             CanAttack = value;
+            CanDefense = value;
         }
     }
 
@@ -22,25 +25,34 @@ public class PlayerCombat : BaseMonoBehaviour
     private float _attackRequiredSP;
 
     private bool _hasReservedAttack;
+    private bool _hasShield;
     private bool _enabled;
 
     // animation IDs
     private readonly int _animIDAttack = Animator.StringToHash("Attack");
+    private readonly int _animIDDefense = Animator.StringToHash("Defense");
 
     private void Awake()
     {
         Player.EquipmentInventory.InventoryChanged += equipmentType =>
         {
-            if (equipmentType == EquipmentType.Weapon)
+            switch (equipmentType)
             {
-                if (Player.EquipmentInventory.IsEquipped(equipmentType))
-                {
-                    Managers.Input.GetAction("Attack").performed += ReserveAttack;
-                }
-                else
-                {
-                    Managers.Input.GetAction("Attack").performed -= ReserveAttack;
-                }
+                case EquipmentType.Weapon:
+                    if (Player.EquipmentInventory.IsEquipped(equipmentType))
+                    {
+                        Managers.Input.GetAction("Attack").performed += ReserveAttack;
+                    }
+                    else
+                    {
+                        Managers.Input.GetAction("Attack").performed -= ReserveAttack;
+                    }
+                    break;
+                case EquipmentType.Shield:
+                    _hasShield = Player.EquipmentInventory.IsEquipped(equipmentType);
+                    break;
+                default:
+                    break;
             }
         };
     }
@@ -52,16 +64,38 @@ public class PlayerCombat : BaseMonoBehaviour
 
     private void Update()
     {
+        if (!Managers.Input.CursorLocked)
+        {
+            _hasReservedAttack = false;
+            if (IsDefending)
+            {
+                OffDefense();
+            }
+            return;
+        }
+
         if (_hasReservedAttack)
         {
             Attack();
+            return;
+        }
+
+        if (Managers.Input.Defense && CanDefense && _hasShield)
+        {
+            Defense();
+        }
+        else if (IsDefending)
+        {
+            OffDefense();
         }
     }
 
     public void Clear()
     {
         IsAttacking = false;
+        IsDefending = false;
         _hasReservedAttack = false;
+        Player.Animator.SetBool(_animIDDefense, false);
     }
 
     private void Attack()
@@ -78,18 +112,31 @@ public class PlayerCombat : BaseMonoBehaviour
             return;
         }
 
+        if (IsDefending)
+        {
+            OffDefense();
+            CanDefense = false;
+        }
+
         IsAttacking = true;
         Player.Movement.CanRotation = true;
         Player.Animator.SetBool(_animIDAttack, true);
     }
 
+    private void Defense()
+    {
+        IsDefending = true;
+        Player.Animator.SetBool(_animIDDefense, true);
+    }
+
+    private void OffDefense()
+    {
+        IsDefending = false;
+        Player.Animator.SetBool(_animIDDefense, false);
+    }
+
     private void ReserveAttack(InputAction.CallbackContext context)
     {
-        if (!Managers.Input.CursorLocked || Player.Movement.IsJumping || Player.Movement.IsRolling)
-        {
-            return;
-        }
-
         _hasReservedAttack = true;
     }
 
