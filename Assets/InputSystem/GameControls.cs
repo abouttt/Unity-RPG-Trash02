@@ -38,7 +38,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Sprint"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""b4441a05-22a4-45af-be51-5bb8fdad5da6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -148,6 +148,15 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""e775d4fc-eb51-4dd0-89de-1618fc5ca276"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Parry"",
+                    ""type"": ""Button"",
+                    ""id"": ""40d3b4c0-43c0-4793-854f-de085e4eb2f3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -471,6 +480,17 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""action"": ""Defense"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3241a846-cc3d-4799-8265-752db8ab27ed"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard/Mouse"",
+                    ""action"": ""Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -510,6 +530,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_Player_Quest = m_Player.FindAction("Quest", throwIfNotFound: true);
         m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_Parry = m_Player.FindAction("Parry", throwIfNotFound: true);
         m_Player_Defense = m_Player.FindAction("Defense", throwIfNotFound: true);
     }
 
@@ -586,6 +607,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Quest;
     private readonly InputAction m_Player_Cancel;
     private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_Parry;
     private readonly InputAction m_Player_Defense;
     public struct PlayerActions
     {
@@ -605,6 +627,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         public InputAction @Quest => m_Wrapper.m_Player_Quest;
         public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @Parry => m_Wrapper.m_Player_Parry;
         public InputAction @Defense => m_Wrapper.m_Player_Defense;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -657,6 +680,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @Parry.started += instance.OnParry;
+            @Parry.performed += instance.OnParry;
+            @Parry.canceled += instance.OnParry;
             @Defense.started += instance.OnDefense;
             @Defense.performed += instance.OnDefense;
             @Defense.canceled += instance.OnDefense;
@@ -706,6 +732,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @Parry.started -= instance.OnParry;
+            @Parry.performed -= instance.OnParry;
+            @Parry.canceled -= instance.OnParry;
             @Defense.started -= instance.OnDefense;
             @Defense.performed -= instance.OnDefense;
             @Defense.canceled -= instance.OnDefense;
@@ -751,6 +780,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         void OnQuest(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnParry(InputAction.CallbackContext context);
         void OnDefense(InputAction.CallbackContext context);
     }
 }

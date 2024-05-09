@@ -16,7 +16,7 @@
                 },
                 {
                     "name": "Sprint",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "b4441a05-22a4-45af-be51-5bb8fdad5da6",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -126,6 +126,15 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "e775d4fc-eb51-4dd0-89de-1618fc5ca276",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Parry",
+                    "type": "Button",
+                    "id": "40d3b4c0-43c0-4793-854f-de085e4eb2f3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -447,6 +456,17 @@
                     "processors": "",
                     "groups": "Keyboard/Mouse",
                     "action": "Defense",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3241a846-cc3d-4799-8265-752db8ab27ed",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "Parry",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

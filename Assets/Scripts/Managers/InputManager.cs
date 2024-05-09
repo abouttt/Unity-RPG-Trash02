@@ -8,15 +8,14 @@ public class InputManager : GameControls.IPlayerActions
     public Vector2 Look { get; private set; }
 
     // Button
+    public bool Sprint { get; private set; }
     public bool Jump { get; private set; }
     public bool Roll { get; private set; }
     public bool LockOn { get; private set; }
-    public bool Attack { get; private set; }
-    public bool Defense { get; private set; }
-
-    //Pass Through
-    public bool Sprint { get; private set; }
     public bool Interaction { get; private set; }
+    public bool Attack { get; private set; }
+    public bool Parry { get; private set; }
+    public bool Defense { get; private set; }
 
     public bool CursorLocked
     {
@@ -156,6 +155,11 @@ public class InputManager : GameControls.IPlayerActions
     public void OnAttack(InputAction.CallbackContext context)
     {
         Attack = context.ReadValueAsButton();
+    }
+
+    public void OnParry(InputAction.CallbackContext context)
+    {
+        Parry = context.ReadValueAsButton();
     }
 
     public void OnDefense(InputAction.CallbackContext context)

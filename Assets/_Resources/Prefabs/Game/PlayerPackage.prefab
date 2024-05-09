@@ -462,6 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackRequiredSP: 10
+  _parryRequiredSP: 10
 --- !u!114 &5979117031782688735
 MonoBehaviour:
   m_ObjectHideFlags: 0

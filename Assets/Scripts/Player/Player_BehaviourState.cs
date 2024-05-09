@@ -13,13 +13,18 @@ public class Player_BehaviourState : StateMachineBehaviour
 
     [Header("[Battle]")]
     public bool Attack;
+    public bool Parry;
     public bool Defense;
 
     [Range(0f, 1f)]
     public float UnlockTime = 0f;
 
+    private static int s_currentStateCount = 0;
+
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        s_currentStateCount++;
+
         Player.Movement.CanMove = Move;
         Player.Movement.CanRotation = Rotation;
         Player.Movement.CanSprint = Sprint;
@@ -27,12 +32,15 @@ public class Player_BehaviourState : StateMachineBehaviour
         Player.Movement.CanRoll = Roll;
 
         Player.Combat.CanAttack = Attack;
+        Player.Combat.CanParry = Parry;
         Player.Combat.CanDefense = Defense;
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (stateInfo.normalizedTime >= UnlockTime)
+        s_currentStateCount--;
+
+        if (s_currentStateCount == 0 && stateInfo.normalizedTime >= UnlockTime)
         {
             Player.Movement.Enabled = true;
             Player.Movement.ClearJump();

@@ -225,7 +225,8 @@ public class PlayerMovement : BaseMonoBehaviour
         {
             targetSpeed = _sprintSpeed;
         }
-        else if (Managers.Input.Sprint && CanSprint && !IsJumping && !_isRollMoving)
+
+        if (Managers.Input.Sprint && CanSprint && !IsJumping ! && !IsRolling)
         {
             if (Player.Status.SP > 0f)
             {
@@ -333,7 +334,7 @@ public class PlayerMovement : BaseMonoBehaviour
 
     private void Jump(InputAction.CallbackContext context)
     {
-        if (CanJump && _jumpTimeoutDelta <= 0f)
+        if (CanJump && _jumpTimeoutDelta <= 0f && Player.Status.SP > 0f)
         {
             IsJumping = true;
             _verticalVelocity = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
@@ -344,7 +345,7 @@ public class PlayerMovement : BaseMonoBehaviour
 
     private void Roll(InputAction.CallbackContext context)
     {
-        if (CanRoll)
+        if (CanRoll && Player.Status.SP > 0f)
         {
             IsRolling = true;
             CanRotation = true;
@@ -373,6 +374,8 @@ public class PlayerMovement : BaseMonoBehaviour
     private void OnEndRoll()
     {
         IsRolling = false;
+        CanRotation = true;
+        CanSprint = true;
     }
 
     private void OnDrawGizmosSelected()

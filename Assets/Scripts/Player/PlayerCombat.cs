@@ -5,9 +5,11 @@ using EnumType;
 public class PlayerCombat : BaseMonoBehaviour
 {
     public bool CanAttack { get; set; }
+    public bool CanParry { get; set; }
     public bool CanDefense { get; set; }
 
     public bool IsAttacking { get; private set; }
+    public bool IsParrying { get; private set; }
     public bool IsDefending { get; private set; }
 
     public bool Enabled
@@ -17,6 +19,7 @@ public class PlayerCombat : BaseMonoBehaviour
         {
             _enabled = value;
             CanAttack = value;
+            CanParry = value;
             CanDefense = value;
         }
     }
@@ -24,12 +27,17 @@ public class PlayerCombat : BaseMonoBehaviour
     [SerializeField]
     private float _attackRequiredSP;
 
+    [SerializeField]
+    private float _parryRequiredSP;
+
     private bool _hasReservedAttack;
+    private bool _isParryable;
     private bool _hasShield;
     private bool _enabled;
 
     // animation IDs
     private readonly int _animIDAttack = Animator.StringToHash("Attack");
+    private readonly int _animIDParry = Animator.StringToHash("Parry");
     private readonly int _animIDDefense = Animator.StringToHash("Defense");
 
     private void Awake()
@@ -50,6 +58,14 @@ public class PlayerCombat : BaseMonoBehaviour
                     break;
                 case EquipmentType.Shield:
                     _hasShield = Player.EquipmentInventory.IsEquipped(equipmentType);
+                    if (_hasShield)
+                    {
+                        Managers.Input.GetAction("Parry").performed += Parry;
+                    }
+                    else
+                    {
+                        Managers.Input.GetAction("Parry").performed -= Parry;
+                    }
                     break;
                 default:
                     break;
@@ -93,6 +109,7 @@ public class PlayerCombat : BaseMonoBehaviour
     public void Clear()
     {
         IsAttacking = false;
+        IsParrying = false;
         IsDefending = false;
         _hasReservedAttack = false;
         Player.Animator.SetBool(_animIDDefense, false);
@@ -123,6 +140,29 @@ public class PlayerCombat : BaseMonoBehaviour
         Player.Animator.SetBool(_animIDAttack, true);
     }
 
+    private void Parry(InputAction.CallbackContext context)
+    {
+        if (!CanParry)
+        {
+            return;
+        }
+
+        if (Player.Status.SP <= 0f)
+        {
+            return;
+        }
+
+        if (IsDefending)
+        {
+            OffDefense();
+            CanDefense = false;
+        }
+
+        IsParrying = true;
+        Player.Movement.CanRotation = true;
+        Player.Animator.SetBool(_animIDParry, true);
+    }
+
     private void Defense()
     {
         IsDefending = true;
@@ -149,11 +189,28 @@ public class PlayerCombat : BaseMonoBehaviour
     private void OnCanAttackCombo()
     {
         CanAttack = true;
-        OnCanRoll();
+        OnCanParryAndRoll();
     }
 
-    private void OnCanRoll()
+    private void OnBeginParry()
     {
+        Player.Status.SP -= _parryRequiredSP;
+        Player.Animator.SetBool(_animIDParry, false);
+    }
+
+    private void OnEnableParry()
+    {
+        _isParryable = true;
+    }
+
+    private void OnDisableParry()
+    {
+        _isParryable = false;
+    }
+
+    private void OnCanParryAndRoll()
+    {
+        CanParry = true;
         Player.Movement.CanRoll = true;
     }
 }
