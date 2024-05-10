@@ -33,7 +33,6 @@ public class UI_ItemTooltip : UI_Base
     private Color _highColor = Color.white;
 
     private UI_BaseSlot _slot;
-    private Item _itemRef;
     private ItemData _itemDataRef;
     private RectTransform _rt;
     private readonly StringBuilder _sb = new(50);

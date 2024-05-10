@@ -7,8 +7,8 @@ public abstract class Skill
 {
     public event Action SkillChanged;
     public SkillData Data { get; private set; }
-    public bool IsUnlocked { get; private set; }
     public bool IsAcquirable { get; private set; }
+    public bool IsUnlocked { get; private set; }
     public int CurrentLevel { get; private set; }
     public IReadOnlyList<Skill> Parents => _parents;
     public IReadOnlyDictionary<Skill, int> Children => _children;
@@ -20,6 +20,7 @@ public abstract class Skill
     {
         Data = data;
         CurrentLevel = level;
+        RefreshStatDescription();
     }
 
     protected abstract void RefreshStatDescription();
@@ -97,14 +98,20 @@ public abstract class Skill
         }
 
         var prevAcquirable = IsAcquirable;
+        var prevUnlocked = IsUnlocked;
 
         CurrentLevel = 0;
         IsAcquirable = false;
         IsUnlocked = false;
 
-        if (prevAcquirable == true)
+        if (prevAcquirable)
         {
             SkillChanged?.Invoke();
+        }
+
+        if (prevUnlocked)
+        {
+            RefreshStatDescription();
         }
 
         return skillPoint;

@@ -112,11 +112,12 @@ public class UI_SkillSlot : UI_BaseSlot
             return;
         }
 
+        Managers.UI.Get<UI_TooltipTop>().SkillTooltip.SetSlot(this);
     }
 
     public override void OnPointerExit(PointerEventData eventData)
     {
-
+        Managers.UI.Get<UI_TooltipTop>().SkillTooltip.SetSlot(null);
     }
 
     public override void OnPointerDown(PointerEventData eventData)
