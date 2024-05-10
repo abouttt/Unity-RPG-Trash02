@@ -96,6 +96,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "SkillTree",
+                    "type": "Button",
+                    "id": "dce8a4de-c547-4653-8aee-4c139a90393a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Quick",
                     "type": "Button",
                     "id": "2115cf45-8a5f-4f3b-86e2-6513565ee4ef",
@@ -467,6 +476,17 @@
                     "processors": "",
                     "groups": "Keyboard/Mouse",
                     "action": "Parry",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d4c069a7-4913-48fe-a0a3-b4e311ae09d7",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "SkillTree",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -27,6 +27,7 @@ namespace EnumType
     {
         Item,
         Equipment,
+        Skill,
         Quick,
         Shop,
         Reward,

@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <UIType>k__BackingField: 0
-  <SlotType>k__BackingField: 4
+  <SlotType>k__BackingField: 5
   CanDrag: 1
 --- !u!1 &1005620236438967616
 GameObject:

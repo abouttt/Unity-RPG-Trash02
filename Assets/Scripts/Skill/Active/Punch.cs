@@ -13,7 +13,7 @@ public class Punch : ActiveSkill
             return false;
         }
 
-        Debug.Log("Kick Punch");
+        Debug.Log("Punch Skill");
         return true;
     }
 

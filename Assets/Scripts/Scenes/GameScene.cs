@@ -33,6 +33,7 @@ public class GameScene : BaseScene
         Managers.Input.CursorLocked = true;
         Managers.Quest.ReceiveReport(Category.Scene, SceneID, 1);
         Player.Status.Gold += 10000;
+        Player.Status.SkillPoint += 5;
         Managers.UI.Get<UI_TopCanvas>().FadeInitBG();
     }
 }

@@ -14,32 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SkillID>k__BackingField: BODY_STRENGTHENING
   <SkillName>k__BackingField: "\uC2E0\uCCB4\uAC15\uD654"
-  <SkillImage>k__BackingField: {fileID: 0}
+  <SkillImage>k__BackingField: {fileID: 21300000, guid: 3317e2a1c825f7a43a6cddd0c6db125f, type: 3}
   <SkillType>k__BackingField: 1
   <Description>k__BackingField: "\uC2E0\uCCB4\uB97C \uAC15\uD654"
-  <StatDescription>k__BackingField: 
+  <StatDescription>k__BackingField: "\uD604\uC7AC \uB808\uBCA8 : \uCCB4\uB825, \uACF5\uACA9\uB825,
+    \uBC29\uC5B4\uB825 3% \uC99D\uAC00\r\n\uB2E4\uC74C \uB808\uBCA8 : \uCCB4\uB825,
+    \uACF5\uACA9\uB825, \uBC29\uC5B4\uB825 7% \uC99D\uAC00\r\n"
   <MaxLevel>k__BackingField: 3
   <LimitLevel>k__BackingField: 1
   <RequiredSkillPoint>k__BackingField: 1
   <PerStats>k__BackingField:
-  - HP: 3
+  - HP: 5
     MP: 0
     SP: 0
     XP: 0
-    Damage: 3
-    Defense: 3
-  - HP: 7
-    MP: 0
-    SP: 0
-    XP: 0
-    Damage: 7
-    Defense: 7
+    Damage: 5
+    Defense: 5
   - HP: 10
     MP: 0
     SP: 0
     XP: 0
     Damage: 10
     Defense: 10
+  - HP: 15
+    MP: 0
+    SP: 0
+    XP: 0
+    Damage: 15
+    Defense: 15
   <FixedStats>k__BackingField: []
   <Root>k__BackingField: 1
   <Children>k__BackingField:

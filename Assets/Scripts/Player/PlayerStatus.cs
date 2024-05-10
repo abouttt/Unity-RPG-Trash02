@@ -178,12 +178,12 @@ public class PlayerStatus : BaseMonoBehaviour
     private void RefreshAllStat()
     {
         int level = (IsMaxLevel ? _playerStatTable.StatTable.Count : Level) - 1;
-        _maxStat.HP = _playerStatTable.StatTable[level].HP + ExtraFixedStat.HP;
-        _maxStat.MP = _playerStatTable.StatTable[level].MP + ExtraFixedStat.MP;
-        _maxStat.SP = _playerStatTable.StatTable[level].SP + ExtraFixedStat.SP;
+        _maxStat.HP = _playerStatTable.StatTable[level].HP + _extraFixedStat.HP;
+        _maxStat.MP = _playerStatTable.StatTable[level].MP + _extraFixedStat.MP;
+        _maxStat.SP = _playerStatTable.StatTable[level].SP + _extraFixedStat.SP;
         _maxStat.XP = _playerStatTable.StatTable[level].XP;
-        _maxStat.Damage = _playerStatTable.StatTable[level].Damage + ExtraFixedStat.Damage;
-        _maxStat.Defense = _playerStatTable.StatTable[level].Defense + ExtraFixedStat.Defense;
+        _maxStat.Damage = _playerStatTable.StatTable[level].Damage + _extraFixedStat.Damage;
+        _maxStat.Defense = _playerStatTable.StatTable[level].Defense + _extraFixedStat.Defense;
 
         var types = Enum.GetValues(typeof(EquipmentType));
         foreach (EquipmentType equipmentType in types)
@@ -201,11 +201,11 @@ public class PlayerStatus : BaseMonoBehaviour
             _maxStat.Defense += equipment.EquipmentData.Defense;
         }
 
-        _maxStat.HP = Util.CalcIncreasePer(_maxStat.HP, ExtraPerStat.HP);
-        _maxStat.MP = Util.CalcIncreasePer(_maxStat.MP, ExtraPerStat.MP);
-        _maxStat.SP = Util.CalcIncreasePer((int)_maxStat.SP, (int)ExtraPerStat.SP);
-        _maxStat.Damage = Util.CalcIncreasePer(_maxStat.Damage, ExtraPerStat.Damage);
-        _maxStat.Defense = Util.CalcIncreasePer(_maxStat.Defense, ExtraPerStat.Defense);
+        _maxStat.HP = Util.CalcIncreasePer(_maxStat.HP, _extraPerStat.HP);
+        _maxStat.MP = Util.CalcIncreasePer(_maxStat.MP, _extraPerStat.MP);
+        _maxStat.SP = Util.CalcIncreasePer((int)_maxStat.SP, (int)_extraPerStat.SP);
+        _maxStat.Damage = Util.CalcIncreasePer(_maxStat.Damage, _extraPerStat.Damage);
+        _maxStat.Defense = Util.CalcIncreasePer(_maxStat.Defense, _extraPerStat.Defense);
 
         FillMeleeStat();
     }

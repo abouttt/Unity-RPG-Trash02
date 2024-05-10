@@ -27,6 +27,16 @@ public class SkillTree : BaseMonoBehaviour
         }
     }
 
+    public Skill GetSkillByData(SkillData skillData)
+    {
+        if (_skills.TryGetValue(skillData, out var skill))
+        {
+            return skill;
+        }
+
+        return null;
+    }
+
     public void ResetAllSkill()
     {
         int totalSkillPoint = 0;

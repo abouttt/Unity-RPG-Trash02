@@ -58,7 +58,7 @@ public abstract class Skill
         }
     }
 
-    public void LevelUp()
+    public virtual void LevelUp()
     {
         if (CurrentLevel == Data.MaxLevel)
         {
@@ -82,24 +82,30 @@ public abstract class Skill
         SkillChanged?.Invoke();
     }
 
-    public int ResetSkill()
+    public virtual int ResetSkill()
     {
         int skillPoint = CurrentLevel;
 
         if (IsUnlocked)
         {
-            foreach (var element in _children)
+            foreach (var kvp in _children)
             {
-                skillPoint += element.Key.ResetSkill();
+                skillPoint += kvp.Key.ResetSkill();
             }
 
             Managers.Quest.ReceiveReport(Category.Skill, Data.SkillID, -CurrentLevel);
-            SkillChanged?.Invoke();
         }
 
+        var prevAcquirable = IsAcquirable;
+
         CurrentLevel = 0;
-        IsUnlocked = false;
         IsAcquirable = false;
+        IsUnlocked = false;
+
+        if (prevAcquirable == true)
+        {
+            SkillChanged?.Invoke();
+        }
 
         return skillPoint;
     }
