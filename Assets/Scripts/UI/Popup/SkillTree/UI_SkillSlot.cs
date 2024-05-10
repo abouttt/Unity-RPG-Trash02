@@ -45,7 +45,12 @@ public class UI_SkillSlot : UI_BaseSlot
 
         GetImage((int)Imagess.LevelUpDisabledImage).gameObject.SetActive(false);
         GetButton((int)Buttons.LevelUpButton).gameObject.SetActive(false);
-        GetButton((int)Buttons.LevelUpButton).onClick.AddListener(SkillRef.LevelUp);
+        GetButton((int)Buttons.LevelUpButton).onClick.AddListener(() =>
+        {
+            SkillRef.LevelUp();
+            Managers.UI.Get<UI_SkillTreePopup>().SetTop();
+        });
+
 
         if (SkillData is ICooldownable cooldownable)
         {

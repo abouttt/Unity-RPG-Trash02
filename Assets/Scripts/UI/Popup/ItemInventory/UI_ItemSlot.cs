@@ -102,6 +102,12 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
         }
     }
 
+    public override void OnPointerDown(PointerEventData eventData)
+    {
+        base.OnPointerDown(eventData);
+        Managers.UI.Get<UI_ItemInventoryPopup>().SetTop();
+    }
+
     public override void OnPointerEnter(PointerEventData eventData)
     {
         Managers.UI.Get<UI_TooltipTop>().ItemTooltip.SetSlot(this);
