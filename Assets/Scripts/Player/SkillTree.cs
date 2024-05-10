@@ -1,0 +1,63 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SkillTree : BaseMonoBehaviour
+{
+    [SerializeField]
+    private SkillData[] _skillDatas;
+    private readonly Dictionary<SkillData, Skill> _skills = new();
+    private readonly List<Skill> _rootSkills = new();
+
+    private void Awake()
+    {
+        Player.Status.SkillPointChanged += CheckRootSkills;
+        Init();
+    }
+
+    private void Start()
+    {
+        CheckRootSkills();
+    }
+
+    public void CheckRootSkills()
+    {
+        foreach (var skill in _rootSkills)
+        {
+            skill.CheckState();
+        }
+    }
+
+    public void ResetAllSkill()
+    {
+        int totalSkillPoint = 0;
+        foreach (var skill in _rootSkills)
+        {
+            totalSkillPoint += skill.ResetSkill();
+        }
+
+        Player.Status.SkillPoint += totalSkillPoint;
+    }
+
+    private void Init()
+    {
+        // 스킬 생성 및 루트 스킬 설정
+        foreach (var skillData in _skillDatas)
+        {
+            var skill = skillData.CreateSkill();
+            _skills.Add(skillData, skill);
+            if (skillData.Root)
+            {
+                _rootSkills.Add(skill);
+            }
+        }
+
+        // 자식 스킬 설정
+        foreach (var skillData in _skillDatas)
+        {
+            foreach (var kvp in skillData.Children)
+            {
+                _skills[skillData].AddChild(_skills[kvp.Key], kvp.Value);
+            }
+        }
+    }
+}

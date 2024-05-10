@@ -11,6 +11,7 @@ public class PlayerStatus : BaseMonoBehaviour
     public event Action XPChanged;
     public event Action StatChanged;
     public event Action GoldChanged;
+    public event Action SkillPointChanged;
 
     public int Level { get; private set; } = 1;
 
@@ -113,6 +114,16 @@ public class PlayerStatus : BaseMonoBehaviour
         }
     }
 
+    public int SkillPoint
+    {
+        get => _skillPoint;
+        set
+        {
+            _skillPoint = value;
+            SkillPointChanged?.Invoke();
+        }
+    }
+
     public bool IsMaxLevel => Level >= _playerStatTable.StatTable.Count;
     public int MaxHP => _maxStat.HP;
     public int MaxMP => _maxStat.MP;
@@ -136,6 +147,7 @@ public class PlayerStatus : BaseMonoBehaviour
     private PlayerStat _extraPerStat = new();
 
     private int _gold;
+    private int _skillPoint;
     private float _recoverySPDeltaTime; // SP 회복 현재 딜레이 시간
 
     private void Awake()

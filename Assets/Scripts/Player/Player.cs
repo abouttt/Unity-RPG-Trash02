@@ -15,6 +15,7 @@ public class Player : BaseMonoBehaviour
     public static ItemInventory ItemInventory { get; private set; }
     public static EquipmentInventory EquipmentInventory { get; private set; }
     public static QuickInventory QuickInventory { get; private set; }
+    public static SkillTree SkillTree { get; private set; }
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class Player : BaseMonoBehaviour
         ItemInventory = GetComponent<ItemInventory>();
         EquipmentInventory = GetComponent<EquipmentInventory>();
         QuickInventory = GetComponent<QuickInventory>();
+        SkillTree = GetComponent<SkillTree>();
     }
 
     private void Start()

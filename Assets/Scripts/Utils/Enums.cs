@@ -4,6 +4,7 @@ namespace EnumType
     {
         Scene,
         Item,
+        Skill,
         Quest,
         NPC,
     }
@@ -14,6 +15,12 @@ namespace EnumType
         Active,
         Completable,
         Complete,
+    }
+
+    public enum SkillType
+    {
+        Active,
+        Passive,
     }
 
     public enum SlotType
