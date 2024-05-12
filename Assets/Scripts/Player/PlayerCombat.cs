@@ -42,40 +42,14 @@ public class PlayerCombat : BaseMonoBehaviour
 
     private void Awake()
     {
-        Player.EquipmentInventory.InventoryChanged += equipmentType =>
-        {
-            switch (equipmentType)
-            {
-                case EquipmentType.Weapon:
-                    if (Player.EquipmentInventory.IsEquipped(equipmentType))
-                    {
-                        Managers.Input.GetAction("Attack").performed += ReserveAttack;
-                    }
-                    else
-                    {
-                        Managers.Input.GetAction("Attack").performed -= ReserveAttack;
-                    }
-                    break;
-                case EquipmentType.Shield:
-                    _hasShield = Player.EquipmentInventory.IsEquipped(equipmentType);
-                    if (_hasShield)
-                    {
-                        Managers.Input.GetAction("Parry").performed += Parry;
-                    }
-                    else
-                    {
-                        Managers.Input.GetAction("Parry").performed -= Parry;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        };
+        Player.EquipmentInventory.InventoryChanged += Refresh;
     }
 
     private void Start()
     {
         Enabled = true;
+        Refresh(EquipmentType.Weapon);
+        Refresh(EquipmentType.Shield);
     }
 
     private void Update()
@@ -212,5 +186,35 @@ public class PlayerCombat : BaseMonoBehaviour
     {
         CanParry = true;
         Player.Movement.CanRoll = true;
+    }
+
+    private void Refresh(EquipmentType equipmentType)
+    {
+        switch (equipmentType)
+        {
+            case EquipmentType.Weapon:
+                if (Player.EquipmentInventory.IsEquipped(equipmentType))
+                {
+                    Managers.Input.GetAction("Attack").performed += ReserveAttack;
+                }
+                else
+                {
+                    Managers.Input.GetAction("Attack").performed -= ReserveAttack;
+                }
+                break;
+            case EquipmentType.Shield:
+                _hasShield = Player.EquipmentInventory.IsEquipped(equipmentType);
+                if (_hasShield)
+                {
+                    Managers.Input.GetAction("Parry").performed += Parry;
+                }
+                else
+                {
+                    Managers.Input.GetAction("Parry").performed -= Parry;
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

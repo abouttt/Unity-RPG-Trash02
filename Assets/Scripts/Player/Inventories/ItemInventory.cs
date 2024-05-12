@@ -414,7 +414,7 @@ public class ItemInventory : BaseMonoBehaviour, ISavable
 
     private void Load()
     {
-        if (!Managers.Data.Load<JArray>("SaveItemInventory", out var saveData))
+        if (!Managers.Data.Load<JArray>(SaveKey, out var saveData))
         {
             return;
         }

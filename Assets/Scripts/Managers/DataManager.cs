@@ -36,6 +36,7 @@ public class DataManager
             var saveData = new JObject()
             {
                 { ItemInventory.SaveKey, Player.ItemInventory.GetSaveData() },
+                { EquipmentInventory.SaveKey, Player.EquipmentInventory.GetSaveData() },
             };
 
             SaveToFile(SaveFilePath, saveData.ToString());
