@@ -35,6 +35,7 @@ public class GameScene : BaseScene
     {
         Managers.Game.IsDefaultSpawn = false;
         Managers.Input.CursorLocked = true;
+        Managers.Quest.Load();
         Managers.Quest.ReceiveReport(Category.Scene, SceneID, 1);
         if (!Managers.Data.HasSaveData)
         {

@@ -61,6 +61,19 @@ public class UI_QuestPopup : UI_Popup
     private void Start()
     {
         Managers.UI.Register<UI_QuestPopup>(this);
+
+        foreach (var quest in Managers.Quest.ActiveQuests)
+        {
+            OnQuestRegisterd(quest);
+            if (quest.State == QuestState.Completable)
+            {
+                if (_titleSubitems.TryGetValue(quest, out var subitem))
+                {
+                    subitem.SetActiveCompleteText(true);
+                    SetActiveCompleteButton(quest, _selectedQuestRef == quest);
+                }
+            }
+        }
     }
 
     public void SetQuest(Quest quest)

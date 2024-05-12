@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using EnumType;
+using Structs;
 
 public class Quest
 {
@@ -31,6 +32,27 @@ public class Quest
             }
 
             _targets.Add(target, count);
+        }
+
+        CheckCompletable();
+    }
+
+    public Quest(QuestSaveData saveData)
+    {
+        Data = QuestDatabase.GetInstance.FindQuestByID(saveData.QuestID);
+        State = saveData.State;
+
+        foreach (var target in Data.Targets)
+        {
+            foreach (var kvp in saveData.Targets)
+            {
+                if (target.TargetID.Equals(kvp.Key))
+                {
+                    _targets.Add(target, kvp.Value);
+                    saveData.Targets.Remove(kvp.Key);
+                    break;
+                }
+            }
         }
 
         CheckCompletable();

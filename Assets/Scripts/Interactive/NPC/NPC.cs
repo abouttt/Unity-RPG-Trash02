@@ -43,11 +43,7 @@ public class NPC : Interactive
     private void Start()
     {
         InstantiateMinimapIcon("NPCMinimapIcon.sprite", NPCName);
-
-        var pos = transform.position + _questNotifierPosition;
-        _questPresenceNotifier = Managers.Resource.Instantiate("QuestPresenceNotifier.prefab", pos, transform);
-        _questCompletableNotifier = Managers.Resource.Instantiate("QuestCompletableNotifier.prefab", pos, transform);
-
+        InstantiateQuestNotifier();
         CheckQuests();
     }
 
@@ -83,6 +79,8 @@ public class NPC : Interactive
 
     private void CheckQuests()
     {
+        InstantiateQuestNotifier();
+
         _questPresenceNotifier.SetActive(false);
         _questCompletableNotifier.SetActive(false);
 
@@ -139,6 +137,16 @@ public class NPC : Interactive
         else if (CanInteraction && !_originCanInteraction)
         {
             CanInteraction = false;
+        }
+    }
+
+    private void InstantiateQuestNotifier()
+    {
+        if (_questPresenceNotifier == null && _questCompletableNotifier == null)
+        {
+            var pos = transform.position + _questNotifierPosition;
+            _questPresenceNotifier = Managers.Resource.Instantiate("QuestPresenceNotifier.prefab", pos, transform);
+            _questCompletableNotifier = Managers.Resource.Instantiate("QuestCompletableNotifier.prefab", pos, transform);
         }
     }
 

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using EnumType;
 
 namespace Structs
 {
@@ -18,6 +20,17 @@ namespace Structs
         }
 
         public Vector3 ToVector3() => new Vector3(X, Y, Z);
+    }
+
+    [Serializable]
+    public struct StatusSaveData
+    {
+        public int Level;
+        public int CurrentHP;
+        public int CurrentMP;
+        public int CurrentXP;
+        public int Gold;
+        public int SkillPoint;
     }
 
     [Serializable]
@@ -44,13 +57,10 @@ namespace Structs
     }
 
     [Serializable]
-    public struct StatusSaveData
+    public struct QuestSaveData
     {
-        public int Level;
-        public int CurrentHP;
-        public int CurrentMP;
-        public int CurrentXP;
-        public int Gold;
-        public int SkillPoint;
+        public string QuestID;
+        public QuestState State;
+        public Dictionary<string, int> Targets;
     }
 }
