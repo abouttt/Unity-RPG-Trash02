@@ -20,7 +20,8 @@ public class UI_MainMenuFixed : UI_Base
 
         GetButton((int)Buttons.ContinueButton).onClick.AddListener(() =>
         {
-
+            Managers.Game.IsDefaultSpawn = false;
+            Managers.Scene.LoadScene(Managers.Scene.SaveScene);
         });
 
         GetButton((int)Buttons.NewGameButton).onClick.AddListener(() =>
@@ -29,9 +30,9 @@ public class UI_MainMenuFixed : UI_Base
             Managers.Scene.LoadScene(SceneType.VillageScene);
         });
 
-        GetButton((int)Buttons.OptionButton).onClick.AddListener(() => EnabledOptionMenu(true));
+        GetButton((int)Buttons.OptionButton).onClick.AddListener(() => SetActiveOptionMenu(true));
 
-        GetButton((int)Buttons.BackButton).onClick.AddListener(() => EnabledOptionMenu(false));
+        GetButton((int)Buttons.BackButton).onClick.AddListener(() => SetActiveOptionMenu(false));
 
         GetButton((int)Buttons.ExitButton).onClick.AddListener(() =>
         {
@@ -46,10 +47,10 @@ public class UI_MainMenuFixed : UI_Base
 
     private void Start()
     {
-        EnabledOptionMenu(false);
+        SetActiveOptionMenu(false);
     }
 
-    private void EnabledOptionMenu(bool enabled)
+    private void SetActiveOptionMenu(bool active)
     {
         if (enabled)
         {
@@ -60,10 +61,10 @@ public class UI_MainMenuFixed : UI_Base
             Managers.UI.Close<UI_GameOptionPopup>();
         }
 
-        GetButton((int)Buttons.ContinueButton).gameObject.SetActive(false);
-        GetButton((int)Buttons.NewGameButton).gameObject.SetActive(!enabled);
-        GetButton((int)Buttons.OptionButton).gameObject.SetActive(!enabled);
-        GetButton((int)Buttons.BackButton).gameObject.SetActive(enabled);
-        GetButton((int)Buttons.ExitButton).gameObject.SetActive(!enabled);
+        GetButton((int)Buttons.ContinueButton).gameObject.SetActive(!active && Managers.Data.HasSaveData);
+        GetButton((int)Buttons.NewGameButton).gameObject.SetActive(!active);
+        GetButton((int)Buttons.OptionButton).gameObject.SetActive(!active);
+        GetButton((int)Buttons.BackButton).gameObject.SetActive(active);
+        GetButton((int)Buttons.ExitButton).gameObject.SetActive(!active);
     }
 }
