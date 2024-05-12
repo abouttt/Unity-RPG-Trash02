@@ -4,10 +4,23 @@ public abstract class PassiveSkill : Skill
 {
     public PassiveSkillData PassiveData { get; private set; }
 
-    public PassiveSkill(PassiveSkillData data, int level = 0)
+    public PassiveSkill(PassiveSkillData data, int level)
         : base(data, level)
     {
         PassiveData = data;
+
+        if (level > 0)
+        {
+            if (Data.PerStats.Length > 0)
+            {
+                Player.Status.ExtraPerStat += Data.PerStats[CurrentLevel - 1];
+            }
+
+            if (Data.FixedStats.Length > 0)
+            {
+                Player.Status.ExtraFixedStat += Data.FixedStats[CurrentLevel - 1];
+            }
+        }
     }
 
     public override void LevelUp()

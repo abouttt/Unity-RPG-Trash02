@@ -9,4 +9,12 @@ namespace Structs
         public int Count;
         public int Index;
     }
+
+    [Serializable]
+    public struct SkillSaveData
+    {
+        public string SkillID;
+        public int CurrentLevel;
+    }
+
 }

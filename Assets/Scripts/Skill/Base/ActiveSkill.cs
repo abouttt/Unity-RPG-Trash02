@@ -4,7 +4,7 @@ public abstract class ActiveSkill : Skill, IUsable
 {
     public ActiveSkillData ActiveData { get; private set; }
 
-    public ActiveSkill(ActiveSkillData data, int level = 0)
+    public ActiveSkill(ActiveSkillData data, int level)
         : base(data, level)
     {
         ActiveData = data;

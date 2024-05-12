@@ -43,7 +43,7 @@ public abstract class SkillData : ScriptableObject
     [field: SerializeField, SerializedDictionary("자식 스킬", "레벨 조건")]
     public SerializedDictionary<SkillData, int> Children { get; private set; }
 
-    public abstract Skill CreateSkill();
+    public abstract Skill CreateSkill(int level);
 
     public bool Equals(SkillData other)
     {

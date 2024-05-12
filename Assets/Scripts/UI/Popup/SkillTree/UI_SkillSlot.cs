@@ -69,6 +69,7 @@ public class UI_SkillSlot : UI_BaseSlot
     {
         if (SkillRef.CurrentLevel == SkillData.MaxLevel)
         {
+            GetImage((int)Imagess.SkillDisabledImage).gameObject.SetActive(false);
             GetImage((int)Imagess.LevelUpDisabledImage).gameObject.SetActive(false);
             GetButton((int)Buttons.LevelUpButton).gameObject.SetActive(false);
         }

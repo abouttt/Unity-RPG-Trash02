@@ -16,7 +16,7 @@ public abstract class Skill
     private readonly List<Skill> _parents = new();
     private readonly Dictionary<Skill, int> _children = new();
 
-    public Skill(SkillData data, int level = 0)
+    public Skill(SkillData data, int level)
     {
         Data = data;
         CurrentLevel = level;
@@ -27,6 +27,14 @@ public abstract class Skill
 
     public void CheckState()
     {
+        // 세이브 데이터가 있을 경우
+        if (!IsUnlocked && CurrentLevel > 0)
+        {
+            IsAcquirable = true;
+            IsUnlocked = true;
+            SkillChanged?.Invoke();
+        }
+
         if (IsUnlocked)
         {
             foreach (var kvp in Children)

@@ -3,8 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Passive/BodyStrengthening", fileName = "Skill_Passive_BodyStrengthening")]
 public class BodyStrengtheningData : PassiveSkillData
 {
-    public override Skill CreateSkill()
+    public override Skill CreateSkill(int level)
     {
-        return new BodyStrengthening(this);
+        return new BodyStrengthening(this, level);
     }
 }
