@@ -10,6 +10,11 @@ public class SceneManagerEx
 
     public void LoadScene(SceneType scene)
     {
+        if (CurrentScene is GameScene && Managers.Resource.ResourceCount > 0)
+        {
+            Managers.Data.Save();
+        }
+
         NextScene = scene;
         PrevScene = CurrentScene.SceneType;
         SceneManager.LoadScene(SceneType.LoadingScene.ToString());

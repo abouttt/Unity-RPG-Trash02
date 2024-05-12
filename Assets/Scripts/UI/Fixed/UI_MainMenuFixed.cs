@@ -20,7 +20,7 @@ public class UI_MainMenuFixed : UI_Base
 
         GetButton((int)Buttons.ContinueButton).onClick.AddListener(() =>
         {
-            
+
         });
 
         GetButton((int)Buttons.NewGameButton).onClick.AddListener(() =>
@@ -35,6 +35,7 @@ public class UI_MainMenuFixed : UI_Base
 
         GetButton((int)Buttons.ExitButton).onClick.AddListener(() =>
         {
+            Managers.Data.Save();
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
