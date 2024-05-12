@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba4eb469db357f34da8e0a06a133189d, type: 3}
-  m_Name: CooldownableDatabase
+  m_Script: {fileID: 11500000, guid: 882422156cd7d814a9f64ed907fb3065, type: 3}
+  m_Name: SkillDatabase
   m_EditorClassIdentifier: 
-  _cooldownableItems:
-  - {fileID: 11400000, guid: a274c3c36030c7545843e31f5d5f8975, type: 2}
-  _cooldownableSkills:
+  _skills:
   - {fileID: 11400000, guid: 3611608223be0b74285379c2fa004d65, type: 2}
   - {fileID: 11400000, guid: 013e2a83ef769df49a3e2a562cfee543, type: 2}
+  - {fileID: 11400000, guid: 2c3ed0920a319014bb358ee229077474, type: 2}

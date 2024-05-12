@@ -37,6 +37,11 @@ public class CooldownManager
             (itemData as ICooldownable).Cooldown.Clear();
         }
 
+        foreach (var skillData in CooldownableDatabase.GetInstance.CooldownableSkills)
+        {
+            (skillData as ICooldownable).Cooldown.Clear();
+        }
+
         _cooldowns.Clear();
         _cooldownCompleteQueue.Clear();
     }
