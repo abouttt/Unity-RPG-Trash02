@@ -45,7 +45,7 @@ public class SceneManagerEx : ISavable
             return;
         }
 
-        SceneType sceneSaveData = saveData[0].ToObject<SceneType>();
+        var sceneSaveData = saveData[0].ToObject<SceneType>();
         _saveScene = sceneSaveData;
     }
 }

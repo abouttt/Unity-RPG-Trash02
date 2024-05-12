@@ -26,6 +26,7 @@ public class UI_MainMenuFixed : UI_Base
 
         GetButton((int)Buttons.NewGameButton).onClick.AddListener(() =>
         {
+            Managers.Data.ClearSaveData();
             Managers.Game.IsDefaultSpawn = true;
             Managers.Scene.LoadScene(SceneType.VillageScene);
         });
@@ -52,7 +53,7 @@ public class UI_MainMenuFixed : UI_Base
 
     private void SetActiveOptionMenu(bool active)
     {
-        if (enabled)
+        if (active)
         {
             Managers.UI.Show<UI_GameOptionPopup>();
         }

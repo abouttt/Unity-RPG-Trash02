@@ -25,6 +25,8 @@ public class BaseScene : BaseMonoBehaviour
         {
             Managers.Resource.Instantiate("EventSystem.prefab");
         }
+
+        Managers.Data.LoadSettings();
     }
 
     protected void InstantiatePackage(string packageName)

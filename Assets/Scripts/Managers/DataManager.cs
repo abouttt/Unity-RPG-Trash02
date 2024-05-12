@@ -2,13 +2,15 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using Newtonsoft.Json.Linq;
+using EnumType;
+using Structs;
 
 public class DataManager
 {
     public static readonly string SavePath = $"{Application.streamingAssetsPath}/Saved";
     public static readonly string SaveFilePath = $"{SavePath}/Saves.json";
     public static readonly string SaveMetaFilePath = $"{SavePath}/Saves.meta";
-    public static readonly string GameOptionSavePath = $"{SavePath}/GameOption.json";
+    public static readonly string SettingsSavePath = $"{SavePath}/Settings.json";
 
     public bool HasSaveData => File.Exists(SaveFilePath);
 
@@ -43,11 +45,43 @@ public class DataManager
                 { EquipmentInventory.SaveKey, Player.EquipmentInventory.GetSaveData() },
                 { SkillTree.SaveKey, Player.SkillTree.GetSaveData() },
                 { QuickInventory.SaveKey, Player.QuickInventory.GetSaveData() },
-                { QuestManager.SaveKey, Managers.Quest.GetSaveData() }
+                { QuestManager.SaveKey, Managers.Quest.GetSaveData() },
+                { UI_QuestPopup.SaveKey, Managers.UI.Get<UI_QuestPopup>().GetSaveData() },
             };
 
             SaveToFile(SaveFilePath, saveData.ToString());
         }
+
+        SaveSettings();
+    }
+
+    public void SaveSettings()
+    {
+        var settingsSaveData = new SettingsSaveData()
+        {
+            BGMVolume = Managers.Sound.GetAudioSource(SoundType.BGM).volume,
+            EffectVolume = Managers.Sound.GetAudioSource(SoundType.Effect).volume,
+            MSAA = QualitySettings.antiAliasing,
+            Frame = Application.targetFrameRate,
+            VSync = QualitySettings.vSyncCount
+        };
+
+        SaveToFile(SettingsSavePath, JsonUtility.ToJson(settingsSaveData));
+    }
+
+    public void LoadSettings()
+    {
+        if (!LoadFromFile(SettingsSavePath, out var json))
+        {
+            return;
+        }
+
+        var settingsSaveData = JsonUtility.FromJson<SettingsSaveData>(json);
+        Managers.Sound.GetAudioSource(SoundType.BGM).volume = settingsSaveData.BGMVolume;
+        Managers.Sound.GetAudioSource(SoundType.Effect).volume = settingsSaveData.BGMVolume;
+        QualitySettings.antiAliasing = settingsSaveData.MSAA;
+        Application.targetFrameRate = settingsSaveData.Frame;
+        QualitySettings.vSyncCount = settingsSaveData.VSync;
     }
 
     public bool Load<T>(string saveKey, out T saveData) where T : class
@@ -64,6 +98,13 @@ public class DataManager
         }
 
         return saveData != null;
+    }
+
+    public void ClearSaveData()
+    {
+        File.Delete(SaveFilePath);
+        File.Delete(SaveMetaFilePath);
+        _saveData?.RemoveAll();
     }
 
     private void SaveToFile(string path, string json)

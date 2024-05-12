@@ -123,6 +123,10 @@ PrefabInstance:
       propertyPath: <UIType>k__BackingField
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7604690415950132664, guid: 794053aebdb7b004e88ed5d638166575, type: 3}
+      propertyPath: <CanFocus>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8492078545326088609, guid: 794053aebdb7b004e88ed5d638166575, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
