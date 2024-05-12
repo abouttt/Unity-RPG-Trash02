@@ -1,8 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Newtonsoft.Json.Linq;
+using Structs;
 
-public class PlayerMovement : BaseMonoBehaviour
+public class PlayerMovement : BaseMonoBehaviour, ISavable
 {
+    public static string SaveKey => "SaveTransform";
+
     public bool Enabled
     {
         get => _enabled;
@@ -151,6 +155,15 @@ public class PlayerMovement : BaseMonoBehaviour
         _isRollMoving = false;
     }
 
+    public JToken GetSaveData()
+    {
+        var saveData = new JArray();
+        var vector3SaveData = new Vector3SaveData(transform.position);
+        saveData.Add(JObject.FromObject(vector3SaveData));
+        saveData.Add(transform.rotation.eulerAngles.y);
+        return saveData;
+    }
+
     private void Gravity(float deltaTime)
     {
         if (IsGrounded)
@@ -226,7 +239,7 @@ public class PlayerMovement : BaseMonoBehaviour
             targetSpeed = _sprintSpeed;
         }
 
-        if (Managers.Input.Sprint && CanSprint && !IsJumping ! && !IsRolling)
+        if (Managers.Input.Sprint && CanSprint && !IsJumping! && !IsRolling)
         {
             if (Player.Status.SP > 0f)
             {

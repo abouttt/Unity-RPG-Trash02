@@ -1,9 +1,13 @@
 using UnityEngine;
-using Cinemachine;
 using UnityEngine.InputSystem;
+using Cinemachine;
+using Newtonsoft.Json.Linq;
+using Structs;
 
-public class PlayerCamera : BaseMonoBehaviour
+public class PlayerCamera : BaseMonoBehaviour, ISavable
 {
+    public static string SaveKey => "SaveCamera";
+
     public Transform LockedTarget
     {
         get => _stateDrivenCamera.LookAt;
@@ -86,6 +90,8 @@ public class PlayerCamera : BaseMonoBehaviour
         }
 
         Managers.Input.GetAction("LockOn").performed += FindTargetOrReset;
+
+        Load();
     }
 
     private void Start()
@@ -93,6 +99,7 @@ public class PlayerCamera : BaseMonoBehaviour
         var go = Managers.Resource.Instantiate("UI_LockOnTargetImage.prefab");
         _lockOnTargetImage = go.GetComponent<UI_LockOnTargetImage>();
 
+        _cinemachineTargetPitch = _cinemachineCameraTarget.transform.rotation.eulerAngles.x;
         _cinemachineTargetYaw = _cinemachineCameraTarget.transform.rotation.eulerAngles.y;
     }
 
@@ -105,6 +112,14 @@ public class PlayerCamera : BaseMonoBehaviour
             CalcTrackedObjectOffset(true);
             CanLockable();
         }
+    }
+
+    public JToken GetSaveData()
+    {
+        var saveData = new JArray();
+        var vector3SaveData = new Vector3SaveData(_cinemachineCameraTarget.transform.rotation.eulerAngles);
+        saveData.Add(JObject.FromObject(vector3SaveData));
+        return saveData;
     }
 
     private void CameraRotation()
@@ -221,5 +236,16 @@ public class PlayerCamera : BaseMonoBehaviour
         }
 
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
+
+    private void Load()
+    {
+        if (!Managers.Data.Load<JArray>(SaveKey, out var saveData))
+        {
+            return;
+        }
+
+        var vector3SaveData = saveData[0].ToObject<Vector3SaveData>();
+        _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(vector3SaveData.ToVector3());
     }
 }

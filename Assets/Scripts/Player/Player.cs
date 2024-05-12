@@ -1,4 +1,6 @@
 using UnityEngine;
+using Newtonsoft.Json.Linq;
+using Structs;
 
 public class Player : BaseMonoBehaviour
 {
@@ -70,6 +72,12 @@ public class Player : BaseMonoBehaviour
             var gameScene = Managers.Scene.CurrentScene as GameScene;
             position = gameScene.DefaultSpawnPosition;
             yaw = gameScene.DefaultSpawnYaw;
+        }
+        else if (Managers.Data.Load<JArray>(PlayerMovement.SaveKey, out var saveData))
+        {
+            var vector3SaveData = saveData[0].ToObject<Vector3SaveData>();
+            position = vector3SaveData.ToVector3();
+            yaw = saveData[1].Value<float>();
         }
     }
 }

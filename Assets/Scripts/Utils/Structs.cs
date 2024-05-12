@@ -1,7 +1,25 @@
 using System;
+using UnityEngine;
 
 namespace Structs
 {
+    [Serializable]
+    public struct Vector3SaveData
+    {
+        public float X;
+        public float Y;
+        public float Z;
+
+        public Vector3SaveData(Vector3 vector3)
+        {
+            X = vector3.x;
+            Y = vector3.y;
+            Z = vector3.z;
+        }
+
+        public Vector3 ToVector3() => new Vector3(X, Y, Z);
+    }
+
     [Serializable]
     public struct ItemSaveData
     {

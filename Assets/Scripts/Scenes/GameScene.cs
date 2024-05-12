@@ -16,7 +16,11 @@ public class GameScene : BaseScene
     {
         if (Managers.Resource.ResourceCount == 0)
         {
-            Managers.Game.IsDefaultSpawn = true;
+            if (!Managers.Data.HasSaveData)
+            {
+                Managers.Game.IsDefaultSpawn = true;
+            }
+
             Managers.Scene.LoadScene(Managers.Scene.CurrentScene.SceneType);
         }
         else
