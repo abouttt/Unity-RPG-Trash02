@@ -17,4 +17,11 @@ namespace Structs
         public int CurrentLevel;
     }
 
+    [Serializable]
+    public struct QuickSaveData
+    {
+        public ItemSaveData? ItemSaveData;
+        public SkillSaveData? SkillSaveData;
+        public int Index;
+    }
 }
