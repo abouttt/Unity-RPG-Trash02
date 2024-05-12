@@ -7,6 +7,11 @@ public class UI_EquipmentSlot : UI_BaseSlot, IDropHandler
     [field: SerializeField]
     public EquipmentType EquipmentType { get; private set; }
 
+    private void Start()
+    {
+        Refresh();
+    }
+
     public void Refresh()
     {
         var item = Player.EquipmentInventory.GetItem(EquipmentType);

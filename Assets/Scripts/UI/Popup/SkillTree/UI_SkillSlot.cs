@@ -34,7 +34,7 @@ public class UI_SkillSlot : UI_BaseSlot
     {
         base.Init();
 
-        CanDrag = false;
+        CanDrag = SkillData.SkillType == SkillType.Active;
 
         BindImage(typeof(Imagess));
         BindText(typeof(Texts));
@@ -75,7 +75,6 @@ public class UI_SkillSlot : UI_BaseSlot
         }
         else
         {
-            CanDrag = SkillRef.IsUnlocked && SkillData.SkillType == SkillType.Active;
             GetButton((int)Buttons.LevelUpButton).gameObject.SetActive(SkillRef.IsAcquirable);
             GetImage((int)Imagess.LevelUpDisabledImage).gameObject.SetActive(Player.Status.SkillPoint < SkillData.RequiredSkillPoint);
 
@@ -103,6 +102,17 @@ public class UI_SkillSlot : UI_BaseSlot
     private bool IsOnPointerSameGameObject(PointerEventData eventData, GameObject gameObject)
     {
         return eventData.pointerCurrentRaycast.gameObject == gameObject;
+    }
+
+    public override void OnBeginDrag(PointerEventData eventData)
+    {
+        if (SkillRef.CurrentLevel < 0)
+        {
+            eventData.pointerDrag = null;
+            return;
+        }
+
+        base.OnBeginDrag(eventData);
     }
 
     public override void OnPointerEnter(PointerEventData eventData)

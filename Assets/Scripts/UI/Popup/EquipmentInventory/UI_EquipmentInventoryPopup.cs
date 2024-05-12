@@ -54,11 +54,6 @@ public class UI_EquipmentInventoryPopup : UI_Popup
     {
         Managers.UI.Register<UI_EquipmentInventoryPopup>(this);
 
-        foreach (var kvp in _equipmentSlots)
-        {
-            kvp.Value.Refresh();
-        }
-
         RefreshAllStatusText();
     }
 
@@ -83,8 +78,8 @@ public class UI_EquipmentInventoryPopup : UI_Popup
         var equipmentSlots = Enum.GetValues(typeof(EquipmentSlots));
         for (int i = 0; i < equipmentTypes.Length; i++)
         {
-            EquipmentType type = (EquipmentType)equipmentTypes.GetValue(i);
-            EquipmentSlots slot = (EquipmentSlots)equipmentSlots.GetValue(i);
+            var type = (EquipmentType)equipmentTypes.GetValue(i);
+            var slot = (EquipmentSlots)equipmentSlots.GetValue(i);
             _equipmentSlots.Add(type, Get<UI_EquipmentSlot>((int)slot));
         }
     }

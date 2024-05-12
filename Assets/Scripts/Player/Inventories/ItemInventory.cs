@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using AYellowpaper.SerializedCollections;
 using Newtonsoft.Json.Linq;
+using AYellowpaper.SerializedCollections;
 using EnumType;
 using Structs;
 
