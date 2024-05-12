@@ -3,9 +3,11 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
+using Newtonsoft.Json.Linq;
 using EnumType;
+using Structs;
 
-public class ItemInventory : BaseMonoBehaviour
+public class ItemInventory : BaseMonoBehaviour, ISavable
 {
     [Serializable]
     public class Inventory
@@ -15,6 +17,8 @@ public class ItemInventory : BaseMonoBehaviour
         [ReadOnly]
         public int Count;
     }
+
+    public static string SaveKey => "SaveItemInventory";
 
     public event Action<ItemType, int> InventoryChanged;
 
@@ -30,6 +34,8 @@ public class ItemInventory : BaseMonoBehaviour
         {
             element.Value.Items = Enumerable.Repeat<Item>(null, element.Value.Capacity).ToList();
         }
+
+        Load();
     }
 
     public int AddItem(ItemData itemData, int count = 1)
@@ -289,6 +295,39 @@ public class ItemInventory : BaseMonoBehaviour
         return _inventories[itemType].Items[index] == null;
     }
 
+    public JToken GetSaveData()
+    {
+        var saveData = new JArray();
+
+        foreach (var kvp in _inventories)
+        {
+            for (int i = 0; i < kvp.Value.Capacity; i++)
+            {
+                var item = kvp.Value.Items[i];
+                if (item == null)
+                {
+                    continue;
+                }
+
+                var itemSaveData = new ItemSaveData()
+                {
+                    ItemID = item.Data.ItemID,
+                    Count = 1,
+                    Index = i,
+                };
+
+                if (item is CountableItem countableItem)
+                {
+                    itemSaveData.Count = countableItem.CurrentCount;
+                }
+
+                saveData.Add(JObject.FromObject(itemSaveData));
+            }
+        }
+
+        return saveData;
+    }
+
     private void SwapItem(ItemType itemType, int Aindex, int BIndex)
     {
         var items = _inventories[itemType].Items;
@@ -371,5 +410,27 @@ public class ItemInventory : BaseMonoBehaviour
         item.Destroy();
         _itemIndexes.Remove(item);
         Managers.Quest.ReceiveReport(Category.Item, item.Data.ItemID, -count);
+    }
+
+    private void Load()
+    {
+        if (!Managers.Data.Load<JArray>("SaveItemInventory", out var saveData))
+        {
+            return;
+        }
+
+        foreach (var token in saveData)
+        {
+            var itemSaveData = token.ToObject<ItemSaveData>();
+            var itemData = ItemDatabase.GetInstance.FindItemByID(itemSaveData.ItemID);
+            if (itemData is CountableItemData countableItemData)
+            {
+                SetItem(countableItemData, itemSaveData.Index, itemSaveData.Count);
+            }
+            else
+            {
+                SetItem(itemData, itemSaveData.Index);
+            }
+        }
     }
 }
