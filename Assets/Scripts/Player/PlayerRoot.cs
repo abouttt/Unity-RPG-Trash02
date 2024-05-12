@@ -44,16 +44,20 @@ public class PlayerRoot : BaseMonoBehaviour
         }
 
         var equipData = _equipDatas[equipmentType];
+        var item = Player.EquipmentInventory.GetItem(equipmentType);
 
-        if (Player.EquipmentInventory.IsEquipped(equipmentType))
+        if (item != null)
         {
             if (equipData.Equipment != null)
             {
                 Destroy(equipData.Equipment);
             }
 
-            var equipment = Instantiate(Player.EquipmentInventory.GetItem(equipmentType).EquipmentData.EquipmentPrefab, equipData.Root);
-            equipData.Equipment = equipment;
+            if (item.EquipmentData.EquipmentPrefab != null)
+            {
+                var equipment = Instantiate(item.EquipmentData.EquipmentPrefab, equipData.Root);
+                equipData.Equipment = equipment;
+            }
         }
         else
         {

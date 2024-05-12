@@ -1,15 +1,8 @@
-using System.Text;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class UI_SkillTooltip : UI_Base
+public class UI_SkillTooltip : UI_BaseTooltip
 {
-    enum GameObjects
-    {
-        Tooltip,
-    }
-
     enum Texts
     {
         SkillNameText,
@@ -17,128 +10,69 @@ public class UI_SkillTooltip : UI_Base
         SkillDescText,
     }
 
-    [SerializeField]
-    [Tooltip("Distance from mouse")]
-    private Vector2 _offset;
-
-    private UI_BaseSlot _slot;
-    private SkillData _skillDataRef;
-    private RectTransform _rt;
-    private readonly StringBuilder _sb = new(50);
-
     protected override void Init()
     {
-        BindObject(typeof(GameObjects));
+        base.Init();
+
         BindText(typeof(Texts));
-
-        _rt = GetObject((int)GameObjects.Tooltip).GetComponent<RectTransform>();
     }
 
-    private void OnEnable()
+    protected override void SetData()
     {
-        GetObject((int)GameObjects.Tooltip).SetActive(false);
-    }
-
-    private void Update()
-    {
-        if (_slot == null)
+        if (SlotRef.ObjectRef is Skill skill)
         {
-            gameObject.SetActive(false);
-            return;
+            SetSkillData(skill.Data);
         }
-
-        if (!_slot.gameObject.activeInHierarchy)
+        else if (SlotRef.ObjectRef is SkillData skillData)
         {
-            gameObject.SetActive(false);
-            return;
+            SetSkillData(skillData);
         }
-
-        if (UI_BaseSlot.IsDragging)
-        {
-            GetObject((int)GameObjects.Tooltip).SetActive(false);
-            return;
-        }
-
-        if (_slot.HasObject)
-        {
-            if (_slot.ObjectRef is Skill skill)
-            {
-                SetSkillData(skill.Data);
-            }
-            else if (_slot.ObjectRef is SkillData skillData)
-            {
-                SetSkillData(skillData);
-            }
-        }
-        else
-        {
-            GetObject((int)GameObjects.Tooltip).SetActive(false);
-        }
-
-        SetPosition(Mouse.current.position.ReadValue());
-    }
-
-    public void SetSlot(UI_BaseSlot slot)
-    {
-        _slot = slot;
-        gameObject.SetActive(slot != null);
     }
 
     private void SetSkillData(SkillData skillData)
     {
         GetObject((int)GameObjects.Tooltip).SetActive(true);
 
-        if (_skillDataRef != null)
+        if (DataRef != null)
         {
             SetDescription(skillData);
 
-            if (_skillDataRef.Equals(skillData))
+            if (DataRef.Equals(skillData))
             {
                 return;
             }
         }
 
-        _skillDataRef = skillData;
+        DataRef = skillData;
         GetText((int)Texts.SkillNameText).text = skillData.SkillName;
         GetText((int)Texts.SkillTypeText).text = $"[{skillData.SkillType}]";
         SetDescription(skillData);
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_rt);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(RT);
     }
 
     private void SetDescription(SkillData skillData)
     {
-        _sb.Clear();
-        _sb.AppendFormat("{0}\n\n", _skillDataRef.Description);
-        _sb.AppendFormat("※습득조건※\n");
+        SB.Clear();
+        SB.Append($"{skillData.Description}\n\n");
+        SB.Append("※습득조건※\n");
 
         var skill = Player.SkillTree.GetSkillByData(skillData);
 
         foreach (var parent in skill.Parents)
         {
-            if (parent.Children.TryGetValue(skill, out var level))
+            if (parent.Children.TryGetValue(skill, out var limitLevel))
             {
-                _sb.AppendFormat("- {0} Lv.{1}\n", parent.Data.SkillName, level);
+                SB.Append($"- {parent.Data.SkillName} Lv.{limitLevel}\n");
             }
         }
 
-        _sb.AppendFormat("- 필요 스킬 포인트 : {0}\n", _skillDataRef.RequiredSkillPoint);
-        _sb.AppendFormat("- 제한레벨 : {0}\n\n", _skillDataRef.LimitLevel);
-        if (!string.IsNullOrEmpty(_skillDataRef.StatDescription))
+        SB.Append($"- 필요 스킬 포인트 : {skillData.RequiredSkillPoint}\n");
+        SB.Append($"- 제한레벨 : {skillData.LimitLevel}\n\n");
+        if (!string.IsNullOrEmpty(skillData.StatDescription))
         {
-            _sb.AppendFormat("{0}\n", _skillDataRef.StatDescription);
+            SB.Append($"{skillData.StatDescription}\n");
         }
 
-        GetText((int)Texts.SkillDescText).text = _sb.ToString();
-    }
-
-    private void SetPosition(Vector3 position)
-    {
-        var nextPosition = new Vector3()
-        {
-            x = position.x + (_rt.rect.width * 0.5f) + _offset.x,
-            y = position.y + (_rt.rect.height * 0.5f) + _offset.y
-        };
-
-        _rt.position = nextPosition;
+        GetText((int)Texts.SkillDescText).text = SB.ToString();
     }
 }

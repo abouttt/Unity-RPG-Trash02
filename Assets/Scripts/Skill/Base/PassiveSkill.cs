@@ -18,7 +18,6 @@ public abstract class PassiveSkill : Skill
         {
             if (Data.PerStats.Length > 0)
             {
-
                 Player.Status.ExtraPerStat += Data.PerStats[CurrentLevel - 1] - Data.PerStats[CurrentLevel - 2];
             }
 
