@@ -20,11 +20,6 @@ public class SkillTree : BaseMonoBehaviour, ISavable
         Init();
     }
 
-    private void Start()
-    {
-        CheckRootSkills();
-    }
-
     public void CheckRootSkills()
     {
         foreach (var skill in _rootSkills)

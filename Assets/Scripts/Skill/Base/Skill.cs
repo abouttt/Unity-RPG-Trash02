@@ -20,6 +20,11 @@ public abstract class Skill
     {
         Data = data;
         CurrentLevel = level;
+        if (level > 0)
+        {
+            IsAcquirable = true;
+            IsUnlocked = true;
+        }
         RefreshStatDescription();
     }
 
@@ -27,14 +32,6 @@ public abstract class Skill
 
     public void CheckState()
     {
-        // 세이브 데이터가 있을 경우
-        if (!IsUnlocked && CurrentLevel > 0)
-        {
-            IsAcquirable = true;
-            IsUnlocked = true;
-            SkillChanged?.Invoke();
-        }
-
         if (IsUnlocked)
         {
             foreach (var kvp in Children)

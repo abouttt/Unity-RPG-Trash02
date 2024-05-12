@@ -23,11 +23,18 @@ public class UI_SkillTreePopup : UI_Popup
         GetButton((int)Buttons.ResetButton).onClick.AddListener(Player.SkillTree.ResetAllSkill);
         GetButton((int)Buttons.CloseButton).onClick.AddListener(Managers.UI.Close<UI_SkillTreePopup>);
 
-        Player.Status.SkillPointChanged += () => GetText((int)Texts.SkillPointAmountText).text = Player.Status.SkillPoint.ToString();
+        Player.Status.SkillPointChanged += RefreshSkillPointText;
     }
 
     private void Start()
     {
         Managers.UI.Register<UI_SkillTreePopup>(this);
+
+        RefreshSkillPointText();
+    }
+
+    private void RefreshSkillPointText()
+    {
+        GetText((int)Texts.SkillPointAmountText).text = Player.Status.SkillPoint.ToString();
     }
 }

@@ -35,6 +35,7 @@ public class DataManager
         {
             var saveData = new JObject()
             {
+                { PlayerStatus.SaveKey, Player.Status.GetSaveData() },
                 { ItemInventory.SaveKey, Player.ItemInventory.GetSaveData() },
                 { EquipmentInventory.SaveKey, Player.EquipmentInventory.GetSaveData() },
                 { SkillTree.SaveKey, Player.SkillTree.GetSaveData() },

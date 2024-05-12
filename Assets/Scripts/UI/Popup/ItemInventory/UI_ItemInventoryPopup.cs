@@ -53,7 +53,7 @@ public class UI_ItemInventoryPopup : UI_Popup
         Bind<ScrollRect>(typeof(ScrollRects));
         Bind<UI_ItemInventoryTab>(typeof(Tabs));
 
-        Player.Status.GoldChanged += () => GetText((int)Texts.GoldText).text = Player.Status.Gold.ToString();
+        Player.Status.GoldChanged += RefreshGoldText;
         Player.ItemInventory.InventoryChanged += (itemType, index) => _slots[itemType][index].Refresh();
 
         GetButton((int)Buttons.CloseButton).onClick.AddListener(Managers.UI.Close<UI_ItemInventoryPopup>);
@@ -73,6 +73,7 @@ public class UI_ItemInventoryPopup : UI_Popup
         };
 
         ShowItemSlots(ItemType.Equipment);
+        RefreshGoldText();
     }
 
     public void ShowItemSlots(ItemType itemType)
@@ -104,6 +105,11 @@ public class UI_ItemInventoryPopup : UI_Popup
     public void SetActiveCloseButton(bool active)
     {
         GetButton((int)Buttons.CloseButton).gameObject.SetActive(active);
+    }
+
+    private void RefreshGoldText()
+    {
+        GetText((int)Texts.GoldText).text = Player.Status.Gold.ToString();
     }
 
     private void InitSlots()

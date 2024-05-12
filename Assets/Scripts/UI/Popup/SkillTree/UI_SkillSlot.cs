@@ -62,7 +62,7 @@ public class UI_SkillSlot : UI_BaseSlot
 
     private void Start()
     {
-        RefreshLevelText();
+        Refresh();
     }
 
     private void Refresh()
