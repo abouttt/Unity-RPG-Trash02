@@ -80,6 +80,7 @@ namespace EnumType
         LoadingScene,
         MainMenuScene,
         VillageScene,
+        DungeonScene,
     }
 
     public enum AddressableLabel
