@@ -7373,12 +7373,12 @@ Transform:
   - {fileID: 1110783549}
   - {fileID: 676833123}
   - {fileID: 2133499866}
+  - {fileID: 1861271086}
   - {fileID: 120429076}
   - {fileID: 485416137}
   - {fileID: 1996756436}
   - {fileID: 845763286}
   - {fileID: 704005596}
-  - {fileID: 1861271086}
   - {fileID: 1247930675}
   - {fileID: 305215159}
   - {fileID: 163172128}
@@ -21115,7 +21115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6490309344554031012, guid: 61a4fbe3d6dd64b479850dd42c78dd49, type: 3}
       propertyPath: _spawnYaw
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6490309344554031012, guid: 61a4fbe3d6dd64b479850dd42c78dd49, type: 3}
       propertyPath: _loadScene
@@ -21123,15 +21123,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6490309344554031012, guid: 61a4fbe3d6dd64b479850dd42c78dd49, type: 3}
       propertyPath: _spawnPosition.x
-      value: 17.64796
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6490309344554031012, guid: 61a4fbe3d6dd64b479850dd42c78dd49, type: 3}
       propertyPath: _spawnPosition.y
-      value: 5.048099
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6490309344554031012, guid: 61a4fbe3d6dd64b479850dd42c78dd49, type: 3}
       propertyPath: _spawnPosition.z
-      value: -2.628329
+      value: -17.5
       objectReference: {fileID: 0}
     - target: {fileID: 6490309344554031012, guid: 61a4fbe3d6dd64b479850dd42c78dd49, type: 3}
       propertyPath: <InteractionMessage>k__BackingField
