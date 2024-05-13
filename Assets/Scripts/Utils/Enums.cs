@@ -18,6 +18,7 @@ namespace EnumType
         Skill,
         Quest,
         NPC,
+        Monster,
     }
 
     public enum QuestState

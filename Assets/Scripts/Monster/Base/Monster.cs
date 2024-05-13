@@ -44,16 +44,23 @@ public abstract class Monster : BaseMonoBehaviour
     public NavMeshAgent NavMeshAgent { get; private set; }
     public FieldOfView Fov { get; private set; }
 
+    public MonsterState CurrentState { get; protected set; } = MonsterState.Idle;
     public int CurrentHP { get; set; }
     public int CurrentDamage { get; private set; }
     public Vector3 OriginalPosition { get; private set; }
     public bool IsLockOnTarget { get; private set; }
     public IReadOnlyList<Collider> LockOnTargetColliders => _lockOnTargetColliders;
 
-    protected MonsterState CurrentState = MonsterState.Idle;
+    public readonly int AnimIDIdle = Animator.StringToHash("Idle");
+    public readonly int AnimIDTracking = Animator.StringToHash("Tracking");
+    public readonly int AnimIDRestore = Animator.StringToHash("Restore");
+    public readonly int AnimIDAttack = Animator.StringToHash("Attack");
+    public readonly int AnimIDStunned = Animator.StringToHash("Stunned");
+
     protected readonly Collider[] PlayerCollider = new Collider[1];
 
     private readonly List<Collider> _lockOnTargetColliders = new();
+    private readonly Dictionary<MonsterState, int> _stateAnimID = new();
     private UI_MonsterHPBar _hpBar;
 
     private void Awake()
@@ -64,6 +71,14 @@ public abstract class Monster : BaseMonoBehaviour
         Animator = GetComponent<Animator>();
         NavMeshAgent = GetComponent<NavMeshAgent>();
         Fov = GetComponent<FieldOfView>();
+
+        _stateAnimID.Add(MonsterState.Idle, AnimIDIdle);
+        _stateAnimID.Add(MonsterState.Tracking, AnimIDTracking);
+        _stateAnimID.Add(MonsterState.Restore, AnimIDRestore);
+        _stateAnimID.Add(MonsterState.Attack, AnimIDAttack);
+        _stateAnimID.Add(MonsterState.Stunned, AnimIDStunned);
+        _stateAnimID.Add(MonsterState.Damaged, -1);
+        _stateAnimID.Add(MonsterState.Death, -1);
 
         foreach (var lockOnTarget in GetComponentsInChildren<LockOnTarget>())
         {
@@ -79,6 +94,8 @@ public abstract class Monster : BaseMonoBehaviour
 
             _lockOnTargetColliders.Add(lockOnTarget.GetComponent<Collider>());
         }
+
+        NavMeshAgent.updateRotation = false;
     }
 
     private void Start()
@@ -97,17 +114,34 @@ public abstract class Monster : BaseMonoBehaviour
         }
     }
 
-    public void Transition(MonsterState state, float fade = 0.25f)
+    public void Transition(MonsterState state)
     {
         CurrentState = state;
-        Animator.CrossFade(state.ToString(), fade, -1, 0f);
+
+        if (_stateAnimID[state] == -1)
+        {
+            Animator.Play(state.ToString(), -1, 0f);
+        }
+        else
+        {
+            Animator.SetBool(_stateAnimID[state], true);
+        }
+    }
+
+    public void Rotation(Vector3 target)
+    {
+        var dir = target - transform.position;
+        if (dir != Vector3.zero)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+                Quaternion.LookRotation(dir), RotationSmoothTime * Time.deltaTime);
+        }
     }
 
     public void SetActiveNaveMeshAgentUpdate(bool active)
     {
         NavMeshAgent.isStopped = !active;
         NavMeshAgent.updatePosition = active;
-        NavMeshAgent.updateRotation = active;
         if (!active)
         {
             NavMeshAgent.velocity = Vector3.zero;
