@@ -9,7 +9,7 @@ public class MinimapIcon : BaseMonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Minimap");
     }
 
-    public void Setup(string spriteName, string iconName, float scale = 1)
+    public void Setup(string spriteName, string iconName, float scale)
     {
         IconName = iconName;
         transform.localScale = new Vector3(scale, scale, scale);

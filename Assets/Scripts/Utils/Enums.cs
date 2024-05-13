@@ -1,5 +1,16 @@
 namespace EnumType
 {
+    public enum MonsterState
+    {
+        Idle,
+        Tracking,
+        Restore,
+        Attack,
+        Damaged,
+        Stunned,
+        Death,
+    }
+
     public enum Category
     {
         Scene,

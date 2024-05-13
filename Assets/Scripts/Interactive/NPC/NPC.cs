@@ -42,7 +42,7 @@ public class NPC : Interactive
 
     private void Start()
     {
-        InstantiateMinimapIcon("NPCMinimapIcon.sprite", NPCName);
+        Util.InstantiateMinimapIcon("NPCMinimapIcon.sprite", NPCName, transform);
         InstantiateQuestNotifier();
         CheckQuests();
     }

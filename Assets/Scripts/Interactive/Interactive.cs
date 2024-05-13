@@ -24,12 +24,6 @@ public abstract class Interactive : BaseMonoBehaviour
 
     public abstract void Interaction();
 
-    protected void InstantiateMinimapIcon(string spriteName, string iconName, float scale = 1f)
-    {
-        var go = Managers.Resource.Instantiate("MinimapIcon.prefab", transform);
-        go.GetComponent<MinimapIcon>().Setup(spriteName, iconName, scale);
-    }
-
     private void OnDrawGizmosSelected()
     {
         // InteractionKeyGuidePos 위치 시각화

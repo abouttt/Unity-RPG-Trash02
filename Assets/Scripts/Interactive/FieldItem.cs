@@ -9,17 +9,19 @@ public class FieldItem : Interactive
     [SerializeField]
     private SerializedDictionary<ItemData, int> _items;
 
-    public override void Interaction()
-    {
-        Managers.UI.Show<UI_LootPopup>().SetFieldItem(this);
-    }
-
     private void Start()
     {
+        Util.InstantiateMinimapIcon("FieldItemIcon.sprite", "æ∆¿Ã≈€", transform);
+
         if (_items == null || _items.Count == 0)
         {
             Managers.Resource.Destroy(gameObject);
         }
+    }
+
+    public override void Interaction()
+    {
+        Managers.UI.Show<UI_LootPopup>().SetFieldItem(this);
     }
 
     public void AddItem(ItemData itemData, int count)

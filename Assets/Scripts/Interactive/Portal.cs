@@ -14,7 +14,7 @@ public class Portal : Interactive
 
     private void Start()
     {
-        InstantiateMinimapIcon("PortalMinimapIcon.sprite", "Æ÷Å»");
+        Util.InstantiateMinimapIcon("PortalMinimapIcon.sprite", "Æ÷Å»", transform);
     }
 
     public override void Interaction()
