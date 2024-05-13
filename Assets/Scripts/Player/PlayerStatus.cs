@@ -304,8 +304,8 @@ public class PlayerStatus : BaseMonoBehaviour, ISavable
         var statusSaveData = saveData[0].ToObject<StatusSaveData>();
 
         Level = statusSaveData.Level;
-        Gold = statusSaveData.Gold;
-        SkillPoint = statusSaveData.SkillPoint;
+        _gold = statusSaveData.Gold;
+        _skillPoint = statusSaveData.SkillPoint;
         _currentStat.HP = statusSaveData.CurrentHP;
         _currentStat.MP = statusSaveData.CurrentMP;
         _currentStat.XP = statusSaveData.CurrentXP;

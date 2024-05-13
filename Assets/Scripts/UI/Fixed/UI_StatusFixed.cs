@@ -27,14 +27,21 @@ public class UI_StatusFixed : UI_Base
         Player.Status.MPChanged += RefreshMPImage;
         Player.Status.SPChanged += RefreshSPImage;
         Player.Status.XPChanged += RefreshXPImage;
-        Player.Status.StatChanged += () =>
-        {
-            RefreshLevelText();
-            RefreshHPImage();
-            RefreshMPImage();
-            RefreshSPImage();
-            RefreshXPImage();
-        };
+        Player.Status.StatChanged += RefreshAll;
+    }
+
+    private void Start()
+    {
+        RefreshAll();
+    }
+
+    private void RefreshAll()
+    {
+        RefreshLevelText();
+        RefreshHPImage();
+        RefreshMPImage();
+        RefreshSPImage();
+        RefreshXPImage();
     }
 
     private void RefreshLevelText() => GetText((int)Texts.LevelText).text = $"Lev.{Player.Status.Level}";

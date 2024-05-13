@@ -106,7 +106,7 @@ public class UI_SkillSlot : UI_BaseSlot
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        if (SkillRef.CurrentLevel < 0)
+        if (!SkillRef.IsUnlocked)
         {
             eventData.pointerDrag = null;
             return;
