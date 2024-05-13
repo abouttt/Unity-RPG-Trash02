@@ -12,6 +12,7 @@ public class Monster_DeathState : StateMachineBehaviour
             _monster = animator.GetComponent<Monster>();
         }
 
+        _monster.ResetAllTriggers();
         _monster.SetActiveNaveMeshAgentUpdate(false);
         _monster.Collider.isTrigger = true;
 

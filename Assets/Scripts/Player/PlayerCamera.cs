@@ -27,7 +27,6 @@ public class PlayerCamera : BaseMonoBehaviour, ISavable
             {
                 value.GetComponent<LockOnTarget>().IsLockOn = true;
                 _lockOnTargetImage.FollowWorldObject.Offset = value.position - value.GetComponent<Collider>().bounds.center;
-                CalcTrackedObjectOffset(false);
             }
         }
     }
@@ -91,7 +90,7 @@ public class PlayerCamera : BaseMonoBehaviour, ISavable
 
         Managers.Input.GetAction("LockOn").performed += FindTargetOrReset;
 
-        if (!Managers.Game.IsPortalSpawn)
+        if (!Managers.Game.IsDefaultSpawn && !Managers.Game.IsPortalSpawn)
         {
             Load();
         }
@@ -112,7 +111,7 @@ public class PlayerCamera : BaseMonoBehaviour, ISavable
 
         if (IsLockOn)
         {
-            CalcTrackedObjectOffset(true);
+            CalcTrackedObjectOffset();
             CanLockable();
         }
     }
@@ -217,13 +216,20 @@ public class PlayerCamera : BaseMonoBehaviour, ISavable
         }
     }
 
-    private void CalcTrackedObjectOffset(bool lerp)
+    private void CalcTrackedObjectOffset()
     {
         var lookAtPos = (LockedTarget.position + transform.position) * 0.5f;
         var dist = Vector3.Distance(LockedTarget.position, transform.position);
         _targetComposer.m_TrackedObjectOffset.y =
-            lerp ? Mathf.Lerp(-lookAtPos.y, lookAtPos.y * 0.25f, (lookAtPos.magnitude - dist) * 0.1f)
-            : dist < lookAtPos.magnitude ? lookAtPos.y * 0.25f : -lookAtPos.y;
+            Mathf.Lerp(-lookAtPos.y, lookAtPos.y * 0.25f, (lookAtPos.magnitude - dist) * 0.25f);
+
+        //_targetComposer.m_TrackedObjectOffset.y = dist < 3f ?
+        //    lookAtPos.y * 0.25f : ClampAngle(-lookAtPos.y, _bottomClamp, _topClamp);
+
+        //_targetComposer.m_TrackedObjectOffset.y = dist < lookAtPos.magnitude ? lookAtPos.y * 0.25f : -lookAtPos.y;
+        //_targetComposer.m_TrackedObjectOffset.y =
+        //    lerp ? Mathf.Lerp(-lookAtPos.y, lookAtPos.y * 0.25f, (lookAtPos.magnitude - dist) * 0.25f) : dist < lookAtPos.magnitude
+        //    ? lookAtPos.y * 0.25f : -lookAtPos.y;
     }
 
     private float ClampAngle(float lfAngle, float lfMin, float lfMax)
@@ -250,5 +256,15 @@ public class PlayerCamera : BaseMonoBehaviour, ISavable
 
         var vector3SaveData = saveData[0].ToObject<Vector3SaveData>();
         _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(vector3SaveData.ToVector3());
+    }
+
+    protected override void OnDestroy()
+    {
+        if (Managers.GetInstance != null)
+        {
+            Managers.Input.GetAction("LockOn").performed -= FindTargetOrReset;
+        }
+
+        base.OnDestroy();
     }
 }

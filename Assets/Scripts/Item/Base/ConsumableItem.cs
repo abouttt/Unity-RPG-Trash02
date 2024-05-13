@@ -15,6 +15,16 @@ public abstract class ConsumableItem : CountableItem, IUsable
 
     protected bool CheckCanUseAndSubCount()
     {
+        if (Player.Status.HP <= 0)
+        {
+            return false;
+        }
+
+        if (Player.Status.Level < Data.LimitLevel)
+        {
+            return false;
+        }
+
         if (ConsumableData.Cooldown.Current > 0f)
         {
             return false;

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Newtonsoft.Json.Linq;
 using Structs;
+using System;
 
 public class PlayerMovement : BaseMonoBehaviour, ISavable
 {
@@ -396,5 +397,16 @@ public class PlayerMovement : BaseMonoBehaviour, ISavable
         // IsGrounded 판단 시각화
         var spherePosition = new Vector3(transform.position.x, transform.position.y - _groundedOffset, transform.position.z);
         Gizmos.DrawWireSphere(spherePosition, _groundedRadius);
+    }
+
+    protected override void OnDestroy()
+    {
+        if (Managers.GetInstance != null)
+        {
+            Managers.Input.GetAction("Jump").performed -= Jump;
+            Managers.Input.GetAction("Roll").performed -= Roll;
+        }
+
+        base.OnDestroy();
     }
 }

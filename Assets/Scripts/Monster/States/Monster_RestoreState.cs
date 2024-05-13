@@ -12,8 +12,8 @@ public class Monster_RestoreState : StateMachineBehaviour
             _monster = animator.GetComponent<Monster>();
         }
 
+        _monster.ResetAllTriggers();
         _monster.SetActiveNaveMeshAgentUpdate(true);
-        _monster.Animator.SetBool(_monster.AnimIDRestore, false);
         _monster.NavMeshAgent.SetDestination(_monster.OriginalPosition);
     }
 

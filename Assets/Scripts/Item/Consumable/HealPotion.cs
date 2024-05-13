@@ -17,7 +17,8 @@ public class HealPotion : ConsumableItem
             return false;
         }
 
-        Debug.Log($"Heal : {_healPotionData.HealAmount}");
+        Player.Status.HP += _healPotionData.HealAmount;
+        Managers.Resource.Instantiate("HealOnceBurst.prefab", Player.Collider.bounds.center, Player.Transform, true);
 
         return true;
     }

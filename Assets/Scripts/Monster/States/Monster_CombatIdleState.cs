@@ -13,8 +13,8 @@ public class Monster_CombatIdleState : StateMachineBehaviour
             _monster = animator.GetComponent<Monster>();
         }
 
+        _monster.ResetAllTriggers();
         _monster.SetActiveNaveMeshAgentUpdate(false);
-        _monster.Animator.SetBool(_monster.AnimIDAttack, false);
         _currentAttackDelayTime = 0f;
     }
 

@@ -13,8 +13,8 @@ public class Monster_StunnedState : StateMachineBehaviour
             _monster = animator.GetComponent<Monster>();
         }
 
+        _monster.ResetAllTriggers();
         _monster.SetActiveNaveMeshAgentUpdate(false);
-        _monster.Animator.SetBool(_monster.AnimIDStunned, false);
 
         var bounds = _monster.Collider.bounds;
         _stunnedEffect = Managers.Resource.Instantiate("Stunned.prefab", bounds.center + new Vector3(0f, bounds.extents.y, 0f), null, true);

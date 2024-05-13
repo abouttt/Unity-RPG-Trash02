@@ -137,8 +137,12 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
             {
                 case ItemType.Equipment:
                     var equipmentItem = ObjectRef as EquipmentItem;
-                    var otherEquipmentItem = Player.EquipmentInventory.GetItem(equipmentItem.EquipmentData.EquipmentType);
+                    if (Player.Status.Level < equipmentItem.EquipmentData.LimitLevel)
+                    {
+                        return;
+                    }
 
+                    var otherEquipmentItem = Player.EquipmentInventory.GetItem(equipmentItem.EquipmentData.EquipmentType);
                     if (otherEquipmentItem != null)
                     {
                         Player.ItemInventory.SetItem(otherEquipmentItem.Data, Index);
@@ -209,6 +213,11 @@ public class UI_ItemSlot : UI_BaseSlot, IDropHandler
             var equipmentData = (ObjectRef as EquipmentItem).EquipmentData;
 
             if (equipmentData.EquipmentType != otherEquipmentData.EquipmentType)
+            {
+                return;
+            }
+
+            if (Player.Status.Level < equipmentData.LimitLevel)
             {
                 return;
             }

@@ -11,7 +11,7 @@ public class FieldItem : Interactive
 
     private void Start()
     {
-        Util.InstantiateMinimapIcon("FieldItemIcon.sprite", "아이템", transform);
+        Util.InstantiateMinimapIcon("FieldItemMinimapIcon.sprite", "아이템", transform);
 
         if (_items == null || _items.Count == 0)
         {

@@ -36,6 +36,16 @@ public class PlayerRoot : BaseMonoBehaviour
         }
     }
 
+    public GameObject GetEquipment(EquipmentType equipmentType)
+    {
+        if (_equipDatas.TryGetValue(equipmentType, out var data))
+        {
+            return data.Equipment;
+        }
+
+        return null;
+    }
+
     private void RefreshEquipmentObject(EquipmentType equipmentType)
     {
         if (!_equipDatas.TryGetValue(equipmentType, out _))

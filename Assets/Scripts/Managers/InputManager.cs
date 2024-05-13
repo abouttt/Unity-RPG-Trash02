@@ -36,7 +36,7 @@ public class InputManager : GameControls.IPlayerActions
         if (_controls == null)
         {
             _controls = new();
-            _controls.Player.AddCallbacks(this);
+            _controls.Player.SetCallbacks(this);
         }
 
         _controls.Enable();
@@ -55,7 +55,7 @@ public class InputManager : GameControls.IPlayerActions
 
     public void Clear()
     {
-        _controls.Player.Disable();
+        _controls.Disable();
     }
 
     public void OnMove(InputAction.CallbackContext context)

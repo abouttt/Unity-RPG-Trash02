@@ -47,6 +47,26 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Game_Prefab
+  - m_GUID: 90c7440d9ac408645a6ea1c60ecac383
+    m_Address: HealOnceBurst.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Game_Prefab
+  - m_GUID: ae3ccd26b988fbc488a1cda0217aeb5d
+    m_Address: Stunned.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Game_Prefab
+  - m_GUID: d09d971b6baa10c4fbace9299bee32bf
+    m_Address: SteelHit.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Game_Prefab
+  - m_GUID: d3ed30dfff82cd14dbc9b63f55cc55ae
+    m_Address: BloodExplosionRound2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Game_Prefab
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7721bc56f3ca3ec4d8829534ba047986, type: 2}
   m_SchemaSet:

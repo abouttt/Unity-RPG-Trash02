@@ -72,6 +72,11 @@ public class UI_EquipmentSlot : UI_BaseSlot, IDropHandler
                 return;
             }
 
+            if (Player.Status.Level < otherItem.EquipmentData.LimitLevel)
+            {
+                return;
+            }
+
             if (HasObject)
             {
                 Player.ItemInventory.SetItem((ObjectRef as EquipmentItem).EquipmentData, otherItemSlot.Index);

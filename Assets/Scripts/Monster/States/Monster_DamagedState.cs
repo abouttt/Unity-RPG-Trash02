@@ -12,6 +12,7 @@ public class Monster_DamagedState : StateMachineBehaviour
             _monster = animator.GetComponent<Monster>();
         }
 
+        _monster.ResetAllTriggers();
         _monster.SetActiveNaveMeshAgentUpdate(false);
     }
 

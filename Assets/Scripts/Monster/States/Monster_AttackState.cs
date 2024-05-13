@@ -12,8 +12,8 @@ public class Monster_AttackState : StateMachineBehaviour
             _monster = animator.GetComponent<Monster>();
         }
 
+        _monster.ResetAllTriggers();
         _monster.SetActiveNaveMeshAgentUpdate(false);
-        _monster.Animator.SetBool(_monster.AnimIDAttack, false);
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

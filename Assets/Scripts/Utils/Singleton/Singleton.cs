@@ -3,11 +3,17 @@ using UnityEngine;
 public class Singleton<T> : BaseMonoBehaviour where T : MonoBehaviour
 {
     private static T s_instance;
+    private static bool _isApplicationQuitting;
 
     public static T GetInstance
     {
         get
         {
+            if (_isApplicationQuitting)
+            {
+                return null;
+            }
+
             if (s_instance == null)
             {
                 s_instance = FindObjectOfType<T>();
@@ -42,5 +48,10 @@ public class Singleton<T> : BaseMonoBehaviour where T : MonoBehaviour
         {
             s_instance = null;
         }
+    }
+
+    protected virtual void OnApplicationQuit()
+    {
+        _isApplicationQuitting = true;
     }
 }

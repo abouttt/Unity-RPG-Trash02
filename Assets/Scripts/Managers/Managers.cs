@@ -64,8 +64,15 @@ public class Managers : Singleton<Managers>
         s_init = false;
     }
 
-    private void OnApplicationQuit()
+    protected override void OnApplicationQuit()
     {
+        base.OnApplicationQuit();
+
+        if (GetInstance == null)
+        {
+            return;
+        }
+
         Clear();
     }
 }

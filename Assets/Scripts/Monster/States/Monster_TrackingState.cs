@@ -12,8 +12,8 @@ public class Monster_TrackingState : StateMachineBehaviour
             _monster = animator.GetComponent<Monster>();
         }
 
+        _monster.ResetAllTriggers();
         _monster.SetActiveNaveMeshAgentUpdate(true);
-        _monster.Animator.SetBool(_monster.AnimIDTracking, false);
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

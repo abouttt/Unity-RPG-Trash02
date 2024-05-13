@@ -63,6 +63,9 @@ public class BaseScene : BaseMonoBehaviour
     {
         base.OnDestroy();
 
-        Managers.Clear();
+        if (Managers.GetInstance != null)
+        {
+            Managers.Clear();
+        }
     }
 }

@@ -28,7 +28,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - Game_UI
   - m_GUID: a5b6bb9d2ee595d4995f7bac5ce1089f
-    m_Address: ItemMinimapIcon.sprite
+    m_Address: FieldItemMinimapIcon.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - Game_UI

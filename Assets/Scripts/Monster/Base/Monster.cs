@@ -124,7 +124,7 @@ public abstract class Monster : BaseMonoBehaviour
         }
         else
         {
-            Animator.SetBool(_stateAnimID[state], true);
+            Animator.SetTrigger(_stateAnimID[state]);
         }
     }
 
@@ -133,8 +133,7 @@ public abstract class Monster : BaseMonoBehaviour
         var dir = target - transform.position;
         if (dir != Vector3.zero)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(dir), RotationSmoothTime * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), RotationSmoothTime * Time.deltaTime);
         }
     }
 
@@ -145,6 +144,54 @@ public abstract class Monster : BaseMonoBehaviour
         if (!active)
         {
             NavMeshAgent.velocity = Vector3.zero;
+        }
+    }
+
+    public bool TakeDamage(int damage)
+    {
+        if (CurrentHP <= 0)
+        {
+            return false;
+        }
+
+        ShowHPBar();
+
+        CurrentDamage = Util.CalcDamage(damage, Data.Defense);
+        CurrentHP -= CurrentDamage;
+        HPChanged?.Invoke();
+        CurrentDamage = 0;
+        Managers.Resource.Instantiate(DamagedPrefabAddress, Collider.bounds.center, transform, true);
+
+        if (CurrentHP <= 0)
+        {
+            Transition(MonsterState.Death);
+        }
+        else
+        {
+            Transition(MonsterState.Damaged);
+        }
+
+        return true;
+    }
+
+    public void Stunned()
+    {
+        if (CurrentHP <= 0)
+        {
+            return;
+        }
+
+        Transition(MonsterState.Stunned);
+    }
+
+    public void ResetAllTriggers()
+    {
+        foreach (var param in Animator.parameters)
+        {
+            if (param.type == AnimatorControllerParameterType.Trigger)
+            {
+                Animator.ResetTrigger(param.name);
+            }
         }
     }
 
