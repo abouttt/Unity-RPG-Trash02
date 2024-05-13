@@ -91,7 +91,10 @@ public class PlayerCamera : BaseMonoBehaviour, ISavable
 
         Managers.Input.GetAction("LockOn").performed += FindTargetOrReset;
 
-        Load();
+        if (!Managers.Game.IsPortalSpawn)
+        {
+            Load();
+        }
     }
 
     private void Start()

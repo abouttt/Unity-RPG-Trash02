@@ -34,6 +34,7 @@ public class GameScene : BaseScene
     private void Start()
     {
         Managers.Game.IsDefaultSpawn = false;
+        Managers.Game.IsPortalSpawn = false;
         Managers.Input.CursorLocked = true;
         Managers.Quest.Load();
         Managers.Quest.ReceiveReport(Category.Scene, SceneID, 1);

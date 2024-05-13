@@ -73,6 +73,11 @@ public class Player : BaseMonoBehaviour
             position = gameScene.DefaultSpawnPosition;
             yaw = gameScene.DefaultSpawnYaw;
         }
+        else if (Managers.Game.IsPortalSpawn)
+        {
+            position = Managers.Game.PortalSpawnPosition;
+            yaw = Managers.Game.PortalSpawnYaw;
+        }
         else if (Managers.Data.Load<JArray>(PlayerMovement.SaveKey, out var saveData))
         {
             var vector3SaveData = saveData[0].ToObject<Vector3SaveData>();
