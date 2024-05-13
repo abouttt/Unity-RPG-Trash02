@@ -423,14 +423,17 @@ public class ItemInventory : BaseMonoBehaviour, ISavable
         {
             var itemSaveData = token.ToObject<ItemSaveData>();
             var itemData = ItemDatabase.GetInstance.FindItemByID(itemSaveData.ItemID);
+            var inventory = _inventories[itemData.ItemType];
             if (itemData is CountableItemData countableItemData)
             {
-                SetItem(countableItemData, itemSaveData.Index, itemSaveData.Count);
+                inventory.Items[itemSaveData.Index] = countableItemData.CreateItem(itemSaveData.Count);
             }
             else
             {
-                SetItem(itemData, itemSaveData.Index);
+                inventory.Items[itemSaveData.Index] = itemData.CreateItem();
             }
+            inventory.Count++;
+            _itemIndexes.Add(inventory.Items[itemSaveData.Index], itemSaveData.Index);
         }
     }
 }
