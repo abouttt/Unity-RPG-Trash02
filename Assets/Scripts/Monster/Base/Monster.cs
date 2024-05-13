@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,6 +11,8 @@ using EnumType;
 [RequireComponent(typeof(FieldOfView))]
 public abstract class Monster : BaseMonoBehaviour
 {
+    public event Action HPChanged;
+
     [field: SerializeField]
     public MonsterData Data { get; private set; }
 
@@ -51,6 +54,7 @@ public abstract class Monster : BaseMonoBehaviour
     protected readonly Collider[] PlayerCollider = new Collider[1];
 
     private readonly List<Collider> _lockOnTargetColliders = new();
+    private UI_MonsterHPBar _hpBar;
 
     private void Awake()
     {
@@ -67,7 +71,7 @@ public abstract class Monster : BaseMonoBehaviour
             {
                 if (lockOn)
                 {
-                    //ShowHPBar();
+                    ShowHPBar();
                 }
 
                 IsLockOnTarget = lockOn;
@@ -107,6 +111,20 @@ public abstract class Monster : BaseMonoBehaviour
         if (!active)
         {
             NavMeshAgent.velocity = Vector3.zero;
+        }
+    }
+
+    private void ShowHPBar()
+    {
+        if (_hpBar == null)
+        {
+            var go = Managers.Resource.Instantiate("UI_MonsterHPBar.prefab", null, true);
+            _hpBar = go.GetComponent<UI_MonsterHPBar>();
+            _hpBar.SetTarget(this);
+        }
+        else
+        {
+            HPChanged?.Invoke();
         }
     }
 }

@@ -77,6 +77,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Game_UI
+  - m_GUID: a41cdfd45676db5479cdc6adfc3c6c08
+    m_Address: UI_MonsterHPBar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Game_UI
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7721bc56f3ca3ec4d8829534ba047986, type: 2}
   m_SchemaSet:
