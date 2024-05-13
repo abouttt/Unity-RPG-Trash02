@@ -67,6 +67,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Game_Prefab
+  - m_GUID: 775ab646c1d9a0e49938c9fdd43e4a24
+    m_Address: GoblinThrowerThrowingWeapon.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Game_Prefab
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7721bc56f3ca3ec4d8829534ba047986, type: 2}
   m_SchemaSet:
