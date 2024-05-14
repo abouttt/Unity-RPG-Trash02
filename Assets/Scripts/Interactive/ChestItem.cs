@@ -6,22 +6,22 @@ public class ChestItem : FieldItem
     private Animation _openAnimation;
 
     [SerializeField]
-    private ParticleSystem _closeParticle;
+    private ParticleSystem _hasItemParticle;
 
     [SerializeField]
-    private ParticleSystem _openParticle;
+    private ParticleSystem _openItemParticle;
 
     protected override void Awake()
     {
         base.Awake();
 
-        _openParticle.gameObject.SetActive(false);
+        _openItemParticle.gameObject.SetActive(false);
     }
 
     public override void Interaction()
     {
-        _openParticle.gameObject.SetActive(true);
-        _openParticle.Play();
+        _openItemParticle.gameObject.SetActive(true);
+        _openItemParticle.Play();
         _openAnimation.Play();
 
         base.Interaction();
@@ -31,7 +31,9 @@ public class ChestItem : FieldItem
     {
         base.RemoveItem(itemData, count);
 
-        Managers.Resource.Destroy(_closeParticle.gameObject);
-        Managers.Resource.Destroy(_openParticle.gameObject);
+        if (Items.Count == 0)
+        {
+            _hasItemParticle.Stop();
+        }
     }
 }

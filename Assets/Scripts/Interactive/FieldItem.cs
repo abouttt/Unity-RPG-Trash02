@@ -59,11 +59,14 @@ public class FieldItem : Interactive
             }
         }
 
-        if (_items.Count == 0 && _destroyWhenEmptyItems)
+        if (_items.Count == 0)
         {
-            Managers.Resource.Destroy(gameObject);
-        }
+            gameObject.layer = LayerMask.NameToLayer("Default");
 
-        gameObject.layer = LayerMask.NameToLayer("Default");
+            if (_destroyWhenEmptyItems)
+            {
+                Managers.Resource.Destroy(gameObject);
+            }
+        }
     }
 }
