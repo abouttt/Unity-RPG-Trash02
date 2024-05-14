@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 3758214770719803769}
   - component: {fileID: 5554426250551305478}
   - component: {fileID: 5581119971932831344}
+  - component: {fileID: 3886905667096937366}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -530,9 +531,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skillDatas:
-  - {fileID: 11400000, guid: 013e2a83ef769df49a3e2a562cfee543, type: 2}
   - {fileID: 11400000, guid: 3611608223be0b74285379c2fa004d65, type: 2}
+  - {fileID: 11400000, guid: 013e2a83ef769df49a3e2a562cfee543, type: 2}
   - {fileID: 11400000, guid: 2c3ed0920a319014bb358ee229077474, type: 2}
+--- !u!114 &3886905667096937366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3750781361987624264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e41beab97a8000c43bf2fad798c38c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shieldAttackData: {fileID: 11400000, guid: 3611608223be0b74285379c2fa004d65, type: 2}
+  _chargeAttackSkillData: {fileID: 11400000, guid: 013e2a83ef769df49a3e2a562cfee543, type: 2}
 --- !u!1 &3750781362225975641
 GameObject:
   m_ObjectHideFlags: 0

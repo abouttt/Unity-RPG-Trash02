@@ -1050,12 +1050,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1360565137150569362, guid: f23477eae965f874b852214e88ddd124, type: 3}
       propertyPath: m_Name
-      value: UI_SkillSlot_Punch
+      value: UI_SkillSlot_ShieldAttack
       objectReference: {fileID: 0}
     - target: {fileID: 2708331621757519327, guid: f23477eae965f874b852214e88ddd124, type: 3}
       propertyPath: <SkillData>k__BackingField
       value: 
-      objectReference: {fileID: 11400000, guid: 013e2a83ef769df49a3e2a562cfee543, type: 2}
+      objectReference: {fileID: 11400000, guid: 3611608223be0b74285379c2fa004d65, type: 2}
     - target: {fileID: 5003123666174803423, guid: f23477eae965f874b852214e88ddd124, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1156,12 +1156,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1360565137150569362, guid: f23477eae965f874b852214e88ddd124, type: 3}
       propertyPath: m_Name
-      value: UI_SkillSlot_Kick
+      value: UI_SkillSlot_ChargeAttack
       objectReference: {fileID: 0}
     - target: {fileID: 2708331621757519327, guid: f23477eae965f874b852214e88ddd124, type: 3}
       propertyPath: <SkillData>k__BackingField
       value: 
-      objectReference: {fileID: 11400000, guid: 3611608223be0b74285379c2fa004d65, type: 2}
+      objectReference: {fileID: 11400000, guid: 013e2a83ef769df49a3e2a562cfee543, type: 2}
     - target: {fileID: 5003123666174803423, guid: f23477eae965f874b852214e88ddd124, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

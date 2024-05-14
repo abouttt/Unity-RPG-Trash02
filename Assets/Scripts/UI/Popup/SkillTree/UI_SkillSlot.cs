@@ -75,18 +75,12 @@ public class UI_SkillSlot : UI_BaseSlot
         }
         else
         {
+            GetImage((int)Imagess.SkillDisabledImage).gameObject.SetActive(!SkillRef.IsUnlocked);
             GetButton((int)Buttons.LevelUpButton).gameObject.SetActive(SkillRef.IsAcquirable);
             GetImage((int)Imagess.LevelUpDisabledImage).gameObject.SetActive(Player.Status.SkillPoint < SkillData.RequiredSkillPoint);
 
-            if (SkillRef.IsUnlocked)
+            if (!SkillRef.IsAcquirable)
             {
-                GetImage((int)Imagess.SkillDisabledImage).gameObject.SetActive(false);
-            }
-            else if (!SkillRef.IsAcquirable)
-            {
-                CanDrag = false;
-                GetImage((int)Imagess.SkillDisabledImage).gameObject.SetActive(true);
-                GetButton((int)Buttons.LevelUpButton).gameObject.SetActive(false);
                 GetImage((int)Imagess.LevelUpDisabledImage).gameObject.SetActive(false);
             }
         }

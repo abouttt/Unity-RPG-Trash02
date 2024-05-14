@@ -157,10 +157,13 @@ public abstract class Monster : BaseMonoBehaviour
         ShowHPBar();
 
         CurrentDamage = Util.CalcDamage(damage, Data.Defense);
-        CurrentHP -= CurrentDamage;
-        HPChanged?.Invoke();
-        CurrentDamage = 0;
-        Managers.Resource.Instantiate(DamagedPrefabAddress, Collider.bounds.center, transform, true);
+        if (CurrentDamage > 0)
+        {
+            CurrentHP -= CurrentDamage;
+            HPChanged?.Invoke();
+            CurrentDamage = 0;
+            Managers.Resource.Instantiate(DamagedPrefabAddress, Collider.bounds.center, transform, true);
+        }
 
         if (CurrentHP <= 0)
         {
@@ -174,14 +177,32 @@ public abstract class Monster : BaseMonoBehaviour
         return true;
     }
 
-    public void Stunned()
+    public void Stunned(int damage)
     {
         if (CurrentHP <= 0)
         {
             return;
         }
 
-        Transition(MonsterState.Stunned);
+        ShowHPBar();
+
+        CurrentDamage = Util.CalcDamage(damage, Data.Defense);
+        if (CurrentDamage > 0)
+        {
+            CurrentHP -= CurrentDamage;
+            HPChanged?.Invoke();
+            CurrentDamage = 0;
+            Managers.Resource.Instantiate(DamagedPrefabAddress, Collider.bounds.center, transform, true);
+        }
+
+        if (CurrentHP <= 0)
+        {
+            Transition(MonsterState.Death);
+        }
+        else
+        {
+            Transition(MonsterState.Stunned);
+        }
     }
 
     public void ResetAllTriggers()

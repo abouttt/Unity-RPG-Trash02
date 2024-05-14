@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SkillDatabase
   m_EditorClassIdentifier: 
   _skills:
-  - {fileID: 11400000, guid: 3611608223be0b74285379c2fa004d65, type: 2}
   - {fileID: 11400000, guid: 013e2a83ef769df49a3e2a562cfee543, type: 2}
+  - {fileID: 11400000, guid: 3611608223be0b74285379c2fa004d65, type: 2}
   - {fileID: 11400000, guid: 2c3ed0920a319014bb358ee229077474, type: 2}

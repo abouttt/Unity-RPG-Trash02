@@ -1,18 +1,24 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using EnumType;
+using System;
 
 public class PlayerCombat : BaseMonoBehaviour
 {
+    public event Action Damaged;
+
     public bool CanAttack { get; set; }
     public bool CanParry { get; set; }
     public bool CanDefense { get; set; }
+    public bool CanSkill { get; set; }
 
     public bool IsAttacking { get; private set; }
     public bool IsParrying { get; private set; }
     public bool IsDefending { get; private set; }
     public bool IsDamaging { get; private set; }
     public bool IsDefenseDamaging { get; private set; }
+
+    public Weapon Weapon { get; private set; }
 
     public bool Enabled
     {
@@ -23,6 +29,7 @@ public class PlayerCombat : BaseMonoBehaviour
             CanAttack = value;
             CanParry = value;
             CanDefense = value;
+            CanSkill = value;
         }
     }
 
@@ -38,7 +45,6 @@ public class PlayerCombat : BaseMonoBehaviour
     [SerializeField]
     private float _defenseDamagedRequiredSP;
 
-    private Weapon _weapon;
     private bool _hasReservedAttack;
     private bool _isParryable;
     private bool _hasShield;
@@ -49,6 +55,7 @@ public class PlayerCombat : BaseMonoBehaviour
     private readonly int _animIDParry = Animator.StringToHash("Parry");
     private readonly int _animIDDefense = Animator.StringToHash("Defense");
     private readonly int _animIDDamaged = Animator.StringToHash("Damaged");
+    private readonly int _animIDSkill = Animator.StringToHash("Skill");
 
     private void Awake()
     {
@@ -106,7 +113,7 @@ public class PlayerCombat : BaseMonoBehaviour
         {
             if (IsInRangeOfDefenseAngle(attackedPosition))
             {
-                monster.Stunned();
+                monster.Stunned(0);
                 Managers.Resource.Instantiate(
                     "SteelHit.prefab", Player.Root.GetEquipment(EquipmentType.Shield).transform.position, null, true);
                 return;
@@ -138,6 +145,8 @@ public class PlayerCombat : BaseMonoBehaviour
             Player.Animator.Play("Damaged", -1, 0f);
             Player.Animator.SetBool(_animIDDamaged, true);
         }
+
+        Damaged?.Invoke();
     }
 
     public void HitShield(Vector3? hitPosition = null)
@@ -255,12 +264,12 @@ public class PlayerCombat : BaseMonoBehaviour
 
     private void OnEnableWeapon()
     {
-        _weapon.Enabled = true;
+        Weapon.Enabled = true;
     }
 
     private void OnDisableWeapon()
     {
-        _weapon.Enabled = false;
+        Weapon.Enabled = false;
     }
 
     private void OnBeginParry()
@@ -282,6 +291,7 @@ public class PlayerCombat : BaseMonoBehaviour
     private void OnCanParryAndRoll()
     {
         CanParry = true;
+        CanSkill = true;
         Player.Movement.CanRoll = true;
     }
 
@@ -295,6 +305,11 @@ public class PlayerCombat : BaseMonoBehaviour
         Player.Animator.SetBool(_animIDDamaged, false);
     }
 
+    public void OnBeginSkill()
+    {
+        Player.Animator.SetBool("Skill", false);
+    }
+
     private void Refresh(EquipmentType equipmentType)
     {
         switch (equipmentType)
@@ -303,12 +318,12 @@ public class PlayerCombat : BaseMonoBehaviour
                 if (Player.EquipmentInventory.IsEquipped(equipmentType))
                 {
                     Managers.Input.GetAction("Attack").performed += ReserveAttack;
-                    _weapon = Player.Root.GetEquipment(EquipmentType.Weapon).GetComponent<Weapon>();
+                    Weapon = Player.Root.GetEquipment(EquipmentType.Weapon).GetComponent<Weapon>();
                 }
                 else
                 {
                     Managers.Input.GetAction("Attack").performed -= ReserveAttack;
-                    _weapon = null;
+                    Weapon = null;
                 }
                 break;
             case EquipmentType.Shield:

@@ -3,6 +3,15 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [field: SerializeField]
+    public Transform Top { get; private set; }
+
+    [field: SerializeField]
+    public Transform Middle { get; private set; }
+
+    [field: SerializeField]
+    public Transform Bottom { get; private set; }
+
     public bool Enabled
     {
         get => _collider.enabled;
@@ -17,6 +26,7 @@ public class Weapon : MonoBehaviour
     }
 
     private Collider _collider;
+
     private readonly HashSet<Collider> _hittedColliders = new();
 
     private void Awake()

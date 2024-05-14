@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldownableItems:
   - {fileID: 11400000, guid: a274c3c36030c7545843e31f5d5f8975, type: 2}
+  - {fileID: 11400000, guid: 751cb486404366946bffb0be0f62ebde, type: 2}
   _cooldownableSkills:
-  - {fileID: 11400000, guid: 3611608223be0b74285379c2fa004d65, type: 2}
   - {fileID: 11400000, guid: 013e2a83ef769df49a3e2a562cfee543, type: 2}
+  - {fileID: 11400000, guid: 3611608223be0b74285379c2fa004d65, type: 2}

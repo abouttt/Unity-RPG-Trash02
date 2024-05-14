@@ -1,5 +1,11 @@
 namespace EnumType
 {
+    public enum SkillName
+    {
+        ChargeAttack,
+        ShieldAttack,
+    }
+
     public enum MonsterState
     {
         Idle,

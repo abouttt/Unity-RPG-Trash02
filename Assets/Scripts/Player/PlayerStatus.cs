@@ -271,6 +271,7 @@ public class PlayerStatus : BaseMonoBehaviour, ISavable
         Level += level;
         RefreshAllStat();
         FillAllStat();
+        Managers.Resource.Instantiate("LevelUp.prefab", transform);
         LevelChanged?.Invoke();
         StatChanged?.Invoke();
     }

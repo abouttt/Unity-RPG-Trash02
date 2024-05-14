@@ -12,7 +12,17 @@ public abstract class ActiveSkill : Skill, IUsable
 
     public abstract bool Use();
 
-    public bool CheckCanuseAndSub()
+    public void SubRequired()
+    {
+        Player.Status.HP -= ActiveData.RequiredHP;
+        Player.Status.MP -= ActiveData.RequiredMP;
+        Player.Status.SP -= ActiveData.RequiredSP;
+
+        ActiveData.Cooldown.OnCooldowned();
+        Managers.Cooldown.AddCooldown(ActiveData.Cooldown);
+    }
+
+    protected virtual bool CheckCanUse()
     {
         if (ActiveData.Cooldown.Current > 0f)
         {
@@ -25,13 +35,6 @@ public abstract class ActiveSkill : Skill, IUsable
         {
             return false;
         }
-
-        Player.Status.HP -= ActiveData.RequiredHP;
-        Player.Status.MP -= ActiveData.RequiredMP;
-        Player.Status.SP -= ActiveData.RequiredSP;
-
-        ActiveData.Cooldown.OnCooldowned();
-        Managers.Cooldown.AddCooldown(ActiveData.Cooldown);
 
         return true;
     }

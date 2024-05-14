@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
 using EnumType;
@@ -12,6 +13,8 @@ public abstract class Skill
     public int CurrentLevel { get; private set; }
     public IReadOnlyList<Skill> Parents => _parents;
     public IReadOnlyDictionary<Skill, int> Children => _children;
+
+    protected StringBuilder SB { get; private set; } = new(50);
 
     private readonly List<Skill> _parents = new();
     private readonly Dictionary<Skill, int> _children = new();

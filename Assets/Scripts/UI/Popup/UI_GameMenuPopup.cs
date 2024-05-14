@@ -7,6 +7,8 @@ public class UI_GameMenuPopup : UI_Popup
     {
         ItemInventoryButton,
         EquipmentInventoryButton,
+        SkillTreeButton,
+        QuestButton,
         ResetPopupPositionButton,
         GameOptionButton,
         MainMenuButton,
@@ -29,6 +31,18 @@ public class UI_GameMenuPopup : UI_Popup
         GetButton((int)Buttons.EquipmentInventoryButton).onClick.AddListener(() =>
         {
             Managers.UI.Show<UI_EquipmentInventoryPopup>();
+            Managers.UI.Close<UI_GameMenuPopup>();
+        });
+
+        GetButton((int)Buttons.SkillTreeButton).onClick.AddListener(() =>
+        {
+            Managers.UI.Show<UI_SkillTreePopup>();
+            Managers.UI.Close<UI_GameMenuPopup>();
+        });
+
+        GetButton((int)Buttons.QuestButton).onClick.AddListener(() =>
+        {
+            Managers.UI.Show<UI_QuestPopup>();
             Managers.UI.Close<UI_GameMenuPopup>();
         });
 
