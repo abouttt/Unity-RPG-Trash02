@@ -84,6 +84,11 @@ public class InteractionDetector : BaseMonoBehaviour
                 _keyGuide.gameObject.SetActive(true);
             }
 
+            if (CurrentInteractionInputTime > 0f)
+            {
+                return;
+            }
+
             if (_target.gameObject != other.gameObject)
             {
                 var cameraToTarget = _target.transform.position - _mainCamera.transform.position;

@@ -7,6 +7,9 @@ public class FieldItem : Interactive
     public IReadOnlyDictionary<ItemData, int> Items => _items;
 
     [SerializeField]
+    private bool _destroyWhenEmptyItems;
+
+    [SerializeField]
     private SerializedDictionary<ItemData, int> _items;
 
     private void Start()
@@ -39,7 +42,7 @@ public class FieldItem : Interactive
         _items[itemData] += count;
     }
 
-    public void RemoveItem(ItemData itemData, int count)
+    public virtual void RemoveItem(ItemData itemData, int count)
     {
         if (count == 0)
         {
@@ -56,9 +59,11 @@ public class FieldItem : Interactive
             }
         }
 
-        if (_items.Count == 0)
+        if (_items.Count == 0 && _destroyWhenEmptyItems)
         {
             Managers.Resource.Destroy(gameObject);
         }
+
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 }
