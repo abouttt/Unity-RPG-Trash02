@@ -220,8 +220,7 @@ public class PlayerCamera : BaseMonoBehaviour, ISavable
     {
         var lookAtPos = (LockedTarget.position + transform.position) * 0.5f;
         var dist = Vector3.Distance(LockedTarget.position, transform.position);
-        _targetComposer.m_TrackedObjectOffset.y =
-            Mathf.Lerp(-lookAtPos.y, lookAtPos.y * 0.25f, (lookAtPos.magnitude - dist) * 0.25f);
+        _targetComposer.m_TrackedObjectOffset.y = Mathf.Lerp(-lookAtPos.y, lookAtPos.y * 0.25f, (lookAtPos.magnitude - dist) * 0.25f);
 
         //_targetComposer.m_TrackedObjectOffset.y = dist < 3f ?
         //    lookAtPos.y * 0.25f : ClampAngle(-lookAtPos.y, _bottomClamp, _topClamp);

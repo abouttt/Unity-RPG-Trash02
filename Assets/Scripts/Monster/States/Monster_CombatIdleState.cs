@@ -25,9 +25,10 @@ public class Monster_CombatIdleState : StateMachineBehaviour
             return;
         }
 
+        _currentAttackDelayTime += Time.deltaTime;
+
         if (Vector3.Distance(Player.Transform.position, _monster.transform.position) <= _monster.AttackDistance)
         {
-            _currentAttackDelayTime += Time.deltaTime;
             if (_currentAttackDelayTime >= _monster.AttackDelayTime)
             {
                 _monster.Transition(MonsterState.Attack);

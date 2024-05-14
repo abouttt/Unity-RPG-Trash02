@@ -50,4 +50,9 @@ public class Player_BehaviourState : StateMachineBehaviour
             Player.Combat.Clear();
         }
     }
+
+    private void OnDestroy()
+    {
+        s_currentStateCount = 0;
+    }
 }

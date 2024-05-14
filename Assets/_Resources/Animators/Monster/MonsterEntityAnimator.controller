@@ -784,6 +784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbf50b8d450dd542b5b3edb24d6b8f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rotationNormalizedTime: 0.3
 --- !u!1101 &9069914197835732821
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

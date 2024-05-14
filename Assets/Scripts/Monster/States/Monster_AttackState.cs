@@ -3,6 +3,9 @@ using EnumType;
 
 public class Monster_AttackState : StateMachineBehaviour
 {
+    [SerializeField, Range(0f, 1f)]
+    private float _rotationNormalizedTime;
+
     private Monster _monster;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -23,7 +26,7 @@ public class Monster_AttackState : StateMachineBehaviour
             return;
         }
 
-        if (stateInfo.normalizedTime < 0.3f)
+        if (stateInfo.normalizedTime <= _rotationNormalizedTime)
         {
             _monster.Rotation(Player.Transform.position);
         }

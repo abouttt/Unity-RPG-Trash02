@@ -23,8 +23,9 @@ public class GoblinThrower : Monster
         }
         else
         {
-            var projectile = Managers.Resource.Instantiate("GoblinThrowerThrowingWeapon.prefab",
-                _rightHand.position, transform.rotation * Quaternion.Euler(90f, 0f, 0f), null, true).GetComponent<Projectile>();
+            var go = Managers.Resource.Instantiate(
+                "GoblinThrowerThrowingWeapon.prefab", _rightHand.position, transform.rotation * Quaternion.Euler(90f, 0f, 0f), null, true);
+            var projectile = go.GetComponent<Projectile>();
             projectile.Damage = Data.Damage;
             projectile.Shoot(transform.forward * _projectileSpeed);
         }
